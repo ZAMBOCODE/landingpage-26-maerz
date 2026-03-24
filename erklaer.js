@@ -3,6 +3,9 @@
    ══════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initSectionReveals();
+    initSlideshowScroll();
+    // initScrollDots(); // removed
     initScrollReveals();
     initMobileMenu();
     initActiveNav();
@@ -10,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initExpandableCards();
     initPillarTabs();
     initTabs();
+    initProduktTabs();
     initRoutineTimeline();
     initTestimonials();
     initFAQ();
@@ -17,12 +21,329 @@ document.addEventListener('DOMContentLoaded', () => {
     initStickyMobileCTA();
     initCloserParticles();
     initBackToTop();
+    // initDevNav(); // removed
+    initProductPopup();
+    initScrollProgress();
+    initStoryClosing();
+    initChatGPTButton();
+    initFloatingDustEffect();
+    initBlobDriftEffect();
+    initMobileSymptomCarousel();
 
     // Hero reveal on load
     requestAnimationFrame(() => {
         document.querySelectorAll('.hero-reveal').forEach(el => el.classList.add('visible'));
     });
 });
+
+/* ─── Slideshow Scroll (Snap with smooth transition + cooldown + sub-steps) ─── */
+function initSlideshowScroll() {
+    const sections = Array.from(document.querySelectorAll('main > section'));
+    if (!sections.length) return;
+
+    let currentIndex = 0;
+    let isAnimating = false;
+    const cooldown = 500;
+    const duration = 1000;
+
+    // Sub-step tracking per section
+    const isMobile = window.innerWidth <= 768;
+    const subStepState = {};
+    sections.forEach((sec, i) => {
+        // On mobile, skip sub-steps for #identification (carousel handles it natively)
+        if (isMobile && sec.id === 'identification') return;
+        const total = parseInt(sec.dataset.substeps, 10);
+        if (total > 0) {
+            subStepState[i] = { current: 0, total: total };
+        }
+    });
+
+    // Apply sub-step visuals for a section
+    function applySubStep(sectionIndex, step) {
+        const sec = sections[sectionIndex];
+
+        // --- Type A: Symptom tiles (Section 2) ---
+        const tiles = sec.querySelectorAll('.symptom-tile');
+        if (tiles.length) {
+            const dots = sec.querySelectorAll('.symptom-dot');
+            const closing = sec.querySelector('#symptom-closing');
+
+            tiles.forEach((tile, ti) => {
+                const tileStep = ti + 1;
+                tile.classList.remove('active', 'seen');
+                if (tileStep === step) {
+                    tile.classList.add('active');
+                } else if (tileStep < step) {
+                    tile.classList.add('seen');
+                }
+            });
+
+            dots.forEach((dot, di) => {
+                dot.style.background = (di + 1 <= step) ? '#861330' : '#ddd';
+            });
+
+            if (closing) {
+                const state = subStepState[sectionIndex];
+                if (step >= state.total) {
+                    closing.style.opacity = '1';
+                    closing.style.transform = 'translateY(0)';
+                } else {
+                    closing.style.opacity = '0';
+                    closing.style.transform = 'translateY(20px)';
+                }
+            }
+            return;
+        }
+
+        // --- Type B: Card stack (Section 3) ---
+        const cards = sec.querySelectorAll('.stack-card');
+        if (cards.length) {
+            const stackDots = sec.querySelectorAll('.stack-step-dot');
+            const activeIndex = step - 1; // step 1 = card index 0
+
+            cards.forEach((card, ci) => {
+                card.classList.remove('dismissed');
+                if (ci < activeIndex) {
+                    // Already flipped away
+                    card.classList.add('dismissed');
+                    card.removeAttribute('data-stack');
+                } else {
+                    // Position in remaining stack
+                    const stackPos = ci - activeIndex;
+                    card.setAttribute('data-stack', Math.min(stackPos, 3));
+                }
+            });
+
+            stackDots.forEach((dot, di) => {
+                dot.classList.toggle('active', di === activeIndex);
+            });
+            return;
+        }
+
+        // --- Type C: Story scroll cards (Section 5) ---
+        const storyCards = sec.querySelectorAll('.story-card');
+        if (storyCards.length) {
+            const state = subStepState[sectionIndex];
+            const closingEl = sec.querySelector('.story-closing');
+            const thread = sec.querySelector('.story-thread');
+            const isLastStep = step >= state.total;
+            const activeIndex = isLastStep ? storyCards.length : step - 1;
+
+            storyCards.forEach((card, ci) => {
+                card.classList.remove('active', 'seen');
+                if (ci < activeIndex) {
+                    card.classList.add('seen');
+                } else if (ci === activeIndex && !isLastStep) {
+                    card.classList.add('active');
+                }
+            });
+
+            // Hide thread and show closing on last step
+            if (thread) thread.classList.toggle('hidden', isLastStep);
+            if (closingEl) closingEl.classList.toggle('visible', isLastStep);
+            // On mobile: add story-complete class to fade out story content
+            if (isMobile) {
+                sec.classList.toggle('story-complete', isLastStep);
+            }
+            return;
+        }
+    }
+
+    // Initialize first sub-step when entering a section
+    function enterSection(index) {
+        if (subStepState[index] && subStepState[index].current === 0) {
+            subStepState[index].current = 1;
+            applySubStep(index, 1);
+        }
+    }
+
+    // Smooth scroll with custom duration
+    function smoothScrollTo(targetY, dur) {
+        const startY = window.scrollY;
+        const diff = targetY - startY;
+        if (Math.abs(diff) < 2) return Promise.resolve();
+        const startTime = performance.now();
+
+        return new Promise(resolve => {
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / dur, 1);
+                const ease = progress < 0.5
+                    ? 4 * progress * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                window.scrollTo(0, startY + diff * ease);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    resolve();
+                }
+            }
+            requestAnimationFrame(step);
+        });
+    }
+
+    function goToSection(index) {
+        if (isAnimating) return;
+        index = Math.max(0, Math.min(index, sections.length - 1));
+        if (index === currentIndex) return;
+
+        isAnimating = true;
+        const oldIndex = currentIndex;
+        currentIndex = index;
+
+        // Fade out old section content
+        sections[oldIndex].classList.remove('sr-active');
+
+        const target = sections[index].offsetTop;
+
+        smoothScrollTo(target, duration).then(() => {
+            // Stagger-reveal new section content
+            sections[index].classList.add('sr-active');
+            enterSection(index);
+            setTimeout(() => {
+                isAnimating = false;
+            }, cooldown);
+        });
+    }
+
+    // Handle scroll direction with sub-step awareness
+    function handleScrollDirection(direction) {
+        if (isAnimating) return;
+
+        const state = subStepState[currentIndex];
+
+        if (direction > 0) {
+            // Scrolling DOWN
+            if (state) {
+                if (state.current < state.total) {
+                    state.current++;
+                    applySubStep(currentIndex, state.current);
+                    // Lock briefly so it doesn't fly through
+                    isAnimating = true;
+                    setTimeout(() => { isAnimating = false; }, 600);
+                    return;
+                }
+                // All sub-steps done, proceed to next section
+            }
+            goToSection(currentIndex + 1);
+        } else {
+            // Scrolling UP
+            if (state) {
+                if (state.current > 1) {
+                    state.current--;
+                    applySubStep(currentIndex, state.current);
+                    isAnimating = true;
+                    setTimeout(() => { isAnimating = false; }, 600);
+                    return;
+                }
+                // At sub-step 1, reset and go to previous section
+                state.current = 0;
+                applySubStep(currentIndex, 0);
+            }
+            goToSection(currentIndex - 1);
+        }
+    }
+
+    // Wheel event
+    let wheelAccumulator = 0;
+    const wheelThreshold = 50;
+
+    window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (isAnimating) return;
+
+        wheelAccumulator += e.deltaY;
+        if (Math.abs(wheelAccumulator) >= wheelThreshold) {
+            handleScrollDirection(wheelAccumulator > 0 ? 1 : -1);
+            wheelAccumulator = 0;
+        }
+    }, { passive: false });
+
+    // Keyboard
+    window.addEventListener('keydown', (e) => {
+        if (isAnimating) return;
+        if (['ArrowDown', 'PageDown', 'Space'].includes(e.code)) {
+            e.preventDefault();
+            handleScrollDirection(1);
+        } else if (['ArrowUp', 'PageUp'].includes(e.code)) {
+            e.preventDefault();
+            handleScrollDirection(-1);
+        }
+    });
+
+    // Touch/swipe
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+        if (isAnimating) return;
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) > 50) {
+            handleScrollDirection(diff > 0 ? 1 : -1);
+        }
+    }, { passive: true });
+
+    // Sync currentIndex on scroll (anchor links, dev-nav, etc.)
+    window.addEventListener('scroll', () => {
+        if (isAnimating) return;
+        const scrollY = window.scrollY + window.innerHeight / 2;
+        for (let i = sections.length - 1; i >= 0; i--) {
+            if (scrollY >= sections[i].offsetTop) {
+                if (currentIndex !== i) {
+                    sections[currentIndex].classList.remove('sr-active');
+                    currentIndex = i;
+                    sections[i].classList.add('sr-active');
+                    enterSection(i);
+                }
+                break;
+            }
+        }
+    }, { passive: true });
+
+    // Initialize first section with reveal
+    sections[0].classList.add('sr-active');
+    enterSection(0);
+}
+
+/* ─── Scroll Progress Dots ─── */
+function initScrollDots() {
+    const container = document.getElementById('scroll-dots');
+    const sections = document.querySelectorAll('main > section');
+    if (!container || !sections.length) return;
+
+    // Create one dot per section
+    sections.forEach(() => {
+        const dot = document.createElement('div');
+        dot.classList.add('scroll-dot');
+        container.appendChild(dot);
+    });
+
+    const dots = container.querySelectorAll('.scroll-dot');
+
+    function updateDots() {
+        const scrollY = window.scrollY + window.innerHeight / 2;
+        let activeIndex = 0;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+            if (scrollY >= sections[i].offsetTop) {
+                activeIndex = i;
+                break;
+            }
+        }
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === activeIndex);
+        });
+
+        // Show dots after scrolling past hero
+        container.classList.toggle('visible', window.scrollY > 200);
+    }
+
+    window.addEventListener('scroll', updateDots, { passive: true });
+    updateDots();
+}
 
 /* ─── Scroll Reveals ─── */
 function initScrollReveals() {
@@ -164,22 +485,40 @@ function initExpandableCards() {
 function initPillarTabs() {
     const tabs = document.querySelectorAll('.pillar-tab');
     const panels = document.querySelectorAll('.pillar-panel');
-    if (!tabs.length || !panels.length) return;
+    if (tabs.length && panels.length) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.pillar;
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.dataset.pillar;
+                // Toggle active class on tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
 
-            // Toggle active class on tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            // Show matching panel, hide others
-            panels.forEach(p => p.classList.remove('active'));
-            const targetPanel = document.getElementById(`pillar-${target}`);
-            if (targetPanel) targetPanel.classList.add('active');
+                // Show matching panel, hide others
+                panels.forEach(p => p.classList.remove('active'));
+                const targetPanel = document.getElementById(`pillar-${target}`);
+                if (targetPanel) targetPanel.classList.add('active');
+            });
         });
-    });
+    }
+
+    // Mobile pillar tabs (3 Säulen section)
+    const mobileTabs = document.querySelectorAll('.pillar-mobile-tab');
+    const pillarCards = document.querySelectorAll('#wirkung .pillar-card');
+    if (mobileTabs.length && pillarCards.length) {
+        // Initialize: show first card
+        pillarCards[0].classList.add('pillar-active');
+
+        mobileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const idx = parseInt(tab.dataset.pillarIdx);
+                mobileTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                pillarCards.forEach(c => c.classList.remove('pillar-active'));
+                if (pillarCards[idx]) pillarCards[idx].classList.add('pillar-active');
+            });
+        });
+    }
 }
 
 /* ─── Generic Tabs (Inhaltsstoffe / Qualität) ─── */
@@ -194,6 +533,21 @@ function initTabs() {
             tabPanels.forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById(`panel-${target}`)?.classList.add('active');
+        });
+    });
+}
+
+/* ─── Produkt-Info Tabs ─── */
+function initProduktTabs() {
+    const btns = document.querySelectorAll('.produkt-tab-btn');
+    const panels = document.querySelectorAll('.produkt-panel');
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.prodtab;
+            btns.forEach(b => b.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`prodpanel-${target}`)?.classList.add('active');
         });
     });
 }
@@ -446,6 +800,271 @@ function initCloserParticles() {
     }
 }
 
+/* ─── Section Reveal Stagger (tags elements with data-sr for CSS-driven reveals) ─── */
+function initSectionReveals() {
+    const revealConfig = {
+        // Section 2: Identifikation (sub-steps handle tiles)
+        'identification': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            ['#symptom-grid', 3],
+            ['#symptom-dots', 4],
+        ],
+        // Section 3: Schlafbiologie (sub-steps handle card stack)
+        'schlafbiologie': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            [':scope > div > div:first-child > p', 3],
+            ['.card-stack', 4],
+            ['.stack-step-indicator', 5],
+        ],
+        // Section 4: Video1
+        'video1': [
+            [':scope > div > div > div:first-child', 1],
+            [':scope > div > div > div:last-child', 2],
+        ],
+        // Section 5: Ursachen (sub-steps handle story cards)
+        'ursachen': [
+            ['.story-header > span', 1],
+            ['.story-header > h2', 2],
+            ['.story-header > p', 3],
+        ],
+        // Section 6: Produkt-Info
+        'produkt-info': [
+            [':scope > div > div:first-child > h2', 1],
+            [':scope > div > div:first-child > p', 2],
+            ['.produkt-image', 3],
+            ['.produkt-tab-nav', 4],
+            ['.produkt-panel.active', 5],
+            ['.produkt-section-cta', 6],
+        ],
+        // Section 7: Video2
+        'video2': [
+            [':scope > div > span', 1],
+            [':scope > div > h2', 2],
+            [':scope > div > div', 3],
+            [':scope > div > p', 4],
+        ],
+        // Section 7: Wirkung (3 Pillars)
+        'wirkung': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            [':scope > div > div:first-child > p', 3],
+            [':scope > div > div:nth-child(2)', 4],
+            [':scope > div > p', 5],
+            [':scope > div > div:last-child', 6],
+        ],
+        // Section 8: Inhaltsstoffe
+        'inhaltsstoffe': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            [':scope > div > div:nth-child(2)', 3],
+            [':scope > div > div:last-child', 4],
+        ],
+        // Section 9: Anwendung
+        'anwendung': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            [':scope > div > div:nth-child(2)', 3],
+            [':scope > div > p', 4],
+        ],
+        // Section 10: Testimonials
+        'testimonials': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            ['.testimonials-outer', 3],
+            ['.t-nav', 4],
+        ],
+        // Section 11: Vertrauen
+        'vertrauen': [
+            [':scope > div > div:first-of-type', 1],
+            [':scope > div > span', 2],
+            [':scope > div > h2', 3],
+            [':scope > div > p:nth-of-type(1)', 4],
+            [':scope > div > p:nth-of-type(2)', 5],
+            [':scope > div > p:nth-of-type(3)', 6],
+            [':scope > div > p:nth-of-type(4)', 6],
+            [':scope > div > div:last-of-type', 7],
+        ],
+        // Section 12: Product CTA
+        'product-cta': [
+            [':scope > div > div > div:first-child', 1],
+            [':scope > div > div > div:last-child', 2],
+        ],
+        // Section 13: FAQ
+        'faq-section': [
+            [':scope > div > div:first-child > span', 1],
+            [':scope > div > div:first-child > h2', 2],
+            ['.faq-list', 3],
+            ['.faq-contact', 4],
+        ],
+        // Section 14: Closer
+        'closer': [
+            [':scope > div:last-of-type > h2:first-of-type', 1],
+            [':scope > div:last-of-type > h2:last-of-type', 2],
+            [':scope > div:last-of-type > a', 3],
+            [':scope > div:last-of-type > p', 4],
+        ],
+    };
+
+    Object.entries(revealConfig).forEach(([sectionId, rules]) => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        rules.forEach(([selector, order]) => {
+            const el = section.querySelector(selector);
+            if (el) el.setAttribute('data-sr', order);
+        });
+    });
+}
+
+/* ─── Dev Navigation (quick-jump buttons) ─── */
+function initDevNav() {
+    const container = document.getElementById('dev-nav');
+    const sections = document.querySelectorAll('main > section');
+    if (!container || !sections.length) return;
+
+    sections.forEach((sec, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = i + 1;
+        btn.title = sec.id || `Section ${i + 1}`;
+        btn.style.cssText = `
+            width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(134,19,48,0.85); color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 0.65rem; font-weight: 700;
+            cursor: pointer; font-family: 'Inter', sans-serif;
+            transition: transform 0.2s, background 0.2s;
+            backdrop-filter: blur(8px);
+        `;
+        btn.addEventListener('mouseenter', () => { btn.style.transform = 'scale(1.2)'; btn.style.background = '#861330'; });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = 'scale(1)'; btn.style.background = 'rgba(134,19,48,0.85)'; });
+        btn.addEventListener('click', () => {
+            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        container.appendChild(btn);
+    });
+}
+
+/* ─── Product Popup (after Section 5 / Ursachen) ─── */
+function initProductPopup() {
+    const popup = document.getElementById('product-popup');
+    if (!popup) return;
+
+    const closeBtn = popup.querySelector('.product-popup-close');
+    const shopBtn = popup.querySelector('.product-popup-btn');
+    let popupClosed = false;
+
+    function showPopupElements() {
+        // Shop button at 2s, close button at 5s
+        if (shopBtn) setTimeout(() => shopBtn.classList.add('show'), 2000);
+        if (closeBtn) setTimeout(() => closeBtn.classList.add('show'), 5000);
+    }
+
+    function hidePopupElements() {
+        if (shopBtn) shopBtn.classList.remove('show');
+        if (closeBtn) closeBtn.classList.remove('show');
+    }
+
+    function closePopup() {
+        if (popupClosed) return;
+        popupClosed = true;
+        // Fade out buttons first
+        hidePopupElements();
+        // Then slide popup out after buttons have faded (0.4s)
+        setTimeout(() => {
+            popup.classList.remove('visible');
+            popup.classList.add('hiding');
+        }, 400);
+    }
+
+    // Show popup immediately
+    popup.classList.add('visible');
+    showPopupElements();
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closePopup);
+    }
+
+    // Mobile auto-close: hide popup when #produkt-info section comes into view
+    if (window.innerWidth <= 768) {
+        const produktSection = document.getElementById('produkt-info');
+        if (produktSection) {
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        closePopup();
+                        sectionObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.1 });
+            sectionObserver.observe(produktSection);
+        }
+    }
+}
+
+/* ─── ChatGPT Button ─── */
+function initChatGPTButton() {
+    const btn = document.getElementById('chatgpt-btn');
+    const copied = document.getElementById('chatgpt-copied');
+    if (!btn) return;
+
+    const prompt = 'Erkläre mir die wissenschaftliche Wirkung dieser Inhaltsstoffe auf den Schlaf und die nächtliche Regeneration: Melatonin, L-Tryptophan, Safran-Extrakt (Crocus sativus), Nopal-Kaktus Pulver (Opuntia ficus-indica), Zink, Chrom, Magnesium, Niacin (B3), Pantothensäure (B5), Pyridoxin (B6), Riboflavin (B2), Thiamin (B1), Biotin (B7), Folat (B9) und Methylcobalamin (B12). Diese Kombination ist im Nahrungsergänzungsmittel zZzlim® Night Complex enthalten.';
+
+    btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(prompt).then(() => {
+            if (copied) {
+                copied.style.opacity = '1';
+            }
+            // 5s delay so user can read the message before ChatGPT opens
+            setTimeout(() => {
+                window.open('https://chat.openai.com/', '_blank');
+                if (copied) setTimeout(() => copied.style.opacity = '0', 2000);
+            }, 5000);
+        });
+    });
+
+    btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
+    btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
+}
+
+/* ─── Story Closing (thread hide + underline animation) ─── */
+function initStoryClosing() {
+    const lastCard = document.querySelector('.story-card[data-story="3"]');
+    const closing = document.getElementById('story-closing');
+    const thread = document.querySelector('.story-thread');
+    if (!lastCard || !closing) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (thread) thread.classList.add('hidden');
+                closing.classList.add('visible');
+            } else {
+                if (thread) thread.classList.remove('hidden');
+                closing.classList.remove('visible');
+            }
+        });
+    }, { threshold: 0.8 });
+
+    observer.observe(lastCard);
+}
+
+/* ─── Scroll Progress Line ─── */
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+
+    function update() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = progress + '%';
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+}
+
 /* ─── Back to Top ─── */
 function initBackToTop() {
     const btn = document.getElementById('back-to-top');
@@ -454,4 +1073,154 @@ function initBackToTop() {
         btn.classList.toggle('visible', window.scrollY > 600);
     }, { passive: true });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+/* ─── Floating Dust Particles (global background effect) ─── */
+function initFloatingDustEffect() {
+    const container = document.getElementById('effect-dust');
+    if (!container) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;';
+    container.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const COUNT = 50;
+
+    function getMarginZones(w) {
+        const contentW = Math.min(800, w * 0.85);
+        const margin = (w - contentW) / 2;
+        return { left: margin, right: w - margin };
+    }
+
+    function randMarginX(w) {
+        const { left, right } = getMarginZones(w);
+        if (Math.random() < 0.5) {
+            return Math.random() * left;
+        } else {
+            return right + Math.random() * (w - right);
+        }
+    }
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        if (particles.length === 0) initParticles();
+    }
+
+    function initParticles() {
+        particles = [];
+        const w = canvas.width, h = canvas.height;
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({
+                x: randMarginX(w),
+                y: Math.random() * h,
+                r: 1 + Math.random() * 2,
+                speed: 0.12 + Math.random() * 0.25,
+                drift: (Math.random() - 0.5) * 0.15
+            });
+        }
+    }
+
+    function draw() {
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = 'rgba(196, 151, 106, 0.12)';
+
+        particles.forEach(p => {
+            p.y -= p.speed;
+            p.x += p.drift;
+            if (p.y < -10) {
+                p.y = h + 10;
+                p.x = randMarginX(w);
+            }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    draw();
+}
+
+/* ─── Organic Blob Drift (global background effect) ─── */
+function initBlobDriftEffect() {
+    const container = document.getElementById('effect-blobs');
+    if (!container) return;
+
+    const blobs = [
+        { color: '#F0E6DC', x: '3%',  y: '10%',  size: 280, dur: 25, anim: 'blobMorphA' },
+        { color: '#8BA88E', x: '-2%', y: '45%',  size: 220, dur: 30, anim: 'blobMorphB' },
+        { color: '#F0E6DC', x: '82%', y: '8%',   size: 250, dur: 28, anim: 'blobMorphC' },
+        { color: '#8BA88E', x: '87%', y: '50%',  size: 300, dur: 22, anim: 'blobMorphA' },
+        { color: '#F0E6DC', x: '91%', y: '30%',  size: 180, dur: 35, anim: 'blobMorphB' },
+        { color: '#8BA88E', x: '1%',  y: '75%',  size: 200, dur: 32, anim: 'blobMorphC' },
+    ];
+
+    blobs.forEach(b => {
+        const div = document.createElement('div');
+        div.style.cssText = `
+            position: fixed;
+            left: ${b.x};
+            top: ${b.y};
+            width: ${b.size}px;
+            height: ${b.size}px;
+            background: ${b.color};
+            opacity: 0.08;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: ${b.anim} ${b.dur}s ease-in-out infinite;
+            filter: blur(2px);
+            pointer-events: none;
+        `;
+        container.appendChild(div);
+    });
+}
+
+/* ─── Mobile Symptom Carousel (native swipe + dot tracking + fade-to-white) ─── */
+function initMobileSymptomCarousel() {
+    if (window.innerWidth > 768) return;
+
+    const grid = document.getElementById('symptom-grid');
+    const dots = document.querySelectorAll('.symptom-dot');
+    const closing = document.getElementById('symptom-closing');
+    const section = document.getElementById('identification');
+    if (!grid || !section) return;
+
+    const tiles = grid.querySelectorAll('.symptom-tile');
+    let seenTiles = new Set();
+
+    function updateDots(activeIndex) {
+        dots.forEach((dot, i) => {
+            dot.style.background = (i === activeIndex) ? '#861330' : '#ddd';
+        });
+    }
+
+    function getCurrentTileIndex() {
+        const scrollLeft = grid.scrollLeft;
+        const tileWidth = grid.offsetWidth;
+        return Math.round(scrollLeft / tileWidth);
+    }
+
+    grid.addEventListener('scroll', () => {
+        const idx = getCurrentTileIndex();
+        seenTiles.add(idx);
+        updateDots(idx);
+
+        // When all 4 tiles have been seen
+        if (seenTiles.size >= tiles.length) {
+            // Show closing text briefly, then fade section to white
+            if (closing) {
+                closing.style.opacity = '1';
+                closing.style.transform = 'translateY(0)';
+            }
+        }
+    }, { passive: true });
+
+    // Initialize first tile as visible
+    updateDots(0);
+    seenTiles.add(0);
 }
