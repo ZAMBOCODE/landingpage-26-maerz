@@ -369,57 +369,46 @@
             /* Selbstcheck: title at top, not centered vertically */
             #identification { justify-content: flex-start !important; padding-top: 3rem !important; }
 
-            /* Symptom carousel: horizontal snap on mobile */
+            /* Symptom tiles: one at a time, scroll-driven via sub-steps */
             #symptom-grid {
-                display: flex !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                -webkit-overflow-scrolling: touch;
-                gap: 0 !important;
-                /* Hide scrollbar */
-                scrollbar-width: none !important;          /* Firefox */
-                -ms-overflow-style: none !important;       /* IE/Edge */
+                display: block !important;
+                position: relative;
+                min-height: 360px;
             }
-            #symptom-grid::-webkit-scrollbar {
-                display: none !important;                  /* Chrome/Safari */
-            }
-
             .symptom-tile {
-                min-width: 100% !important;
-                flex-shrink: 0 !important;
-                scroll-snap-align: center !important;
-                /* Override desktop sub-step opacity/scale — always vibrant in carousel */
-                opacity: 1 !important;
-                transform: none !important;
+                display: none !important;
                 padding: 1rem 1.5rem !important;
                 justify-content: center !important;
             }
-            /* Override active/seen classes on mobile so every tile looks full */
-            .symptom-tile.active,
-            .symptom-tile.seen {
+            /* Only the active tile is visible */
+            .symptom-tile.active {
+                display: flex !important;
                 opacity: 1 !important;
                 transform: none !important;
+                animation: fadeInTile 0.5s ease;
             }
-            .symptom-tile.active .symptom-label,
-            .symptom-tile.seen .symptom-label,
-            .symptom-label {
+            @keyframes fadeInTile {
+                from { opacity: 0; transform: scale(0.9); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            .symptom-tile.active .symptom-label {
                 opacity: 1 !important;
                 font-size: 1.15rem !important;
             }
+            /* Seen tiles stay hidden */
+            .symptom-tile.seen { display: none !important; }
             /* Symptom circle: large and prominent on mobile */
             .symptom-tile .symptom-circle {
                 width: 240px !important;
                 height: 240px !important;
             }
-            /* Border glow always visible on mobile */
-            .symptom-tile .symptom-border-glow {
+            /* Border glow visible on active */
+            .symptom-tile.active .symptom-border-glow {
                 opacity: 1 !important;
             }
-            /* Closing text: more prominent on mobile */
+            /* Closing text: hidden by default, appears at step 5 via JS */
             #symptom-closing {
                 font-size: 1.75rem !important;
-                opacity: 1 !important;
-                transform: none !important;
             }
 
             /* Schlafbiologie card stack: shorter on mobile */

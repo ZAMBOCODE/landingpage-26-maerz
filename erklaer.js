@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initChatGPTButton();
     initFloatingDustEffect();
     initBlobDriftEffect();
-    initMobileSymptomCarousel();
 
     // Hero reveal on load
     requestAnimationFrame(() => {
@@ -50,8 +49,6 @@ function initSlideshowScroll() {
     const isMobile = window.innerWidth <= 768;
     const subStepState = {};
     sections.forEach((sec, i) => {
-        // On mobile, skip sub-steps for #identification (carousel handles it natively)
-        if (isMobile && sec.id === 'identification') return;
         const total = parseInt(sec.dataset.substeps, 10);
         if (total > 0) {
             subStepState[i] = { current: 0, total: total };
@@ -1180,47 +1177,3 @@ function initBlobDriftEffect() {
     });
 }
 
-/* ─── Mobile Symptom Carousel (native swipe + dot tracking + fade-to-white) ─── */
-function initMobileSymptomCarousel() {
-    if (window.innerWidth > 768) return;
-
-    const grid = document.getElementById('symptom-grid');
-    const dots = document.querySelectorAll('.symptom-dot');
-    const closing = document.getElementById('symptom-closing');
-    const section = document.getElementById('identification');
-    if (!grid || !section) return;
-
-    const tiles = grid.querySelectorAll('.symptom-tile');
-    let seenTiles = new Set();
-
-    function updateDots(activeIndex) {
-        dots.forEach((dot, i) => {
-            dot.style.background = (i === activeIndex) ? '#861330' : '#ddd';
-        });
-    }
-
-    function getCurrentTileIndex() {
-        const scrollLeft = grid.scrollLeft;
-        const tileWidth = grid.offsetWidth;
-        return Math.round(scrollLeft / tileWidth);
-    }
-
-    grid.addEventListener('scroll', () => {
-        const idx = getCurrentTileIndex();
-        seenTiles.add(idx);
-        updateDots(idx);
-
-        // When all 4 tiles have been seen
-        if (seenTiles.size >= tiles.length) {
-            // Show closing text briefly, then fade section to white
-            if (closing) {
-                closing.style.opacity = '1';
-                closing.style.transform = 'translateY(0)';
-            }
-        }
-    }, { passive: true });
-
-    // Initialize first tile as visible
-    updateDots(0);
-    seenTiles.add(0);
-}
