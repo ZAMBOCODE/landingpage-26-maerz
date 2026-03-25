@@ -267,9 +267,17 @@ function initSlideshowScroll() {
         });
     }
 
+    // Auto-hide header on mobile
+    const header = document.querySelector('.site-header');
+
     // Handle scroll direction with sub-step awareness
     function handleScrollDirection(direction) {
         if (isAnimating) return;
+
+        // Hide header on scroll down, show on scroll up (mobile only)
+        if (header && window.innerWidth <= 768) {
+            header.classList.toggle('header-hidden', direction > 0);
+        }
 
         const state = subStepState[currentIndex];
 
