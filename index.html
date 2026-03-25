@@ -890,9 +890,9 @@
 
             <!-- Mobile: Video + Text on white -->
             <div class="hero-mobile-fullbleed" style="display:none; width:100%; min-height:100vh; flex-direction:column; background:#ffffff;">
-                <!-- Video (top) -->
-                <div style="width:100%; padding:2rem 1.5rem 0; display:flex; justify-content:center;">
-                    <video autoplay muted loop playsinline style="width:100%; max-width:400px; border-radius:20px; box-shadow:0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);">
+                <!-- Video (top 45%, edge-to-edge, flush top) -->
+                <div style="width:100%; height:45vh; overflow:hidden; flex-shrink:0;">
+                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
                         <source src="media/videos/FrauHeroNichtschlafen-loop.mp4" type="video/mp4">
                     </video>
                 </div>
