@@ -89,8 +89,6 @@ function initSlideshowScroll() {
     sections.forEach((sec, i) => {
         const total = parseInt(sec.dataset.substeps, 10);
         if (total > 0) {
-            // On mobile, skip substeps for the pillar carousel (swipe handles it)
-            if (isMobile && sec.id === 'wirkung') return;
             subStepState[i] = { current: 0, total: total };
         }
     });
@@ -190,13 +188,20 @@ function initSlideshowScroll() {
         const pillarSlides = sec.querySelectorAll('.pillar-slide');
         if (pillarSlides.length) {
             const overlay = sec.querySelector('.pillar-overlay');
+            const mobile = window.innerWidth <= 768;
 
             pillarSlides.forEach((slide, si) => {
                 slide.classList.remove('active', 'peek');
-                if (step >= 4 || si < step) {
-                    slide.classList.add('active');
-                } else if (si === step && step <= 2) {
-                    slide.classList.add('peek');
+                if (mobile) {
+                    // Mobile: show one slide at a time
+                    if (si === step - 1 && step <= 3) slide.classList.add('active');
+                } else {
+                    // Desktop: accumulate slides + peek
+                    if (step >= 4 || si < step) {
+                        slide.classList.add('active');
+                    } else if (si === step && step <= 2) {
+                        slide.classList.add('peek');
+                    }
                 }
             });
 
@@ -1080,6 +1085,15 @@ function initChatGPTButton() {
 
     btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
     btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
+
+    // Overlay close button
+    const overlayClose = document.getElementById('pillar-overlay-close');
+    const overlay = document.getElementById('pillar-overlay');
+    if (overlayClose && overlay) {
+        overlayClose.addEventListener('click', () => {
+            overlay.classList.remove('visible');
+        });
+    }
 }
 
 /* ─── Scroll Progress Line ─── */
