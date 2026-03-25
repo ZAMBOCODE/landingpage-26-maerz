@@ -537,13 +537,7 @@
             /* Mobile Hero: V1 Cinematic Full-Bleed */
             #hero { padding: 0 !important; }
             #hero .hero-grid { display: none !important; }
-            #hero .hero-mobile-fullbleed { display: flex !important; }
-            #hero .hero-scroll-indicator span { color: rgba(255,255,255,0.6) !important; }
-            #hero .hero-scroll-indicator svg rect { stroke: white !important; }
-            #hero .hero-scroll-indicator svg circle { fill: white !important; }
-
-            /* Hero mobile: reduce height so video doesn't fill full viewport */
-            #hero .hero-mobile-fullbleed { min-height: 85vh !important; }
+            #hero .hero-mobile-fullbleed { display: flex !important; min-height: 100dvh !important; }
 
             /* Scroll progress bar: move to top (under header) on mobile */
             .scroll-progress { top: 3rem !important; bottom: auto !important; }
@@ -883,19 +877,22 @@
 
             </div>
 
-            <!-- Mobile: V1 Cinematic Full-Bleed (hidden on desktop) -->
-            <div class="hero-mobile-fullbleed" style="display:none; position:relative; width:100%; min-height:100vh; flex-direction:column; align-items:center; justify-content:center; background:#0a0a0a;">
-                <video autoplay muted loop playsinline style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1;">
-                    <source src="media/videos/FrauHeroNichtschlafen-loop.mp4" type="video/mp4">
-                </video>
-                <!-- Dark gradient overlay -->
-                <div style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.75) 85%, rgba(0,0,0,0.88) 100%);"></div>
-                <div style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:3; background:radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%); pointer-events:none;"></div>
-                <!-- Content -->
-                <div style="position:relative; z-index:10; padding:0 24px; text-align:center;">
-                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(2rem,8vw,3rem); font-weight:400; line-height:1.15; color:#ffffff; text-shadow:0 2px 40px rgba(0,0,0,0.5);" data-i18n="hero.mobile.title">
+            <!-- Mobile: V2 Split Layout (Text top, Video bottom) -->
+            <div class="hero-mobile-fullbleed" style="display:none; width:100%; min-height:100vh; flex-direction:column; background:#f8f6f4;">
+                <!-- Text Section (top) -->
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding:2rem 24px 1.5rem; text-align:center;">
+                    <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.65rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:5px 14px; margin:0 auto 1rem;" data-i18n="hero.pill">Schlafprobleme</span>
+                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.5rem,6vw,2rem); font-weight:700; font-style:italic; line-height:1.15; color:#0f172a; margin-bottom:0.75rem;" data-i18n="hero.mobile.title">
                         Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
                     </h1>
+                    <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569; line-height:1.5;" data-i18n="hero.desc">Millionen Deutsche kennen dieses Gefühl.</p>
+                </div>
+                <!-- Video Section (bottom 45%) -->
+                <div style="width:100%; height:45%; position:relative; overflow:hidden; flex-shrink:0;">
+                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+                        <source src="media/videos/FrauHeroNichtschlafen-loop.mp4" type="video/mp4">
+                    </video>
+                    <div style="position:absolute; top:0; left:0; right:0; height:60px; background:linear-gradient(to bottom, #f8f6f4, transparent); pointer-events:none;"></div>
                 </div>
             </div>
 
