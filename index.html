@@ -871,7 +871,6 @@
 
                 <!-- Left: Text -->
                 <div class="hero-glass" style="background:rgba(255,255,255,0.65); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); padding:56px 48px; display:flex; flex-direction:column; justify-content:center;">
-                    <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1.5rem; width:fit-content;" data-i18n="hero.pill">Schlafprobleme</span>
                     <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:1.25rem;" data-i18n="hero.title">
                         Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
                     </h1>
@@ -889,21 +888,18 @@
 
             </div>
 
-            <!-- Mobile: V2 Split – Video 45% top, Text bottom -->
-            <div class="hero-mobile-fullbleed" style="display:none; width:100%; min-height:100vh; flex-direction:column; background:#0a0a0a;">
-                <!-- Video Section (top 45%) -->
-                <div style="width:100%; height:45%; position:relative; overflow:hidden; flex-shrink:0;">
-                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
-                        <source src="media/videos/FrauHeroNichtschlafen-loop.mp4" type="video/mp4">
-                    </video>
-                    <div style="position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to top, #0a0a0a, transparent); pointer-events:none;"></div>
+            <!-- Mobile: Illustration + Text on white -->
+            <div class="hero-mobile-fullbleed" style="display:none; width:100%; min-height:100vh; flex-direction:column; background:#ffffff;">
+                <!-- Illustration (top) -->
+                <div style="width:100%; padding:2rem 1.5rem 0; display:flex; justify-content:center;">
+                    <img src="media/wachsein.png" alt="Frau liegt wach im Bett" style="width:100%; max-width:400px; border-radius:20px; box-shadow:0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);" />
                 </div>
-                <!-- Text Section (bottom, centered) -->
-                <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem 24px 2rem; text-align:center;">
-                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.5rem,6vw,2rem); font-weight:700; font-style:italic; line-height:1.2; color:#fff;" data-i18n="hero.mobile.title">
+                <!-- Text Section (below image, centered) -->
+                <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem 24px 2rem; text-align:center;">
+                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.5rem,6vw,2rem); font-weight:700; font-style:italic; line-height:1.2; color:#0f172a;" data-i18n="hero.mobile.title">
                         Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
                     </h1>
-                    <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.5; margin-top:0.75rem;" data-i18n="hero.desc">Millionen Deutsche kennen dieses Gefühl.</p>
+                    <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569; line-height:1.5; margin-top:0.75rem;" data-i18n="hero.desc">Millionen Deutsche kennen dieses Gefühl.</p>
                 </div>
             </div>
 
