@@ -1614,13 +1614,6 @@ ul, ol { list-style: none; }
     color: var(--text-body);
     margin-top: 0.125rem;
 }
-.produkt-cert-shared-desc {
-    font-family: 'Fraunces', serif;
-    font-size: 0.8rem;
-    color: var(--text-body);
-    text-align: center;
-    margin-top: 0.75rem;
-}
 .produkt-quality-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1776,10 +1769,6 @@ ul, ol { list-style: none; }
     }
     .produkt-cert-text p {
         display: none;
-    }
-    .produkt-cert-shared-desc {
-        font-size: 0.75rem;
-        margin-top: 0.5rem;
     }
     .produkt-quality-grid {
         gap: 0.75rem;
