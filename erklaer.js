@@ -1257,8 +1257,10 @@ function initScrollIndicator() {
 
     function update() {
         const footerRect = footer.getBoundingClientRect();
-        // Hide when footer is visible
-        if (footerRect.top <= window.innerHeight) {
+        // Hide when section 2 (identification) is reached, or when footer is visible
+        const section2 = document.getElementById('identification');
+        const s2Rect = section2 ? section2.getBoundingClientRect() : null;
+        if (footerRect.top <= window.innerHeight || (s2Rect && s2Rect.top <= window.innerHeight * 0.5)) {
             indicator.classList.add('hidden');
         } else {
             indicator.classList.remove('hidden');
