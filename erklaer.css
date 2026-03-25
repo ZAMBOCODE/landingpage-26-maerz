@@ -2200,9 +2200,10 @@ ul, ol { list-style: none; }
         width: 30px;
         height: 30px;
         font-size: 1rem;
-        top: 8px;
-        right: 8px;
-        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 8px;
+        right: auto;
     }
 
     .product-popup-btn {

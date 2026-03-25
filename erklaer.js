@@ -332,16 +332,26 @@ function initSlideshowScroll() {
         }
     });
 
-    // Touch/swipe
+    // Touch/swipe — block native scroll to enforce snap + substeps
     let touchStartY = 0;
+    let touchHandled = false;
     window.addEventListener('touchstart', (e) => {
         touchStartY = e.touches[0].clientY;
+        touchHandled = false;
     }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        // Prevent native scroll to keep sections locked
+        if (!touchHandled) {
+            e.preventDefault();
+        }
+    }, { passive: false });
 
     window.addEventListener('touchend', (e) => {
         if (isAnimating) return;
         const diff = touchStartY - e.changedTouches[0].clientY;
-        if (Math.abs(diff) > 50) {
+        if (Math.abs(diff) > 30) {
+            touchHandled = true;
             handleScrollDirection(diff > 0 ? 1 : -1);
         }
     }, { passive: true });
