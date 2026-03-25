@@ -2,6 +2,10 @@
    zZzlim® Erklär-Landingpage – JavaScript
    ══════════════════════════════════════════════ */
 
+// Always start from top on page load / refresh
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
     initSectionReveals();
     initSlideshowScroll();
@@ -11,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initActiveNav();
     initCheckboxes();
     initExpandableCards();
-    initPillarTabs();
     initTabs();
     initProduktTabs();
     initRoutineTimeline();
@@ -24,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // initDevNav(); // removed
     initProductPopup();
     initScrollProgress();
-    initStoryClosing();
     initChatGPTButton();
     initFloatingDustEffect();
     initBlobDriftEffect();
@@ -63,32 +65,26 @@ function initSlideshowScroll() {
         const tiles = sec.querySelectorAll('.symptom-tile');
         if (tiles.length) {
             const dots = sec.querySelectorAll('.symptom-dot');
-            const closing = sec.querySelector('#symptom-closing');
+            const state = subStepState[sectionIndex];
+            const isClosing = step >= state.total;
+            const closingOverlay = sec.querySelector('.selbstcheck-closing');
 
             tiles.forEach((tile, ti) => {
                 const tileStep = ti + 1;
                 tile.classList.remove('active', 'seen');
-                if (tileStep === step) {
-                    tile.classList.add('active');
-                } else if (tileStep < step) {
-                    tile.classList.add('seen');
+                if (!isClosing) {
+                    if (tileStep === step) tile.classList.add('active');
+                    else if (tileStep < step) tile.classList.add('seen');
                 }
             });
 
             dots.forEach((dot, di) => {
-                dot.style.background = (di + 1 <= step) ? '#861330' : '#ddd';
+                dot.style.background = (di + 1 <= Math.min(step, 4)) ? '#861330' : '#e5e5e5';
             });
 
-            if (closing) {
-                const state = subStepState[sectionIndex];
-                if (step >= state.total) {
-                    closing.style.opacity = '1';
-                    closing.style.transform = 'translateY(0)';
-                } else {
-                    closing.style.opacity = '0';
-                    closing.style.transform = 'translateY(20px)';
-                }
-            }
+            // Step 5: fade everything, show centered closing text
+            sec.classList.toggle('symptom-complete', isClosing);
+            if (closingOverlay) closingOverlay.classList.toggle('visible', isClosing);
             return;
         }
 
@@ -118,30 +114,70 @@ function initSlideshowScroll() {
         }
 
         // --- Type C: Story scroll cards (Section 5) ---
+        // Steps 1-4: cards, step 5: border animation, step 6: closing
         const storyCards = sec.querySelectorAll('.story-card');
         if (storyCards.length) {
             const state = subStepState[sectionIndex];
             const closingEl = sec.querySelector('.story-closing');
             const thread = sec.querySelector('.story-thread');
-            const isLastStep = step >= state.total;
-            const activeIndex = isLastStep ? storyCards.length : step - 1;
+            const threadFill = sec.querySelector('.story-thread-fill');
+            const isBorderStep = (step === 5);
+            const isClosingStep = (step >= 6);
+            const cardStep = Math.min(step, 4);
 
+            // Show/hide thread: only visible from step 2 onwards, hidden at closing
+            if (thread) {
+                thread.style.display = (step >= 2 && !isClosingStep) ? 'block' : '';
+                thread.classList.toggle('hidden', isClosingStep);
+            }
+
+            // Cards: active/seen based on card step (1-4)
             storyCards.forEach((card, ci) => {
                 card.classList.remove('active', 'seen');
-                if (ci < activeIndex) {
+                const inner = card.querySelector('.story-card-inner');
+                if (inner) inner.classList.remove('border-anim');
+
+                if (ci < cardStep - 1) {
                     card.classList.add('seen');
-                } else if (ci === activeIndex && !isLastStep) {
+                } else if (ci === cardStep - 1 && !isClosingStep) {
                     card.classList.add('active');
+                    // Step 5: draw border around active (last) card
+                    if (isBorderStep && inner) inner.classList.add('border-anim');
                 }
             });
 
-            // Hide thread and show closing on last step
-            if (thread) thread.classList.toggle('hidden', isLastStep);
-            if (closingEl) closingEl.classList.toggle('visible', isLastStep);
-            // On mobile: add story-complete class to fade out story content
-            if (isMobile) {
-                sec.classList.toggle('story-complete', isLastStep);
+            // Thread fill progress (25% per card step)
+            if (threadFill) {
+                threadFill.style.height = (cardStep / storyCards.length * 100) + '%';
             }
+
+            // Step 6: closing
+            if (closingEl) closingEl.classList.toggle('visible', isClosingStep);
+            sec.classList.toggle('story-complete', isClosingStep);
+
+            // Return custom cooldown for border animation step
+            if (isBorderStep) {
+                isAnimating = true;
+                setTimeout(() => { isAnimating = false; }, 1500);
+            }
+            return;
+        }
+
+        // --- Type D: Pillar carousel (Wirkung section) ---
+        const pillarSlides = sec.querySelectorAll('.pillar-slide');
+        if (pillarSlides.length) {
+            const overlay = sec.querySelector('.pillar-overlay');
+
+            pillarSlides.forEach((slide, si) => {
+                slide.classList.remove('active', 'peek');
+                if (step >= 4 || si < step) {
+                    slide.classList.add('active');
+                } else if (si === step && step <= 2) {
+                    slide.classList.add('peek');
+                }
+            });
+
+            if (overlay) overlay.classList.toggle('visible', step >= 4);
             return;
         }
     }
@@ -832,7 +868,7 @@ function initSectionReveals() {
             [':scope > div > div:first-child > p', 2],
             ['.produkt-image', 3],
             ['.produkt-tab-nav', 4],
-            ['.produkt-panel.active', 5],
+            ['.produkt-panels-wrapper', 5],
             ['.produkt-section-cta', 6],
         ],
         // Section 7: Video2
@@ -842,14 +878,10 @@ function initSectionReveals() {
             [':scope > div > div', 3],
             [':scope > div > p', 4],
         ],
-        // Section 7: Wirkung (3 Pillars)
+        // Section 7: Wirkung (Pillar Carousel — sub-steps handle slides)
         'wirkung': [
-            [':scope > div > div:first-child > span', 1],
+            ['.wirkung-pill', 1],
             [':scope > div > div:first-child > h2', 2],
-            [':scope > div > div:first-child > p', 3],
-            [':scope > div > div:nth-child(2)', 4],
-            [':scope > div > p', 5],
-            [':scope > div > div:last-child', 6],
         ],
         // Section 8: Inhaltsstoffe
         'inhaltsstoffe': [
@@ -1022,28 +1054,6 @@ function initChatGPTButton() {
 
     btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
     btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
-}
-
-/* ─── Story Closing (thread hide + underline animation) ─── */
-function initStoryClosing() {
-    const lastCard = document.querySelector('.story-card[data-story="3"]');
-    const closing = document.getElementById('story-closing');
-    const thread = document.querySelector('.story-thread');
-    if (!lastCard || !closing) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (thread) thread.classList.add('hidden');
-                closing.classList.add('visible');
-            } else {
-                if (thread) thread.classList.remove('hidden');
-                closing.classList.remove('visible');
-            }
-        });
-    }, { threshold: 0.8 });
-
-    observer.observe(lastCard);
 }
 
 /* ─── Scroll Progress Line ─── */

@@ -1803,30 +1803,31 @@ ul, ol { list-style: none; }
 
 /* ─── 21. Footer ─── */
 .site-footer {
-    background: #f8f6f4; color: var(--text-body); padding: 4rem 1.5rem 2rem;
+    background: #f8f6f4; color: var(--text-body); padding: 1.25rem 1.5rem 0.75rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
 }
 .footer-inner { max-width: 72rem; margin: 0 auto; }
-.footer-top { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
-.footer-logo img { height: 2.25rem; }
-.social-icons { display: flex; gap: 1.25rem; }
+.footer-top { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.footer-logo img { height: 1.5rem; }
+.social-icons { display: flex; gap: 0.75rem; }
 .social-icons a {
     display: flex; align-items: center; justify-content: center;
-    width: 2.25rem; height: 2.25rem; color: var(--primary);
+    width: 1.75rem; height: 1.75rem; color: var(--primary);
     transition: color 0.2s, transform 0.2s;
 }
 .social-icons a:hover { color: var(--primary-hover); transform: scale(1.1); }
-.social-icons svg { width: 1.5rem; height: 1.5rem; }
+.social-icons svg { width: 1.125rem; height: 1.125rem; }
 .footer-bottom {
-    border-top: 1px solid rgba(0,0,0,0.08); padding-top: 1.5rem;
-    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.06); padding-top: 0.75rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+    font-size: 0.75rem;
 }
 .footer-legal { display: flex; gap: 0.5rem; align-items: center; }
-.footer-legal a { color: var(--text-body); transition: color 0.2s; }
+.footer-legal a { color: var(--text-body); transition: color 0.2s; font-size: 0.7rem; }
 .footer-legal a:hover { color: var(--primary); }
-.footer-legal-sep { color: var(--text-muted); font-size: 0.75rem; }
-.footer-bottom p { color: var(--primary); font-size: 0.8125rem; font-weight: 500; }
-.footer-disclaimer { font-size: 0.6875rem; text-align: center; max-width: 48rem; line-height: 1.6; margin-top: 0.5rem; color: var(--text-muted); }
+.footer-legal-sep { color: var(--text-muted); font-size: 0.65rem; }
+.footer-bottom p { color: var(--primary); font-size: 0.7rem; font-weight: 500; }
+.footer-disclaimer { font-size: 0.625rem; text-align: center; max-width: 48rem; line-height: 1.4; margin-top: 0.25rem; color: var(--text-muted); }
 
 /* ─── 22. Back to Top ─── */
 .back-to-top {
