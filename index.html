@@ -50,6 +50,11 @@
             overflow-y: scroll;
             scroll-behavior: auto;
         }
+        /* Fraunces Display variant (opsz 144) on all headings, no italic */
+        h1, h2, h3, .story-title, .pillar-slide-title {
+            font-variation-settings: 'opsz' 144 !important;
+            font-style: normal !important;
+        }
         main > section {
             min-height: 100vh;
             min-height: 100dvh;
@@ -319,7 +324,6 @@
             font-family: 'Fraunces', serif;
             font-size: clamp(1.75rem, 4vw, 2.75rem);
             font-weight: 700;
-            font-style: italic;
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: #0f172a;
@@ -366,7 +370,6 @@
             font-family: 'Fraunces', serif;
             font-size: clamp(2rem, 5vw, 3.25rem);
             font-weight: 700;
-            font-style: italic;
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: #0f172a;
@@ -444,7 +447,6 @@
             font-family: 'Fraunces', serif;
             font-size: 1.875rem;
             font-weight: 700;
-            font-style: italic;
             margin-bottom: 5px;
         }
         .pillar-slide-label {
@@ -874,7 +876,7 @@
 
                 <!-- Left: Text -->
                 <div class="hero-glass" style="background:rgba(255,255,255,0.65); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); padding:56px 48px; display:flex; flex-direction:column; justify-content:center;">
-                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:1.25rem;" data-i18n="hero.title">
+                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:1.25rem;" data-i18n="hero.title">
                         Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
                     </h1>
                     <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; line-height:1.6;" data-i18n="hero.desc">
@@ -902,7 +904,7 @@
                 </div>
                 <!-- Text: centered in viewport, overlaps video gradient zone -->
                 <div style="position:absolute; top:65%; left:50%; transform:translate(-50%,-50%); z-index:2; width:90%; text-align:center; padding:0 24px;">
-                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,7vw,2.5rem); font-weight:700; font-style:italic; line-height:1.2; color:#0f172a;" data-i18n="hero.mobile.title">
+                    <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,7vw,2.5rem); font-weight:700; line-height:1.2; color:#0f172a;" data-i18n="hero.mobile.title">
                         Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
                     </h1>
                     <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569; line-height:1.5; margin-top:0.75rem;" data-i18n="hero.desc">Millionen Deutsche kennen dieses Gefühl.</p>
@@ -917,7 +919,7 @@
             <div style="max-width:80rem; margin:0 auto;">
                 <div style="text-align:center; margin-bottom:3.5rem;">
                     <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
-                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="check.title">Kommt dir das bekannt vor?</h2>
+                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="check.title">Kommt dir das bekannt vor?</h2>
                 </div>
                 <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:2.5rem;" id="symptom-grid">
                     <!-- Tile 1 -->
@@ -961,7 +963,7 @@
                         </div>
                     </div>
                 </div>
-                <p id="symptom-closing" style="text-align:center; font-style:italic; font-size:1.5rem; color:#475569; margin-top:2.5rem; font-family:'Fraunces',serif; opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease;" data-i18n="check.closing">Dann bist du nicht allein.</p>
+                <p id="symptom-closing" style="text-align:center; font-size:1.5rem; color:#475569; margin-top:2.5rem; font-family:'Fraunces',serif; opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease;" data-i18n="check.closing">Dann bist du nicht allein.</p>
                 <!-- Step progress bar -->
                 <div id="symptom-dots" style="display:flex; justify-content:center; align-items:center; gap:0; margin-top:2rem; max-width:240px; margin-left:auto; margin-right:auto; position:relative; z-index:5;">
                     <div class="symptom-dot" style="flex:1; height:3px; background:#e5e5e5; border-radius:3px 0 0 3px; transition:background 0.4s ease;"></div>
@@ -987,7 +989,7 @@
             <!-- Section Header -->
             <div class="story-header" style="text-align:center; margin-bottom:3rem;">
                 <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="urs.pill">Unser moderner Abend</span>
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="urs.title">Das Problem beginnt vor dem Bett.</h2>
+                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="urs.title">Das Problem beginnt vor dem Bett.</h2>
             </div>
 
             <!-- Story Container -->
@@ -1073,7 +1075,7 @@
     <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif;">
         <div style="max-width:1300px; margin:0 auto;">
             <div style="text-align:center; margin-bottom:3.5rem;">
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="font-style:italic; color:#861330;">deine Abendroutine.</span></h2>
+                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#861330;">deine Abendroutine.</span></h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="prod.desc">Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt als Begleiter einer konsequenten Abendroutine.</p>
             </div>
             <div class="produkt-grid">
@@ -1131,7 +1133,7 @@
             <!-- Header -->
             <div style="text-align:center; margin-bottom:3.5rem;" class="wirkung-header">
                 <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
+                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
             </div>
 
             <!-- Pillar Carousel -->
@@ -1252,7 +1254,7 @@
         <div style="max-width:72rem; margin:0 auto; display:flex; flex-direction:column; justify-content:center; flex:1;">
             <div class="faq-two-col">
                 <div class="faq-left">
-                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;" data-i18n="faq.title">Häufige Fragen</h2>
+                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;" data-i18n="faq.title">Häufige Fragen</h2>
                     <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:24px;" data-i18n="faq.desc">Antworten auf die wichtigsten Fragen rund um zZzlim&reg;.</p>
                     <p class="faq-contact" data-i18n="faq.contact">Noch Fragen? Schreib uns an <a href="mailto:info@zzzlim.de">info@zzzlim.de</a></p>
                 </div>

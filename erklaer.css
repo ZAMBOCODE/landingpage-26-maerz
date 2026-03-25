@@ -435,7 +435,6 @@ ul, ol { list-style: none; }
 
 .symptom-closing {
     text-align: center;
-    font-style: italic;
     font-size: 1.125rem;
     color: var(--text-body);
     margin-top: 2rem;
@@ -664,7 +663,6 @@ ul, ol { list-style: none; }
     color: var(--primary);
     margin-top: 2.5rem;
     font-weight: 600;
-    font-style: italic;
 }
 
 /* ─── 12a. Pillar Cards (k2 Style) ─── */
@@ -867,7 +865,6 @@ ul, ol { list-style: none; }
 }
 
 .pillar-claim {
-    font-style: italic;
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.6;
