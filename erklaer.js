@@ -6,36 +6,72 @@
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
-document.addEventListener('DOMContentLoaded', () => {
-    initSectionReveals();
-    initSlideshowScroll();
-    // initScrollDots(); // removed
-    initScrollReveals();
-    initMobileMenu();
-    initActiveNav();
-    initCheckboxes();
-    initExpandableCards();
-    initTabs();
-    initProduktTabs();
-    initRoutineTimeline();
-    initTestimonials();
-    initFAQ();
-    initVideoLazyLoad();
-    initStickyMobileCTA();
-    initCloserParticles();
-    initBackToTop();
-    // initDevNav(); // removed
-    initProductPopup();
-    initScrollProgress();
-    initChatGPTButton();
-    initFloatingDustEffect();
-    initBlobDriftEffect();
+// Lock scroll during loading animation
+document.documentElement.classList.add('is-loading');
 
-    // Hero reveal on load
-    requestAnimationFrame(() => {
-        document.querySelectorAll('.hero-reveal').forEach(el => el.classList.add('visible'));
+document.addEventListener('DOMContentLoaded', () => {
+    // Start loading animation first
+    initLoadingScreen(() => {
+        // After loading completes, init everything
+        initSectionReveals();
+        initSlideshowScroll();
+        initScrollReveals();
+        initMobileMenu();
+        initActiveNav();
+        initCheckboxes();
+        initExpandableCards();
+        initTabs();
+        initProduktTabs();
+        initRoutineTimeline();
+        initTestimonials();
+        initFAQ();
+        initVideoLazyLoad();
+        initStickyMobileCTA();
+        initCloserParticles();
+        initBackToTop();
+        initProductPopup();
+        initScrollProgress();
+        initChatGPTButton();
+        initFloatingDustEffect();
+        initBlobDriftEffect();
+        initScrollIndicator();
+
+        // Hero reveal on load
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.hero-reveal').forEach(el => el.classList.add('visible'));
+        });
     });
 });
+
+/* ── Loading Screen ── */
+function initLoadingScreen(onComplete) {
+    const screen = document.getElementById('loading-screen');
+    const video = document.getElementById('loading-video');
+
+    if (!screen || !video || getComputedStyle(screen).display === 'none') {
+        document.documentElement.classList.remove('is-loading');
+        onComplete();
+        return;
+    }
+
+    // Play video
+    video.play().catch(() => {
+        // Autoplay blocked — skip loading screen
+        screen.remove();
+        document.documentElement.classList.remove('is-loading');
+        onComplete();
+    });
+
+    video.addEventListener('ended', () => {
+        // Fade out the loading screen
+        screen.classList.add('fade-out');
+        screen.addEventListener('transitionend', () => {
+            screen.remove();
+            document.documentElement.classList.remove('is-loading');
+            onComplete();
+        }, { once: true });
+    }, { once: true });
+}
 
 /* ─── Slideshow Scroll (Snap with smooth transition + cooldown + sub-steps) ─── */
 function initSlideshowScroll() {
@@ -53,6 +89,8 @@ function initSlideshowScroll() {
     sections.forEach((sec, i) => {
         const total = parseInt(sec.dataset.substeps, 10);
         if (total > 0) {
+            // On mobile, skip substeps for the pillar carousel (swipe handles it)
+            if (isMobile && sec.id === 'wirkung') return;
             subStepState[i] = { current: 0, total: total };
         }
     });
@@ -114,52 +152,37 @@ function initSlideshowScroll() {
         }
 
         // --- Type C: Story scroll cards (Section 5) ---
-        // Steps 1-4: cards, step 5: border animation, step 6: closing
+        // Steps 1-4: cards, step 5: closing
         const storyCards = sec.querySelectorAll('.story-card');
         if (storyCards.length) {
             const state = subStepState[sectionIndex];
             const closingEl = sec.querySelector('.story-closing');
             const thread = sec.querySelector('.story-thread');
             const threadFill = sec.querySelector('.story-thread-fill');
-            const isBorderStep = (step === 5);
-            const isClosingStep = (step >= 6);
-            const cardStep = Math.min(step, 4);
+            const isClosingStep = step >= state.total;
+            const cardStep = Math.min(step, storyCards.length);
 
-            // Show/hide thread: only visible from step 2 onwards, hidden at closing
+            // Thread: visible from step 2, hidden at closing
             if (thread) {
                 thread.style.display = (step >= 2 && !isClosingStep) ? 'block' : '';
                 thread.classList.toggle('hidden', isClosingStep);
             }
 
-            // Cards: active/seen based on card step (1-4)
             storyCards.forEach((card, ci) => {
                 card.classList.remove('active', 'seen');
-                const inner = card.querySelector('.story-card-inner');
-                if (inner) inner.classList.remove('border-anim');
-
                 if (ci < cardStep - 1) {
                     card.classList.add('seen');
                 } else if (ci === cardStep - 1 && !isClosingStep) {
                     card.classList.add('active');
-                    // Step 5: draw border around active (last) card
-                    if (isBorderStep && inner) inner.classList.add('border-anim');
                 }
             });
 
-            // Thread fill progress (25% per card step)
             if (threadFill) {
                 threadFill.style.height = (cardStep / storyCards.length * 100) + '%';
             }
 
-            // Step 6: closing
             if (closingEl) closingEl.classList.toggle('visible', isClosingStep);
             sec.classList.toggle('story-complete', isClosingStep);
-
-            // Return custom cooldown for border animation step
-            if (isBorderStep) {
-                isAnimating = true;
-                setTimeout(() => { isAnimating = false; }, 1500);
-            }
             return;
         }
 
@@ -997,18 +1020,21 @@ function initProductPopup() {
     function closePopup() {
         if (popupClosed) return;
         popupClosed = true;
-        // Fade out buttons first
+        sessionStorage.setItem('popupDismissed', '1');
         hidePopupElements();
-        // Then slide popup out after buttons have faded (0.4s)
         setTimeout(() => {
             popup.classList.remove('visible');
             popup.classList.add('hiding');
         }, 400);
     }
 
-    // Show popup immediately
-    popup.classList.add('visible');
-    showPopupElements();
+    // Show popup after 15 seconds, but not if already dismissed
+    if (sessionStorage.getItem('popupDismissed')) return;
+    setTimeout(() => {
+        if (popupClosed) return;
+        popup.classList.add('visible');
+        showPopupElements();
+    }, 15000);
 
     if (closeBtn) {
         closeBtn.addEventListener('click', closePopup);
@@ -1185,5 +1211,45 @@ function initBlobDriftEffect() {
         `;
         container.appendChild(div);
     });
+}
+
+/* ── Scroll Indicator ── */
+function initScrollIndicator() {
+    const indicator = document.getElementById('scroll-indicator');
+    if (!indicator) return;
+
+    const footer = document.querySelector('.site-footer');
+    if (!footer) return;
+
+    const sections = document.querySelectorAll('main section');
+
+    function update() {
+        const footerRect = footer.getBoundingClientRect();
+        // Hide when footer is visible
+        if (footerRect.top <= window.innerHeight) {
+            indicator.classList.add('hidden');
+        } else {
+            indicator.classList.remove('hidden');
+        }
+
+        // Check background brightness of section at indicator position
+        const indicatorY = window.innerHeight - 40;
+        let isDark = false;
+        sections.forEach(sec => {
+            const r = sec.getBoundingClientRect();
+            if (r.top <= indicatorY && r.bottom >= indicatorY) {
+                const bg = getComputedStyle(sec).backgroundColor;
+                const match = bg.match(/\d+/g);
+                if (match) {
+                    const brightness = (parseInt(match[0]) * 299 + parseInt(match[1]) * 587 + parseInt(match[2]) * 114) / 1000;
+                    isDark = brightness > 180;
+                }
+            }
+        });
+        document.body.classList.toggle('scroll-indicator-dark', isDark);
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
 }
 

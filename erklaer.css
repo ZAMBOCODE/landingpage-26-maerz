@@ -105,6 +105,33 @@ ul, ol { list-style: none; }
 }
 .btn-shop:hover { background: var(--primary-hover); }
 
+/* Language Switcher */
+.lang-switch {
+    display: flex; align-items: center; gap: 2px;
+    background: rgba(134,19,48,0.06); border-radius: var(--radius-full);
+    padding: 2px;
+}
+.lang-btn {
+    font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 600;
+    padding: 4px 8px; border-radius: var(--radius-full);
+    color: #475569; background: transparent; border: none; cursor: pointer;
+    transition: background 0.2s, color 0.2s; letter-spacing: 0.04em;
+}
+.lang-btn:hover { color: var(--primary); }
+.lang-btn.active {
+    background: var(--primary); color: #fff;
+}
+.lang-switch--mobile {
+    display: flex; justify-content: center; padding: 1rem 1.5rem 0;
+}
+.lang-switch--mobile .lang-btn {
+    font-size: 0.8rem; padding: 6px 14px; color: rgba(255,255,255,0.6);
+}
+.lang-switch--mobile .lang-btn:hover { color: #fff; }
+.lang-switch--mobile .lang-btn.active {
+    background: rgba(255,255,255,0.15); color: #fff;
+}
+
 /* Hamburger */
 .hamburger {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -1610,6 +1637,12 @@ ul, ol { list-style: none; }
     height: 1.375rem;
     color: var(--primary);
 }
+.produkt-quality-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 .produkt-quality-item span {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
@@ -2167,9 +2200,9 @@ ul, ol { list-style: none; }
         width: 30px;
         height: 30px;
         font-size: 1rem;
-        top: 15%;
-        left: 15%;
-        right: auto;
+        top: 8px;
+        right: 8px;
+        left: auto;
     }
 
     .product-popup-btn {
