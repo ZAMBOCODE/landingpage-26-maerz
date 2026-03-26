@@ -168,9 +168,11 @@ function initSlideshowScroll() {
 
             storyCards.forEach((card, ci) => {
                 card.classList.remove('active', 'seen');
-                if (ci < cardStep - 1) {
+                if (isClosingStep) {
+                    card.classList.add('seen'); // all cards slide up at closing
+                } else if (ci < cardStep - 1) {
                     card.classList.add('seen');
-                } else if (ci === cardStep - 1 && !isClosingStep) {
+                } else if (ci === cardStep - 1) {
                     card.classList.add('active');
                 }
             });
@@ -1289,4 +1291,30 @@ function initScrollIndicator() {
     window.addEventListener('scroll', update, { passive: true });
     update();
 }
+
+/* ═══ Mobile Scroll-Down Overlay ═══ */
+(function() {
+    if (window.innerWidth > 768) return;
+    const overlay = document.getElementById('mobile-scroll-overlay');
+    if (!overlay) return;
+
+    const showSections = ['identification', 'ursachen', 'wirkung'];
+
+    function checkVisibility() {
+        let show = false;
+        for (const id of showSections) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4) {
+                show = true;
+                break;
+            }
+        }
+        overlay.classList.toggle('hidden', !show);
+    }
+
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    checkVisibility();
+})();
 
