@@ -193,12 +193,17 @@ function initSlideshowScroll() {
             const overlay = sec.querySelector('.pillar-overlay');
             const mobile = window.innerWidth <= 768;
 
+            const carousel = sec.querySelector('.pillar-carousel');
+
             pillarSlides.forEach((slide, si) => {
                 slide.classList.remove('active', 'peek');
                 if (mobile) {
-                    // Mobile: show one slide at a time
-                    if (si === step - 1 && step <= 3) slide.classList.add('active');
-                    if (step >= 4) slide.classList.add('active');
+                    // Mobile: steps 1-3 show one at a time, step 4 all stacked, step 5 overlay
+                    if (step <= 3) {
+                        if (si === step - 1) slide.classList.add('active');
+                    } else {
+                        slide.classList.add('active'); // show all stacked
+                    }
                 } else {
                     // Desktop: accumulate slides + peek
                     if (step >= 4 || si < step) {
@@ -208,6 +213,11 @@ function initSlideshowScroll() {
                     }
                 }
             });
+
+            // Mobile step 4+: switch carousel to stacked layout
+            if (carousel && mobile) {
+                carousel.classList.toggle('pillar-stacked', step >= 4);
+            }
 
             if (overlay) overlay.classList.toggle('visible', step >= 5);
             return;
@@ -973,8 +983,8 @@ function initSectionReveals() {
         ],
         // Section 13: FAQ
         'faq-section': [
-            [':scope > div > div:first-child > span', 1],
-            [':scope > div > div:first-child > h2', 2],
+            ['.faq-left h2', 1],
+            ['.faq-left p:not(.faq-contact)', 2],
             ['.faq-list', 3],
             ['.faq-contact', 4],
         ],
@@ -1294,13 +1304,13 @@ function initScrollIndicator() {
 
 /* ═══ Mobile Scroll-Down Overlay ═══ */
 (function() {
-    if (window.innerWidth > 768) return;
     const overlay = document.getElementById('mobile-scroll-overlay');
     if (!overlay) return;
 
     const showSections = ['identification', 'ursachen', 'wirkung'];
 
     function checkVisibility() {
+        // Let CSS media query handle desktop hiding; JS only toggles hidden class
         let show = false;
         for (const id of showSections) {
             const el = document.getElementById(id);
@@ -1315,6 +1325,8 @@ function initScrollIndicator() {
     }
 
     window.addEventListener('scroll', checkVisibility, { passive: true });
+    // Run after a short delay to ensure layout is computed
+    setTimeout(checkVisibility, 100);
     checkVisibility();
 })();
 
