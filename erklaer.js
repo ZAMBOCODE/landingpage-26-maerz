@@ -930,6 +930,7 @@ function initSectionReveals() {
         'wirkung': [
             ['.wirkung-pill', 1],
             [':scope > div > div:first-child > h2', 2],
+            [':scope > div > div:first-child > p', 3],
         ],
         // Section 8: Inhaltsstoffe
         'inhaltsstoffe': [

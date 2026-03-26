@@ -33,6 +33,10 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; hyphens: none; -webkit-hyphens: none; }
 
 html {
+    /* Fluid root scaling: 16px on mobile/laptop, grows to ~22px at 2560px, caps at 24px.
+       Since all sizes use rem, this scales text, spacing & containers proportionally.
+       Target audience: elderly users → generous sizing on large screens. */
+    font-size: clamp(16px, calc(12px + 0.4vw), 24px);
     scroll-behavior: smooth;
     overflow-x: hidden;
     scrollbar-color: var(--primary) var(--bg-light);
@@ -2082,6 +2086,7 @@ ul, ol { list-style: none; }
 }
 
 .product-popup {
+    display: none !important;  /* temporarily hidden */
     position: fixed;
     bottom: 0;
     left: 0;
