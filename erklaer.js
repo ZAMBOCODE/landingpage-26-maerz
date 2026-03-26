@@ -819,6 +819,51 @@ function initVideoLazyLoad() {
         });
     });
 
+    // Video2: thumbnail overlay + play/pause + pause on scroll
+    const v2vid = document.querySelector('.video2-vid');
+    const v2overlay = document.querySelector('.video2-overlay');
+    const v2playBtn = document.querySelector('.video2-play-btn');
+    const v2section = document.getElementById('video2');
+
+    if (v2vid && v2overlay && v2playBtn) {
+        // Click play button → hide overlay, show controls, play
+        v2playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            v2overlay.style.opacity = '0';
+            v2overlay.style.pointerEvents = 'none';
+            v2vid.controls = true;
+            v2vid.muted = false;
+            v2vid.play();
+        });
+
+        // Click overlay area → same as play
+        v2overlay.addEventListener('click', () => {
+            v2playBtn.click();
+        });
+
+        // When paused or ended → show overlay again
+        v2vid.addEventListener('pause', () => {
+            v2overlay.style.opacity = '1';
+            v2overlay.style.pointerEvents = 'auto';
+        });
+        v2vid.addEventListener('ended', () => {
+            v2overlay.style.opacity = '1';
+            v2overlay.style.pointerEvents = 'auto';
+            v2vid.controls = false;
+        });
+
+        // Pause video when scrolling away from section
+        if (v2section) {
+            const v2observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting && !v2vid.paused) {
+                        v2vid.pause();
+                    }
+                });
+            }, { threshold: 0.3 });
+            v2observer.observe(v2section);
+        }
+    }
 }
 
 /* ─── Sticky Mobile CTA ─── */
