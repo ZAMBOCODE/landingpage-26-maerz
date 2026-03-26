@@ -818,6 +818,56 @@ function initVideoLazyLoad() {
             }, { once: true });
         });
     });
+
+    // Video2 section: play + mobile fullscreen
+    const video2Player = document.querySelector('.video2-player');
+    const video2Btn = document.querySelector('.video2-play-btn');
+    const video2Vid = document.querySelector('.video2-vid');
+    const fsOverlay = document.getElementById('video2-fullscreen');
+    const fsVideo = document.getElementById('video2-fs-video');
+    const fsClose = document.getElementById('video2-fs-close');
+
+    if (video2Btn && video2Vid) {
+        video2Btn.addEventListener('click', () => {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile && fsOverlay && fsVideo) {
+                // Mobile: open fullscreen overlay
+                fsVideo.src = video2Vid.querySelector('source')?.src || '';
+                fsOverlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                fsVideo.play();
+            } else {
+                // Desktop: play inline
+                video2Vid.muted = false;
+                video2Vid.currentTime = 0;
+                video2Vid.play();
+                video2Btn.style.opacity = '0';
+                video2Btn.style.pointerEvents = 'none';
+                video2Vid.addEventListener('ended', () => {
+                    video2Btn.style.opacity = '1';
+                    video2Btn.style.pointerEvents = 'auto';
+                    video2Vid.muted = true;
+                }, { once: true });
+            }
+        });
+
+        // Also allow clicking the video itself on desktop
+        if (video2Player) {
+            video2Player.addEventListener('click', (e) => {
+                if (e.target === video2Btn || video2Btn.contains(e.target)) return;
+                video2Btn.click();
+            });
+        }
+    }
+
+    if (fsClose && fsOverlay && fsVideo) {
+        fsClose.addEventListener('click', () => {
+            fsVideo.pause();
+            fsVideo.src = '';
+            fsOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+    }
 }
 
 /* ─── Sticky Mobile CTA ─── */
@@ -931,12 +981,11 @@ function initSectionReveals() {
             ['.produkt-panels-wrapper', 5],
             ['.produkt-section-cta', 6],
         ],
-        // Section 7: Video2
+        // Section 5b: Video2 (So funktioniert)
         'video2': [
             [':scope > div > span', 1],
             [':scope > div > h2', 2],
-            [':scope > div > div', 3],
-            [':scope > div > p', 4],
+            ['.video2-layout', 3],
         ],
         // Section 7: Wirkung (Pillar Carousel — sub-steps handle slides)
         'wirkung': [
