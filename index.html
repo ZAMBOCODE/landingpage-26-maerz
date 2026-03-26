@@ -556,6 +556,9 @@
             transition: opacity 0.5s ease;
             z-index: 5;
             grid-column: 1 / -1;
+            background: rgba(255,255,255,0.6);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
         }
         .pillar-overlay.visible {
             opacity: 1;
@@ -1120,7 +1123,7 @@
 
 
     <!-- === SECTION 6: Produkt-Info (Inhaltsstoffe + Qualität) === -->
-    <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:85vh; display:flex; align-items:center;">
+    <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:85vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
         <div style="max-width:1300px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:0.75rem;">
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#861330;">deine Abendroutine.</span></h2>
@@ -1176,7 +1179,7 @@
 
 
     <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
-    <section id="wirkung" data-substeps="5" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:85vh; display:flex; align-items:center;">
+    <section id="wirkung" data-substeps="5" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:85vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
         <div style="max-width:1200px; margin:0 auto; position:relative;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
@@ -1288,6 +1291,10 @@
                 </div>
             </div>
             </div><!-- /pillar-carousel -->
+            <div class="mobile-scroll-hint" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
         </div>
     </section>
 
