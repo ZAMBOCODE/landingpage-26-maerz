@@ -1089,7 +1089,7 @@ function initChatGPTButton() {
     const copied = document.getElementById('chatgpt-copied');
     if (!btn) return;
 
-    const prompt = 'Erkläre mir die wissenschaftliche Wirkung dieser Inhaltsstoffe auf den Schlaf und die nächtliche Regeneration: Melatonin, L-Tryptophan, Safran-Extrakt (Crocus sativus), Nopal-Kaktus Pulver (Opuntia ficus-indica), Zink, Chrom, Magnesium, Niacin (B3), Pantothensäure (B5), Pyridoxin (B6), Riboflavin (B2), Thiamin (B1), Biotin (B7), Folat (B9) und Methylcobalamin (B12). Diese Kombination ist im Nahrungsergänzungsmittel zZzlim® Night Complex enthalten.';
+    const prompt = 'Erkläre mir die wissenschaftliche Wirkung dieser Inhaltsstoffe auf den Schlaf und die nächtliche Regeneration: Melatonin, L-Tryptophan, Safran-Extrakt (Crocus sativus), Nopal-Kaktus Pulver (Opuntia ficus-indica), Zink, Chrom, Niacin (B3), Pantothensäure (B5), Pyridoxin (B6), Riboflavin (B2), Thiamin (B1), Biotin (B7), Folat (B9) und Methylcobalamin (B12). Diese Kombination ist im Nahrungsergänzungsmittel zZzlim® Night Complex enthalten.';
 
     btn.addEventListener('click', () => {
         navigator.clipboard.writeText(prompt).then(() => {

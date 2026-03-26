@@ -37,7 +37,7 @@ const translations = {
     "urs.c3.title": "Blaues Licht",
     "urs.c3.desc": "Bildschirmlicht signalisiert dem Gehirn: Es ist noch Tag. Die Melatonin-Produktion wird verzögert und der natürliche Schlaf-Wach-Rhythmus verschoben.",
     "urs.c4.title": "Nährstoffmangel",
-    "urs.c4.desc": "Magnesium, B-Vitamine, Zink und andere Mikronährstoffe sind an der Produktion schlafregulierender Hormone beteiligt. Ein Mangel kann den natürlichen Schlafprozess beeinträchtigen.",
+    "urs.c4.desc": "B-Vitamine, Zink und andere Mikronährstoffe sind an der Produktion schlafregulierender Hormone beteiligt. Ein Mangel kann den natürlichen Schlafprozess beeinträchtigen.",
     "urs.closing": "Schon kleine Veränderungen am Abend können helfen.",
 
     // Section 6: Produkt-Info
@@ -142,7 +142,7 @@ const translations = {
     "urs.c3.title": "Blue light",
     "urs.c3.desc": "Screen light signals to the brain: it's still daytime. Melatonin production is delayed and the natural sleep-wake rhythm is disrupted.",
     "urs.c4.title": "Nutrient deficiency",
-    "urs.c4.desc": "Magnesium, B vitamins, zinc and other micronutrients are involved in the production of sleep-regulating hormones. A deficiency can impair the natural sleep process.",
+    "urs.c4.desc": "B vitamins, zinc and other micronutrients are involved in the production of sleep-regulating hormones. A deficiency can impair the natural sleep process.",
     "urs.closing": "Even small changes in the evening can help.",
 
     "prod.title": 'Support for <span style="font-style:italic; color:#861330;">your evening routine.</span>',
@@ -242,7 +242,7 @@ const translations = {
     "urs.c3.title": "Mavi ışık",
     "urs.c3.desc": "Ekran ışığı beyne hâlâ gündüz olduğu sinyalini verir. Melatonin üretimi gecikir ve doğal uyku-uyanıklık ritmi bozulur.",
     "urs.c4.title": "Besin eksikliği",
-    "urs.c4.desc": "Magnezyum, B vitaminleri, çinko ve diğer mikro besinler uykuyu düzenleyen hormonların üretiminde rol oynar. Eksiklikleri doğal uyku sürecini bozabilir.",
+    "urs.c4.desc": "B vitaminleri, çinko ve diğer mikro besinler uykuyu düzenleyen hormonların üretiminde rol oynar. Eksiklikleri doğal uyku sürecini bozabilir.",
     "urs.closing": "Akşam yapılan küçük değişiklikler bile yardımcı olabilir.",
 
     "prod.title": '<span style="font-style:italic; color:#861330;">Akşam rutinin</span> için destek.',
