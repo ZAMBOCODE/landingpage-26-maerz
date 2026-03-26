@@ -1708,7 +1708,11 @@ ul, ol { list-style: none; }
 /* ─── 19c. Produkt-Info Mobile Compact ─── */
 @media (max-width: 768px) {
     #produkt-info {
-        padding: 1.5rem 16px !important;
+        padding: clamp(1.5rem, 4vh, 3rem) 16px !important;
+        min-height: 100dvh !important;
+        display: flex !important;
+        -webkit-align-items: center !important;
+        align-items: center !important;
     }
     #produkt-info > div > div[style*="margin-bottom"] {
         margin-bottom: 0.75rem !important;

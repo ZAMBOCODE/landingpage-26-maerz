@@ -595,27 +595,27 @@
             /* Scroll progress bar: hide on mobile */
             .scroll-progress { display: none !important; }
 
-            /* Story cards: compact single column on mobile */
-            .story-card-inner { grid-template-columns: 1fr !important; gap: 1rem !important; padding: 1.25rem !important; }
+            /* Story cards: compact single column on mobile — fluid sizing */
+            .story-card-inner { grid-template-columns: 1fr !important; gap: clamp(0.75rem, 2.5vw, 1.25rem) !important; padding: clamp(1rem, 3vw, 1.5rem) !important; }
             .story-card--reversed .story-card-inner { direction: ltr; }
             .story-image-side { order: -1; }
             .story-text-side { order: 1; }
-            .story-image-placeholder { max-width: 210px !important; }
-            .story-image-frame { max-width: 230px !important; border-radius: 14px !important; margin: 0 auto; }
+            .story-image-placeholder { max-width: clamp(180px, 55vw, 260px) !important; }
+            .story-image-frame { max-width: clamp(200px, 58vw, 280px) !important; border-radius: 14px !important; margin: 0 auto; }
             .story-image-frame img { aspect-ratio: 4/3 !important; }
             .story-container { min-height: auto !important; }
-            .story-title { font-size: 1.4rem !important; margin-bottom: 0.5rem !important; }
-            .story-desc { font-size: 0.95rem !important; line-height: 1.55 !important; }
+            .story-title { font-size: clamp(1.2rem, 4vw, 1.6rem) !important; margin-bottom: 0.5rem !important; }
+            .story-desc { font-size: clamp(0.85rem, 2.8vw, 1.05rem) !important; line-height: 1.55 !important; }
             .story-number { width: 32px; height: 32px; font-size: 0.875rem; margin-bottom: 0.5rem !important; }
             /* Story thread: right side on mobile */
             .story-thread { left: auto !important; right: -8px !important; transform: none !important; }
-            /* Ursachen section: tighter padding, centered */
-            #ursachen { padding: 2.5rem 16px !important; min-height: 85vh; display: flex; align-items: center; }
+            /* Ursachen section: fluid padding, centered on all devices */
+            #ursachen { padding: clamp(2rem, 5vh, 4rem) 16px !important; min-height: 100dvh; display: flex; align-items: center; }
             #ursachen > div { width: 100%; }
-            #ursachen .story-header { margin-bottom: 1.25rem !important; }
+            #ursachen .story-header { margin-bottom: clamp(1rem, 3vw, 1.5rem) !important; }
 
-            /* Selbstcheck: centered with header clearance */
-            #identification { justify-content: center !important; padding-top: 4.5rem !important; }
+            /* Selbstcheck: centered with header clearance, fluid */
+            #identification { justify-content: center !important; padding-top: clamp(3.5rem, 8vh, 5rem) !important; min-height: 100dvh; display: flex; align-items: center; }
 
             /* Symptom tiles: stacked, crossfade one at a time */
             #symptom-grid {
@@ -670,11 +670,14 @@
                 font-size: 1.75rem !important;
             }
 
+            /* Wirkung section: centered on mobile */
+            #wirkung { min-height: 100dvh !important; padding: clamp(2rem, 5vh, 4rem) 16px !important; }
+
             /* Pillar carousel: scroll-driven one-at-a-time on mobile */
             .pillar-carousel {
                 display: block !important;
                 position: relative !important;
-                min-height: 380px;
+                min-height: clamp(340px, 55vh, 420px);
             }
             .pillar-slide {
                 display: none !important;
