@@ -185,6 +185,7 @@ function initSlideshowScroll() {
         }
 
         // --- Type D: Pillar carousel (Wirkung section) ---
+        // Steps 1-3: reveal pillars, Step 4: all visible (reading pause), Step 5: overlay
         const pillarSlides = sec.querySelectorAll('.pillar-slide');
         if (pillarSlides.length) {
             const overlay = sec.querySelector('.pillar-overlay');
@@ -195,6 +196,7 @@ function initSlideshowScroll() {
                 if (mobile) {
                     // Mobile: show one slide at a time
                     if (si === step - 1 && step <= 3) slide.classList.add('active');
+                    if (step >= 4) slide.classList.add('active');
                 } else {
                     // Desktop: accumulate slides + peek
                     if (step >= 4 || si < step) {
@@ -205,7 +207,7 @@ function initSlideshowScroll() {
                 }
             });
 
-            if (overlay) overlay.classList.toggle('visible', step >= 4);
+            if (overlay) overlay.classList.toggle('visible', step >= 5);
             return;
         }
     }

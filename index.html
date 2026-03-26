@@ -67,6 +67,13 @@
         }
         main > section > * {
             width: 100%;
+            flex-shrink: 0;
+        }
+        /* Sections with tall content: start from top, no centering */
+        #produkt-info,
+        #wirkung {
+            justify-content: flex-start;
+            padding-top: 70px !important;
         }
         /* FAQ+Footer section: space between centers FAQ, footer at bottom */
         #faq-section {
@@ -434,10 +441,10 @@
             background: #ffffff;
             border: 1.5px solid #e5e7eb;
             border-radius: 24px;
-            padding: 3rem 2.5rem;
+            padding: 2rem 2rem;
             text-align: center;
             height: 100%;
-            min-height: 520px;
+            min-height: 0;
             box-shadow: 0 4px 24px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
@@ -445,35 +452,35 @@
         }
         .pillar-slide-title {
             font-family: 'Fraunces', serif;
-            font-size: 1.875rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .pillar-slide-label {
             display: block;
             font-family: 'Fraunces', serif;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            margin-bottom: 2rem;
+            margin-bottom: 1.25rem;
         }
         .pillar-ingredients {
             display: flex;
             justify-content: center;
-            gap: 1.875rem;
-            margin-bottom: 1.875rem;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
         }
         .pillar-ingredient {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.625rem;
+            gap: 0.5rem;
         }
         .pillar-ingredient-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -494,9 +501,9 @@
         }
         .pillar-slide-desc {
             font-family: 'Fraunces', serif;
-            font-size: 1.0625rem;
+            font-size: 0.9375rem;
             color: #64748b;
-            line-height: 1.6;
+            line-height: 1.5;
             max-width: 32rem;
             margin: auto auto 0;
         }
@@ -642,8 +649,8 @@
                 from { opacity: 0; transform: scale(0.95); }
                 to { opacity: 1; transform: scale(1); }
             }
-            .pillar-slide-card { padding: 1.875rem 1.5rem !important; min-height: 420px !important; }
-            .pillar-ingredient-icon { width: 65px !important; height: 65px !important; border-radius: 15px !important; }
+            .pillar-slide-card { padding: 1.5rem 1.25rem !important; min-height: 0 !important; }
+            .pillar-ingredient-icon { width: 56px !important; height: 56px !important; border-radius: 14px !important; }
             /* Overlay: covers carousel on mobile too */
             .pillar-overlay {
                 position: absolute !important;
@@ -814,9 +821,9 @@
             </nav>
             <div class="header-actions">
                 <div class="lang-switch">
-                    <button class="lang-btn active" data-lang="de">DE</button>
-                    <button class="lang-btn" data-lang="en">EN</button>
-                    <button class="lang-btn" data-lang="tr">TR</button>
+                    <button class="lang-btn active" data-lang="de"><span class="flag-icon">🇩🇪</span></button>
+                    <button class="lang-btn" data-lang="en"><span class="flag-icon">🇬🇧</span></button>
+                    <button class="lang-btn" data-lang="tr"><span class="flag-icon">🇹🇷</span></button>
                 </div>
                 <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="btn-shop">SHOP
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -843,9 +850,9 @@
             </div>
             <div style="height:1px;background:rgba(134,19,48,0.3);margin:0 1.5rem;"></div>
             <div class="lang-switch lang-switch--mobile">
-                <button class="lang-btn active" data-lang="de">DE</button>
-                <button class="lang-btn" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="tr">TR</button>
+                <button class="lang-btn active" data-lang="de"><span class="flag-icon">🇩🇪</span></button>
+                <button class="lang-btn" data-lang="en"><span class="flag-icon">🇬🇧</span></button>
+                <button class="lang-btn" data-lang="tr"><span class="flag-icon">🇹🇷</span></button>
             </div>
             <nav class="mobile-menu-nav">
                 <a href="#ursachen" data-i18n="nav.ursachen">Ursachen</a>
@@ -877,10 +884,10 @@
                 <!-- Left: Text -->
                 <div class="hero-glass" style="background:rgba(255,255,255,0.65); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); padding:56px 48px; display:flex; flex-direction:column; justify-content:center;">
                     <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:1.25rem;" data-i18n="hero.title">
-                        Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
+                        Warum Zucker am Abend deinen Schlaf sabotiert.
                     </h1>
                     <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; line-height:1.6;" data-i18n="hero.desc">
-                        Millionen Deutsche kennen dieses Gefühl.
+                        Was viele nicht wissen: Das Dessert am Abend kann über die Schlafqualität der ganzen Nacht entscheiden.
                     </p>
                 </div>
 
@@ -905,9 +912,9 @@
                 <!-- Text: centered in viewport, overlaps video gradient zone -->
                 <div style="position:absolute; top:65%; left:50%; transform:translate(-50%,-50%); z-index:2; width:90%; text-align:center; padding:0 24px;">
                     <h1 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,7vw,2.5rem); font-weight:700; line-height:1.2; color:#0f172a;" data-i18n="hero.mobile.title">
-                        Warum so viele Menschen nachts wach liegen, obwohl sie eigentlich müde sind.
+                        Warum Zucker am Abend deinen Schlaf sabotiert.
                     </h1>
-                    <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569; line-height:1.5; margin-top:0.75rem;" data-i18n="hero.desc">Millionen Deutsche kennen dieses Gefühl.</p>
+                    <p style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569; line-height:1.5; margin-top:0.75rem;" data-i18n="hero.desc">Was viele nicht wissen: Das Dessert am Abend kann über die Schlafqualität der ganzen Nacht entscheiden.</p>
                 </div>
             </div>
 
@@ -924,7 +931,7 @@
                 <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:2.5rem;" id="symptom-grid">
                     <!-- Tile 1 -->
                     <div class="symptom-tile" data-step="1" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t1">Du wachst nachts plötzlich auf</p>
+                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t1">Du greifst abends noch zu Süßem — obwohl du eigentlich satt bist</p>
                         <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
                             <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
                             <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
@@ -934,7 +941,7 @@
                     </div>
                     <!-- Tile 2 -->
                     <div class="symptom-tile" data-step="2" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t2">Dein Kopf ist müde, aber dein Körper nicht</p>
+                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t2">Du wachst nachts plötzlich auf und weißt nicht warum</p>
                         <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
                             <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
                             <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
@@ -944,7 +951,7 @@
                     </div>
                     <!-- Tile 3 -->
                     <div class="symptom-tile" data-step="3" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t3">Du schwitzt nachts ohne Grund</p>
+                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t3">Du fühlst dich morgens schwerer als am Vorabend</p>
                         <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
                             <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
                             <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
@@ -954,7 +961,7 @@
                     </div>
                     <!-- Tile 4 -->
                     <div class="symptom-tile" data-step="4" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t4">Du wirst um 3 Uhr wach, jede Nacht</p>
+                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t4">Du schwitzt nachts ohne Grund</p>
                         <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
                             <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
                             <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
@@ -1003,8 +1010,8 @@
                     <div class="story-card-inner">
                         <div class="story-text-side">
                             <span class="story-number">1</span>
-                            <h3 class="story-title" data-i18n="urs.c1.title">Spätes Essen</h3>
-                            <p class="story-desc" data-i18n="urs.c1.desc">Wenn der Körper nachts mit Verdauung beschäftigt ist, kann er sich weniger auf Regeneration konzentrieren. Die Schlafqualität leidet, auch wenn die Schlafdauer ausreichend erscheint.</p>
+                            <h3 class="story-title" data-i18n="urs.c1.title">Zucker am Abend</h3>
+                            <p class="story-desc" data-i18n="urs.c1.desc">Zucker am Abend treibt den Blutzucker hoch. Dein Körper schüttet Insulin aus, statt runterzufahren. Das Ergebnis: unruhiger Schlaf, nächtliches Aufwachen und Heißhunger am nächsten Tag. Ein Kreislauf, der sich Nacht für Nacht wiederholt.</p>
                         </div>
                         <div class="story-image-side">
                             <div class="story-image-frame">
@@ -1072,11 +1079,11 @@
 
 
     <!-- === SECTION 6: Produkt-Info (Inhaltsstoffe + Qualität) === -->
-    <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif;">
+    <section id="produkt-info" style="padding:1.5rem 50px 2rem; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden;">
         <div style="max-width:1300px; margin:0 auto;">
-            <div style="text-align:center; margin-bottom:3.5rem;">
+            <div style="text-align:center; margin-bottom:0.75rem;">
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#861330;">deine Abendroutine.</span></h2>
-                <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="prod.desc">Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt als Begleiter einer konsequenten Abendroutine.</p>
+                <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="prod.desc">Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt als Begleiter einer konsequenten Abendroutine.</p>
             </div>
             <div class="produkt-grid">
                 <!-- Left: Product Image -->
@@ -1128,12 +1135,13 @@
 
 
     <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
-    <section id="wirkung" data-substeps="4" style="background:#ffffff; padding:80px 24px; font-family:'Fraunces',serif;">
+    <section id="wirkung" data-substeps="5" style="background:#ffffff; padding:40px 24px; font-family:'Fraunces',serif;">
         <div style="max-width:1200px; margin:0 auto; position:relative;">
             <!-- Header -->
-            <div style="text-align:center; margin-bottom:3.5rem;" class="wirkung-header">
+            <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
                 <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
+                <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="wirk.subtitle">Ein aufeinander abgestimmter Komplex, der deinen Körper nachts in drei Phasen unterstützt.</p>
             </div>
 
             <!-- Pillar Carousel -->
@@ -1163,7 +1171,7 @@
                                 <span>Safran</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc" data-i18n="wirk.s1.desc">Melatonin trägt zur Verkürzung der Einschlafzeit bei. L-Tryptophan als Baustein für Serotonin. Safran-Extrakt für innere Ruhe.</p>
+                        <p class="pillar-slide-desc" data-i18n="wirk.s1.desc">Melatonin trägt zur Verkürzung der Einschlafzeit bei. L-Tryptophan als Baustein für Serotonin. Safran-Extrakt für innere Ruhe. Damit dein Körper nachts in den Regenerationsmodus wechseln kann — statt im Zucker-Stress zu bleiben.</p>
                     </div>
                 </div>
 
@@ -1192,7 +1200,7 @@
                                 <span>B-Vitamine</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc" data-i18n="wirk.s2.desc">Zink trägt zu einem normalen Kohlenhydratstoffwechsel bei. Chrom unterstützt den Blutzuckerspiegel. B-Vitamine für den Energiehaushalt.</p>
+                        <p class="pillar-slide-desc" data-i18n="wirk.s2.desc">Chrom unterstützt einen stabilen Blutzuckerspiegel — besonders wichtig, wenn abends Zucker im Spiel war. Zink unterstützt den Kohlenhydratstoffwechsel. B-Vitamine für den Energiehaushalt.</p>
                     </div>
                 </div>
 
@@ -1221,7 +1229,7 @@
                                 <span>Biotin</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc" data-i18n="wirk.s3.desc">Niacin unterstützt die normale Funktion des Nervensystems. B6 für den Energiestoffwechsel. Biotin für Haut, Haare und Stoffwechsel.</p>
+                        <p class="pillar-slide-desc" data-i18n="wirk.s3.desc">Niacin unterstützt die normale Funktion des Nervensystems. B6 für den Energiestoffwechsel. Biotin für Haut, Haare und Stoffwechsel. Damit du morgens nicht mit Heißhunger und Energielosigkeit aufwachst, sondern mit echtem Antrieb.</p>
                     </div>
                 </div>
 
