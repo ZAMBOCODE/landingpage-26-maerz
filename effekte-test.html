@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zZzlim — Cozy Flat Editorial Effects Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --burgundy: #861330;
+  --beige: #F0E6DC;
+  --night-blue: #2C3E6B;
+  --sage-green: #8BA88E;
+  --terracotta: #C4705A;
+  --warm-gold: #C4976A;
+  --dark-text: #211115;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-color: var(--burgundy) #f8f6f6;
+  scrollbar-width: thin;
+}
+
+body {
+  font-family: 'Fraunces', serif;
+  background: #f8f6f6;
+  color: var(--dark-text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* ── Navigation ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(134, 19, 48, 0.08);
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+}
+
+.nav-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--burgundy);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--dark-text);
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  flex-shrink: 0;
+}
+
+.nav a:hover,
+.nav a.active {
+  opacity: 1;
+  color: var(--burgundy);
+}
+
+/* ── Section Layout ── */
+.effect-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(134, 19, 48, 0.06);
+}
+
+.effect-section:nth-child(even) {
+  background: #faf8f5;
+}
+
+.effect-section:nth-child(odd) {
+  background: #ffffff;
+}
+
+/* ── Effects Canvas (left/right margins only) ── */
+.effect-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.effect-canvas svg,
+.effect-canvas canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Content Card ── */
+.content-card {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3.5rem 4rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(134, 19, 48, 0.06);
+  border-radius: 1rem;
+  box-shadow: 0 4px 40px rgba(134, 19, 48, 0.04);
+}
+
+.effect-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.effect-title {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.effect-title span {
+  color: var(--burgundy);
+  font-weight: 300;
+  opacity: 0.4;
+  margin-right: 0.25em;
+}
+
+.effect-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #5a4a50;
+  max-width: 560px;
+}
+
+.effect-meta {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(134, 19, 48, 0.12);
+  color: var(--burgundy);
+  background: rgba(134, 19, 48, 0.03);
+}
+
+/* ── Hero Intro ── */
+.hero-intro {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 3rem;
+  background: linear-gradient(180deg, #fff 0%, #faf8f5 100%);
+}
+
+.hero-intro h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 1rem;
+}
+
+.hero-intro h1 em {
+  font-style: normal;
+  color: var(--burgundy);
+}
+
+.hero-intro p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #5a4a50;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .content-card {
+    margin: 0 1.5rem;
+    padding: 2.5rem 2rem;
+  }
+  .effect-title { font-size: 1.5rem; }
+  .hero-intro h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-title">Effects</div>
+  <a href="#s1">1 Dotted Rings</a>
+  <a href="#s2">2 Dust</a>
+  <a href="#s3">3 Arcs</a>
+  <a href="#s4">4 Blobs</a>
+  <a href="#s5">5 Stars</a>
+  <a href="#s6">6 Ripples</a>
+  <a href="#s7">7 Feathers</a>
+  <a href="#s8">8 Constellation</a>
+  <a href="#s9">9 Orbs</a>
+  <a href="#s10">10 Dot Wave</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero-intro">
+  <div>
+    <h1>Cozy Flat <em>Editorial</em> Effects</h1>
+    <p>Ten subtle CSS and SVG decorative background effects for the zZzlim design system. Scroll down to preview each one.</p>
+  </div>
+</section>
+
+<!-- 1. Dotted Circle Rings -->
+<section class="effect-section" id="s1">
+  <div class="effect-canvas" id="canvas1"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 01 of 10</div>
+    <h2 class="effect-title"><span>1 —</span> Dotted Circle Rings</h2>
+    <p class="effect-description">Small dots arranged along invisible circular paths, slowly rotating at the left and right margins. Burgundy dots at 10% opacity create a delicate, mechanical quality reminiscent of vintage watchmaker engravings.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Burgundy #861330</span>
+      <span class="meta-tag">10% opacity</span>
+      <span class="meta-tag">CSS animation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Floating Dust Particles -->
+<section class="effect-section" id="s2">
+  <div class="effect-canvas" id="canvas2"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 02 of 10</div>
+    <h2 class="effect-title"><span>2 —</span> Floating Dust Particles</h2>
+    <p class="effect-description">Tiny circles (2-4px) float upward like warm dust motes caught in afternoon light streaming through a window. Warm-gold color at 15% opacity evokes the cozy feeling of sunlit reading nooks.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Warm-gold #C4976A</span>
+      <span class="meta-tag">15% opacity</span>
+      <span class="meta-tag">JavaScript particles</span>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Dashed Quarter-Arc Strokes -->
+<section class="effect-section" id="s3">
+  <div class="effect-canvas" id="canvas3"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 03 of 10</div>
+    <h2 class="effect-title"><span>3 —</span> Dashed Quarter-Arc Strokes</h2>
+    <p class="effect-description">SVG quarter-circle arcs with dashed strokes that slowly draw themselves in and then fade out. Burgundy at 12% opacity gives a sense of editorial craft, like compass marks left by a book designer.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Burgundy #861330</span>
+      <span class="meta-tag">12% opacity</span>
+      <span class="meta-tag">SVG stroke animation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Organic Blob Drift -->
+<section class="effect-section" id="s4">
+  <div class="effect-canvas" id="canvas4"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 04 of 10</div>
+    <h2 class="effect-title"><span>4 —</span> Organic Blob Drift</h2>
+    <p class="effect-description">Large, soft blob shapes using CSS border-radius morphing that slowly drift and change form at the edges. Beige and sage-green at 8% opacity evoke natural, organic warmth like watercolor washes on fine paper.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Beige #F0E6DC / Sage #8BA88E</span>
+      <span class="meta-tag">8% opacity</span>
+      <span class="meta-tag">CSS morphing</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Star Field Twinkle -->
+<section class="effect-section" id="s5">
+  <div class="effect-canvas" id="canvas5"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 05 of 10</div>
+    <h2 class="effect-title"><span>5 —</span> Star Field Twinkle</h2>
+    <p class="effect-description">Very small dots (1-2px) that appear and disappear like distant stars twinkling in a warm evening sky. A mix of warm-gold and burgundy at 15% opacity creates a subtle celestial atmosphere.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Warm-gold + Burgundy</span>
+      <span class="meta-tag">15% opacity</span>
+      <span class="meta-tag">JavaScript twinkle</span>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Concentric Circle Ripples -->
+<section class="effect-section" id="s6">
+  <div class="effect-canvas" id="canvas6"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 06 of 10</div>
+    <h2 class="effect-title"><span>6 —</span> Concentric Circle Ripples</h2>
+    <p class="effect-description">Circles that expand outward from random edge points and gently fade out, like ripples on a still pond. Burgundy at 10% opacity creates a meditative, calming rhythm along the margins.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Burgundy #861330</span>
+      <span class="meta-tag">10% opacity</span>
+      <span class="meta-tag">SVG + JS animation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Falling Feather Particles -->
+<section class="effect-section" id="s7">
+  <div class="effect-canvas" id="canvas7"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 07 of 10</div>
+    <h2 class="effect-title"><span>7 —</span> Falling Feather Particles</h2>
+    <p class="effect-description">Small elongated shapes drift downward with a gentle swaying motion, like feathers or leaves floating on a breeze. Sage-green at 12% opacity brings a touch of nature indoors.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Sage-green #8BA88E</span>
+      <span class="meta-tag">12% opacity</span>
+      <span class="meta-tag">CSS keyframe paths</span>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Connected Constellation Lines -->
+<section class="effect-section" id="s8">
+  <div class="effect-canvas" id="canvas8"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 08 of 10</div>
+    <h2 class="effect-title"><span>8 —</span> Connected Constellation Lines</h2>
+    <p class="effect-description">Small dots connected by thin lines in a constellation pattern that slowly shifts and breathes. Night-blue at 10% opacity recalls star maps and celestial navigation charts.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Night-blue #2C3E6B</span>
+      <span class="meta-tag">10% opacity</span>
+      <span class="meta-tag">Canvas drawing</span>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Gradient Orbs -->
+<section class="effect-section" id="s9">
+  <div class="effect-canvas" id="canvas9"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 09 of 10</div>
+    <h2 class="effect-title"><span>9 —</span> Gradient Orbs</h2>
+    <p class="effect-description">Large, soft radial gradient circles that slowly pulse and move at the margins. A mix of burgundy and warm-gold at 8% opacity creates a warm ambient glow, like candlelight reflections.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Burgundy + Warm-gold</span>
+      <span class="meta-tag">8% opacity</span>
+      <span class="meta-tag">CSS gradients + animation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Dot Grid Wave -->
+<section class="effect-section" id="s10">
+  <div class="effect-canvas" id="canvas10"></div>
+  <div class="content-card">
+    <div class="effect-number">Effect 10 of 10</div>
+    <h2 class="effect-title"><span>10 —</span> Dot Grid Wave</h2>
+    <p class="effect-description">A grid of small dots on the edges where each dot subtly shifts position in a wave pattern. Burgundy at 10% opacity creates a living texture, like woven fabric gently moving in a draft.</p>
+    <div class="effect-meta">
+      <span class="meta-tag">Burgundy #861330</span>
+      <span class="meta-tag">10% opacity</span>
+      <span class="meta-tag">Canvas wave math</span>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   Effects Engine — All 10 decorative background effects
+   ══════════════════════════════════════════════════════ */
+
+const COLORS = {
+  burgundy: '#861330',
+  beige: '#F0E6DC',
+  nightBlue: '#2C3E6B',
+  sageGreen: '#8BA88E',
+  terracotta: '#C4705A',
+  warmGold: '#C4976A',
+  darkText: '#211115'
+};
+
+// Utility: get the margin zones (left and right of center 800px area)
+function getMarginZones(w) {
+  const contentW = Math.min(800, w * 0.85);
+  const margin = (w - contentW) / 2;
+  return { left: margin, right: w - margin, contentW, margin };
+}
+
+// Utility: random in margin zone (left or right)
+function randMarginX(w) {
+  const { left, right } = getMarginZones(w);
+  if (Math.random() < 0.5) {
+    return Math.random() * left;
+  } else {
+    return right + Math.random() * (w - right);
+  }
+}
+
+// Utility: check if section is in viewport
+function isSectionVisible(section) {
+  const rect = section.getBoundingClientRect();
+  return rect.bottom > -200 && rect.top < window.innerHeight + 200;
+}
+
+/* ─────────────────────────────────────────────
+   1. Dotted Circle Rings
+   ───────────────────────────────────────────── */
+function initDottedCircleRings() {
+  const container = document.getElementById('canvas1');
+  const section = container.parentElement;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.style.position = 'absolute';
+  svg.style.top = '0';
+  svg.style.left = '0';
+  container.appendChild(svg);
+
+  function build() {
+    svg.innerHTML = '';
+    const w = section.offsetWidth;
+    const h = section.offsetHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    const { left, right } = getMarginZones(w);
+
+    const rings = [
+      { cx: left * 0.4, cy: h * 0.3, r: 80, dots: 16 },
+      { cx: left * 0.7, cy: h * 0.7, r: 55, dots: 12 },
+      { cx: right + (w - right) * 0.5, cy: h * 0.25, r: 70, dots: 14 },
+      { cx: right + (w - right) * 0.3, cy: h * 0.65, r: 90, dots: 18 },
+      { cx: left * 0.2, cy: h * 0.5, r: 40, dots: 10 },
+      { cx: right + (w - right) * 0.8, cy: h * 0.5, r: 50, dots: 11 },
+    ];
+
+    rings.forEach((ring, ri) => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const animTransform = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
+      animTransform.setAttribute('attributeName', 'transform');
+      animTransform.setAttribute('type', 'rotate');
+      animTransform.setAttribute('from', `0 ${ring.cx} ${ring.cy}`);
+      animTransform.setAttribute('to', `${ri % 2 === 0 ? 360 : -360} ${ring.cx} ${ring.cy}`);
+      animTransform.setAttribute('dur', `${30 + ri * 8}s`);
+      animTransform.setAttribute('repeatCount', 'indefinite');
+      g.appendChild(animTransform);
+
+      for (let i = 0; i < ring.dots; i++) {
+        const angle = (2 * Math.PI * i) / ring.dots;
+        const x = ring.cx + Math.cos(angle) * ring.r;
+        const y = ring.cy + Math.sin(angle) * ring.r;
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', x);
+        circle.setAttribute('cy', y);
+        circle.setAttribute('r', 2.5);
+        circle.setAttribute('fill', COLORS.burgundy);
+        circle.setAttribute('opacity', '0.18');
+        g.appendChild(circle);
+      }
+      svg.appendChild(g);
+    });
+  }
+
+  build();
+  window.addEventListener('resize', build);
+}
+
+/* ─────────────────────────────────────────────
+   2. Floating Dust Particles
+   ───────────────────────────────────────────── */
+function initFloatingDust() {
+  const container = document.getElementById('canvas2');
+  const section = container.parentElement;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let particles = [];
+  const COUNT = 60;
+
+  function resize() {
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+    if (particles.length === 0) initParticles();
+  }
+
+  function initParticles() {
+    particles = [];
+    const w = canvas.width, h = canvas.height;
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: randMarginX(w),
+        y: Math.random() * h,
+        r: 1 + Math.random() * 2,
+        speed: 0.15 + Math.random() * 0.3,
+        drift: (Math.random() - 0.5) * 0.2
+      });
+    }
+  }
+
+  function draw() {
+    if (!isSectionVisible(section)) { requestAnimationFrame(draw); return; }
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(196, 151, 106, 0.27)';
+
+    particles.forEach(p => {
+      p.y -= p.speed;
+      p.x += p.drift;
+      if (p.y < -10) {
+        p.y = h + 10;
+        p.x = randMarginX(w);
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* ─────────────────────────────────────────────
+   3. Dashed Quarter-Arc Strokes
+   ───────────────────────────────────────────── */
+function initDashedArcs() {
+  const container = document.getElementById('canvas3');
+  const section = container.parentElement;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.style.cssText = 'position:absolute;top:0;left:0;';
+  container.appendChild(svg);
+
+  function build() {
+    svg.innerHTML = '';
+    const w = section.offsetWidth;
+    const h = section.offsetHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    const { left, right } = getMarginZones(w);
+
+    const arcs = [
+      { cx: 0, cy: h * 0.2, r: left * 0.8, start: -0.1, end: Math.PI / 2 + 0.1 },
+      { cx: 0, cy: h * 0.7, r: left * 0.5, start: -0.2, end: Math.PI / 2 + 0.2 },
+      { cx: w, cy: h * 0.15, r: (w - right) * 1.2, start: Math.PI / 2, end: Math.PI + 0.1 },
+      { cx: w, cy: h * 0.55, r: (w - right) * 0.7, start: Math.PI / 2, end: Math.PI },
+      { cx: w, cy: h * 0.85, r: (w - right) * 1.5, start: Math.PI * 0.6, end: Math.PI * 1.1 },
+      { cx: 0, cy: h * 0.45, r: left * 1.1, start: -0.3, end: Math.PI / 2 },
+    ];
+
+    arcs.forEach((arc, ai) => {
+      const x1 = arc.cx + Math.cos(arc.start) * arc.r;
+      const y1 = arc.cy + Math.sin(arc.start) * arc.r;
+      const x2 = arc.cx + Math.cos(arc.end) * arc.r;
+      const y2 = arc.cy + Math.sin(arc.end) * arc.r;
+      const largeArc = (arc.end - arc.start) > Math.PI ? 1 : 0;
+
+      const d = `M ${x1} ${y1} A ${arc.r} ${arc.r} 0 ${largeArc} 1 ${x2} ${y2}`;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', COLORS.burgundy);
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-dasharray', '6 8');
+      path.setAttribute('opacity', '0.22');
+
+      const length = path.getTotalLength ? path.getTotalLength() : 300;
+      path.setAttribute('stroke-dasharray', `${length}`);
+      path.setAttribute('stroke-dashoffset', `${length}`);
+
+      const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      anim.setAttribute('attributeName', 'stroke-dashoffset');
+      anim.setAttribute('from', `${length}`);
+      anim.setAttribute('to', '0');
+      anim.setAttribute('dur', `${4 + ai * 1.5}s`);
+      anim.setAttribute('repeatCount', 'indefinite');
+      anim.setAttribute('keyTimes', '0;0.5;1');
+      anim.setAttribute('values', `${length};0;${length}`);
+      path.appendChild(anim);
+
+      // Also apply a dashed look to the drawn portion
+      const path2 = path.cloneNode(true);
+      path2.innerHTML = '';
+      path2.setAttribute('stroke-dasharray', '6 8');
+      path2.setAttribute('stroke-dashoffset', '0');
+      path2.setAttribute('opacity', '0.11');
+      svg.appendChild(path2);
+
+      svg.appendChild(path);
+    });
+  }
+
+  build();
+  window.addEventListener('resize', build);
+}
+
+/* ─────────────────────────────────────────────
+   4. Organic Blob Drift
+   ───────────────────────────────────────────── */
+function initBlobDrift() {
+  const container = document.getElementById('canvas4');
+  const section = container.parentElement;
+
+  const blobs = [
+    { color: COLORS.beige, x: '5%', y: '15%', size: 280, dur: 25 },
+    { color: COLORS.sageGreen, x: '-3%', y: '55%', size: 220, dur: 30 },
+    { color: COLORS.beige, x: '80%', y: '10%', size: 250, dur: 28 },
+    { color: COLORS.sageGreen, x: '85%', y: '60%', size: 300, dur: 22 },
+    { color: COLORS.beige, x: '90%', y: '35%', size: 180, dur: 35 },
+    { color: COLORS.sageGreen, x: '2%', y: '80%', size: 200, dur: 32 },
+  ];
+
+  blobs.forEach((b, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = `
+      position: absolute;
+      left: ${b.x};
+      top: ${b.y};
+      width: ${b.size}px;
+      height: ${b.size}px;
+      background: ${b.color};
+      opacity: 0.14;
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      animation: blobMorph${i % 3} ${b.dur}s ease-in-out infinite;
+      filter: blur(2px);
+    `;
+    container.appendChild(div);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes blobMorph0 {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0, 0) scale(1); }
+      25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(15px, -10px) scale(1.05); }
+      50% { border-radius: 50% 60% 30% 60% / 30% 50% 70% 60%; transform: translate(-10px, 15px) scale(0.95); }
+      75% { border-radius: 40% 60% 50% 40% / 60% 40% 60% 50%; transform: translate(5px, 5px) scale(1.02); }
+    }
+    @keyframes blobMorph1 {
+      0%, 100% { border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; transform: translate(0, 0) scale(1); }
+      33% { border-radius: 70% 30% 50% 50% / 30% 70% 30% 70%; transform: translate(-20px, 10px) scale(1.04); }
+      66% { border-radius: 30% 50% 70% 50% / 60% 40% 50% 50%; transform: translate(10px, -15px) scale(0.97); }
+    }
+    @keyframes blobMorph2 {
+      0%, 100% { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; transform: translate(0, 0) rotate(0deg) scale(1); }
+      50% { border-radius: 40% 60% 50% 50% / 60% 50% 40% 60%; transform: translate(10px, 10px) rotate(5deg) scale(1.06); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* ─────────────────────────────────────────────
+   5. Star Field Twinkle
+   ───────────────────────────────────────────── */
+function initStarField() {
+  const container = document.getElementById('canvas5');
+  const section = container.parentElement;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let stars = [];
+  const COUNT = 80;
+
+  function resize() {
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+    initStars();
+  }
+
+  function initStars() {
+    stars = [];
+    const w = canvas.width, h = canvas.height;
+    for (let i = 0; i < COUNT; i++) {
+      stars.push({
+        x: randMarginX(w),
+        y: Math.random() * h,
+        r: 0.5 + Math.random() * 1.2,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.5 + Math.random() * 1.5,
+        color: Math.random() < 0.5 ? COLORS.warmGold : COLORS.burgundy
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    if (!isSectionVisible(section)) { requestAnimationFrame(draw); return; }
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    t += 0.016;
+
+    stars.forEach(s => {
+      const alpha = 0.27 * (0.3 + 0.7 * Math.max(0, Math.sin(t * s.speed + s.phase)));
+      ctx.fillStyle = s.color === COLORS.warmGold
+        ? `rgba(196, 151, 106, ${alpha})`
+        : `rgba(134, 19, 48, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* ─────────────────────────────────────────────
+   6. Concentric Circle Ripples
+   ───────────────────────────────────────────── */
+function initRipples() {
+  const container = document.getElementById('canvas6');
+  const section = container.parentElement;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.style.cssText = 'position:absolute;top:0;left:0;';
+  container.appendChild(svg);
+
+  let ripples = [];
+  let w, h;
+
+  function resize() {
+    w = section.offsetWidth;
+    h = section.offsetHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  }
+
+  function spawnRipple() {
+    if (!isSectionVisible(section)) return;
+    const x = randMarginX(w);
+    const y = Math.random() * h;
+
+    for (let i = 0; i < 3; i++) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', '5');
+      circle.setAttribute('fill', 'none');
+      circle.setAttribute('stroke', COLORS.burgundy);
+      circle.setAttribute('stroke-width', '1');
+      circle.setAttribute('opacity', '0.18');
+
+      const animR = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      animR.setAttribute('attributeName', 'r');
+      animR.setAttribute('from', `${5 + i * 15}`);
+      animR.setAttribute('to', `${80 + i * 30}`);
+      animR.setAttribute('dur', `${3 + i * 0.8}s`);
+      animR.setAttribute('begin', `${i * 0.5}s`);
+      animR.setAttribute('fill', 'freeze');
+      circle.appendChild(animR);
+
+      const animO = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      animO.setAttribute('attributeName', 'opacity');
+      animO.setAttribute('from', '0.18');
+      animO.setAttribute('to', '0');
+      animO.setAttribute('dur', `${3 + i * 0.8}s`);
+      animO.setAttribute('begin', `${i * 0.5}s`);
+      animO.setAttribute('fill', 'freeze');
+      circle.appendChild(animO);
+
+      svg.appendChild(circle);
+
+      const totalDur = (3 + i * 0.8 + i * 0.5) * 1000;
+      setTimeout(() => {
+        if (circle.parentNode) circle.parentNode.removeChild(circle);
+      }, totalDur + 500);
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  spawnRipple();
+  setInterval(spawnRipple, 2500);
+}
+
+/* ─────────────────────────────────────────────
+   7. Falling Feather Particles
+   ───────────────────────────────────────────── */
+function initFeathers() {
+  const container = document.getElementById('canvas7');
+  const section = container.parentElement;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let feathers = [];
+  const COUNT = 30;
+
+  function resize() {
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+    if (feathers.length === 0) initFeathersData();
+  }
+
+  function initFeathersData() {
+    feathers = [];
+    const w = canvas.width, h = canvas.height;
+    for (let i = 0; i < COUNT; i++) {
+      feathers.push({
+        x: randMarginX(w),
+        y: Math.random() * h,
+        length: 8 + Math.random() * 10,
+        angle: Math.random() * Math.PI * 2,
+        speed: 0.2 + Math.random() * 0.3,
+        swayAmp: 15 + Math.random() * 20,
+        swaySpeed: 0.3 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2,
+        rotSpeed: 0.01 + Math.random() * 0.02,
+        baseX: randMarginX(w)
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    if (!isSectionVisible(section)) { requestAnimationFrame(draw); return; }
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    t += 0.016;
+
+    ctx.strokeStyle = 'rgba(139, 168, 142, 0.22)';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    feathers.forEach(f => {
+      f.y += f.speed;
+      f.x = f.baseX + Math.sin(t * f.swaySpeed + f.phase) * f.swayAmp;
+      f.angle += f.rotSpeed * Math.sin(t * 0.5 + f.phase);
+
+      if (f.y > h + 20) {
+        f.y = -20;
+        f.baseX = randMarginX(w);
+        f.x = f.baseX;
+      }
+
+      ctx.save();
+      ctx.translate(f.x, f.y);
+      ctx.rotate(f.angle);
+      ctx.beginPath();
+      ctx.moveTo(-f.length / 2, 0);
+      ctx.quadraticCurveTo(0, -3, f.length / 2, 0);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-f.length / 2, 0);
+      ctx.quadraticCurveTo(0, 3, f.length / 2, 0);
+      ctx.stroke();
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* ─────────────────────────────────────────────
+   8. Connected Constellation Lines
+   ───────────────────────────────────────────── */
+function initConstellation() {
+  const container = document.getElementById('canvas8');
+  const section = container.parentElement;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let nodes = [];
+  const COUNT = 30;
+  const CONNECT_DIST = 120;
+
+  function resize() {
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+    initNodes();
+  }
+
+  function initNodes() {
+    nodes = [];
+    const w = canvas.width, h = canvas.height;
+    for (let i = 0; i < COUNT; i++) {
+      nodes.push({
+        x: randMarginX(w),
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
+        r: 1.5 + Math.random() * 1.5
+      });
+    }
+  }
+
+  function draw() {
+    if (!isSectionVisible(section)) { requestAnimationFrame(draw); return; }
+    const w = canvas.width, h = canvas.height;
+    const { left, right } = getMarginZones(w);
+    ctx.clearRect(0, 0, w, h);
+
+    // Update positions
+    nodes.forEach(n => {
+      n.x += n.vx;
+      n.y += n.vy;
+
+      // Keep within margin zones
+      if (n.x < left) {
+        if (n.x < 0) { n.x = 0; n.vx = Math.abs(n.vx); }
+        if (n.x > left) { n.x = left; n.vx = -Math.abs(n.vx); }
+      } else {
+        if (n.x < right) { n.x = right; n.vx = Math.abs(n.vx); }
+        if (n.x > w) { n.x = w; n.vx = -Math.abs(n.vx); }
+      }
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+      n.y = Math.max(0, Math.min(h, n.y));
+    });
+
+    // Draw connections
+    ctx.strokeStyle = 'rgba(44, 62, 107, 0.13)';
+    ctx.lineWidth = 0.8;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECT_DIST) {
+          const alpha = 0.13 * (1 - dist / CONNECT_DIST);
+          ctx.strokeStyle = `rgba(44, 62, 107, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw dots
+    ctx.fillStyle = 'rgba(44, 62, 107, 0.18)';
+    nodes.forEach(n => {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* ─────────────────────────────────────────────
+   9. Gradient Orbs
+   ───────────────────────────────────────────── */
+function initGradientOrbs() {
+  const container = document.getElementById('canvas9');
+
+  const orbs = [
+    { color1: COLORS.burgundy, x: '3%', y: '20%', size: 350, dur: 20 },
+    { color1: COLORS.warmGold, x: '-5%', y: '60%', size: 280, dur: 25 },
+    { color1: COLORS.burgundy, x: '82%', y: '15%', size: 300, dur: 22 },
+    { color1: COLORS.warmGold, x: '88%', y: '55%', size: 260, dur: 28 },
+    { color1: COLORS.burgundy, x: '92%', y: '75%', size: 220, dur: 18 },
+    { color1: COLORS.warmGold, x: '1%', y: '40%', size: 200, dur: 32 },
+  ];
+
+  orbs.forEach((o, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = `
+      position: absolute;
+      left: ${o.x};
+      top: ${o.y};
+      width: ${o.size}px;
+      height: ${o.size}px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, ${o.color1} 0%, transparent 70%);
+      opacity: 0.14;
+      animation: orbPulse${i % 3} ${o.dur}s ease-in-out infinite;
+      filter: blur(8px);
+    `;
+    container.appendChild(div);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes orbPulse0 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.14; }
+      50% { transform: translate(20px, -15px) scale(1.15); opacity: 0.09; }
+    }
+    @keyframes orbPulse1 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.11; }
+      50% { transform: translate(-15px, 20px) scale(1.1); opacity: 0.16; }
+    }
+    @keyframes orbPulse2 {
+      0%, 100% { transform: translate(0, 0) scale(1.05); opacity: 0.13; }
+      33% { transform: translate(10px, 10px) scale(0.95); opacity: 0.09; }
+      66% { transform: translate(-10px, -5px) scale(1.1); opacity: 0.14; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* ─────────────────────────────────────────────
+   10. Dot Grid Wave
+   ───────────────────────────────────────────── */
+function initDotGridWave() {
+  const container = document.getElementById('canvas10');
+  const section = container.parentElement;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let leftDots = [];
+  let rightDots = [];
+  const SPACING = 24;
+
+  function resize() {
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+    buildGrid();
+  }
+
+  function buildGrid() {
+    leftDots = [];
+    rightDots = [];
+    const w = canvas.width, h = canvas.height;
+    const { left, right } = getMarginZones(w);
+
+    // Left margin grid
+    for (let x = SPACING; x < left - 10; x += SPACING) {
+      for (let y = SPACING; y < h; y += SPACING) {
+        leftDots.push({ baseX: x, baseY: y, x, y });
+      }
+    }
+    // Right margin grid
+    for (let x = right + 10; x < w - 5; x += SPACING) {
+      for (let y = SPACING; y < h; y += SPACING) {
+        rightDots.push({ baseX: x, baseY: y, x, y });
+      }
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    if (!isSectionVisible(section)) { requestAnimationFrame(draw); return; }
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(134, 19, 48, 0.18)';
+    t += 0.012;
+
+    function drawDots(dots) {
+      dots.forEach(d => {
+        const wave = Math.sin(d.baseY * 0.02 + t) * 5 + Math.cos(d.baseX * 0.03 + t * 0.7) * 3;
+        const waveY = Math.cos(d.baseY * 0.025 + t * 0.8) * 3 + Math.sin(d.baseX * 0.02 + t * 1.1) * 2;
+        d.x = d.baseX + wave;
+        d.y = d.baseY + waveY;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    drawDots(leftDots);
+    drawDots(rightDots);
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* ── Initialize all effects ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initDottedCircleRings();
+  initFloatingDust();
+  initDashedArcs();
+  initBlobDrift();
+  initStarField();
+  initRipples();
+  initFeathers();
+  initConstellation();
+  initGradientOrbs();
+  initDotGridWave();
+
+  // Active nav link tracking
+  const sections = document.querySelectorAll('.effect-section');
+  const navLinks = document.querySelectorAll('.nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const id = entry.target.id;
+        const link = document.querySelector(`.nav a[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+});
+</script>
+</body>
+</html>
