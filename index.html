@@ -167,6 +167,42 @@
             60% { transform: translateX(-50%) translateY(-6px); }
         }
 
+        /* ─── Mobile Scroll Hint (Sections 2 & 3) ─── */
+        .mobile-scroll-hint {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-scroll-hint {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                position: absolute;
+                bottom: 1.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0.35;
+                pointer-events: none;
+            }
+            .mobile-scroll-hint svg {
+                width: 18px;
+                height: 18px;
+                stroke: #861330;
+                stroke-width: 2.5;
+                fill: none;
+                animation: scrollHintBounce 2s ease-in-out infinite;
+            }
+            .mobile-scroll-hint svg:nth-child(2) {
+                margin-top: -6px;
+                animation-delay: 0.15s;
+                opacity: 0.5;
+            }
+            @keyframes scrollHintBounce {
+                0%, 100% { transform: translateY(0); opacity: 0.4; }
+                50% { transform: translateY(5px); opacity: 1; }
+            }
+        }
+
         /* ─── Story Scroll Section (Section 5) ─── */
         .story-container {
             position: relative;
@@ -981,6 +1017,10 @@
             <div class="selbstcheck-closing" id="selbstcheck-closing">
                 <h2><span class="underline-anim" data-i18n="check.closing2">Dann bist du nicht allein.</span></h2>
             </div>
+            <div class="mobile-scroll-hint" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
         </section>
 
 
@@ -1071,6 +1111,10 @@
             <div class="story-closing" id="story-closing">
                 <h2><span class="underline-anim" data-i18n="urs.closing">Schon kleine Veränderungen am Abend können helfen.</span></h2>
             </div>
+        </div>
+        <div class="mobile-scroll-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
     </section>
 
