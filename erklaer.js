@@ -826,7 +826,7 @@ function initVideoLazyLoad() {
     const v2section = document.getElementById('video2');
 
     if (v2vid && v2overlay && v2playBtn) {
-        // Click play button → hide overlay, show controls, play
+        // Click play button → hide overlay, show controls, play (fullscreen on mobile)
         v2playBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             v2overlay.style.opacity = '0';
@@ -834,6 +834,12 @@ function initVideoLazyLoad() {
             v2vid.controls = true;
             v2vid.muted = false;
             v2vid.play();
+            // Fullscreen on mobile
+            if (window.innerWidth <= 768) {
+                if (v2vid.requestFullscreen) v2vid.requestFullscreen();
+                else if (v2vid.webkitEnterFullscreen) v2vid.webkitEnterFullscreen();
+                else if (v2vid.webkitRequestFullscreen) v2vid.webkitRequestFullscreen();
+            }
         });
 
         // Click overlay area → same as play
@@ -851,6 +857,12 @@ function initVideoLazyLoad() {
             v2overlay.style.pointerEvents = 'auto';
             v2vid.controls = false;
         });
+
+        // When exiting fullscreen, pause and show overlay
+        v2vid.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) { v2vid.pause(); }
+        });
+        v2vid.addEventListener('webkitendfullscreen', () => { v2vid.pause(); });
 
         // Pause video when scrolling away from section
         if (v2section) {
