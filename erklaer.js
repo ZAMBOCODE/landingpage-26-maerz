@@ -819,30 +819,36 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2: simple native player, pause on scroll-away, fullscreen on mobile play
-    const v2vid = document.querySelector('.video2-vid');
-    const v2section = document.getElementById('video2');
+    // Video2: click thumbnail → open overlay, close with X or click outside
+    const v2thumb = document.querySelector('.video2-thumb');
+    const v2overlay = document.getElementById('video2-overlay');
+    const v2vid = document.getElementById('video2-vid');
+    const v2close = document.getElementById('video2-close');
 
-    if (v2vid) {
-        // On mobile: go fullscreen when play starts
-        v2vid.addEventListener('play', () => {
-            if (window.innerWidth <= 768) {
-                if (v2vid.webkitEnterFullscreen) v2vid.webkitEnterFullscreen();
-                else if (v2vid.requestFullscreen) v2vid.requestFullscreen();
-            }
+    if (v2thumb && v2overlay && v2vid && v2close) {
+        // Open overlay
+        v2thumb.addEventListener('click', () => {
+            v2overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            v2vid.play().catch(() => {});
         });
 
-        // Pause video when scrolling away from section
-        if (v2section) {
-            const v2observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting && !v2vid.paused) {
-                        v2vid.pause();
-                    }
-                });
-            }, { threshold: 0.3 });
-            v2observer.observe(v2section);
+        // Close overlay
+        function closeVideo2() {
+            v2vid.pause();
+            v2vid.currentTime = 0;
+            v2overlay.style.display = 'none';
+            document.body.style.overflow = '';
         }
+        v2close.addEventListener('click', closeVideo2);
+        v2overlay.addEventListener('click', (e) => {
+            if (e.target === v2overlay) closeVideo2();
+        });
+
+        // ESC key closes
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && v2overlay.style.display === 'flex') closeVideo2();
+        });
     }
 }
 

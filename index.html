@@ -1160,14 +1160,20 @@
             <span style="display:inline-block; background:rgba(134,19,48,0.08); color:#861330; padding:0.25rem 1rem; border-radius:999px; font-size:clamp(0.7rem,1.2vw,0.85rem); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
-            <div class="video2-player" style="border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh;">
-                <video class="video2-vid" controls playsinline preload="metadata" poster="media/Thumbnailvideo.jpeg" style="width:100%; height:100%; object-fit:cover; display:block;">
-                    <source src="media/VideoLanding-web.mp4" type="video/mp4">
-                    Dein Browser unterstützt kein Video.
-                </video>
+            <!-- Thumbnail (click to open overlay) -->
+            <div class="video2-thumb" style="position:relative; border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh; cursor:pointer;">
+                <img src="media/Thumbnailvideo.jpeg" alt="Video abspielen" style="width:100%; height:100%; object-fit:cover; display:block;">
             </div>
         </div>
     </section>
+
+    <!-- Video Overlay (fullscreen, centered) -->
+    <div id="video2-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.92); -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
+        <button id="video2-close" style="position:absolute; top:clamp(16px,3vh,32px); right:clamp(16px,3vw,32px); width:48px; height:48px; border-radius:50%; background:#861330; color:#fff; border:none; cursor:pointer; z-index:10000; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; box-shadow:0 4px 16px rgba(0,0,0,0.4); font-size:1.25rem; font-weight:700;">✕</button>
+        <video id="video2-vid" controls playsinline preload="metadata" style="max-width:90vw; max-height:85vh; border-radius:12px; outline:none;">
+            <source src="media/VideoLanding-web.mp4" type="video/mp4">
+        </video>
+    </div>
 
 
     <!-- === SECTION 6: Produkt-Info (Inhaltsstoffe + Qualität) === -->
