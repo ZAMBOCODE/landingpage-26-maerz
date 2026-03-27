@@ -850,6 +850,20 @@ function initVideoLazyLoad() {
             if (e.key === 'Escape' && v2overlay.style.display === 'flex') closeVideo2();
         });
     }
+
+    // Mobile video: pause when scrolling away from video section
+    const v2MobilePlayer = document.getElementById('video2-mobile-player');
+    const v2MobileVid = document.getElementById('video2-mobile-vid');
+    if (v2MobilePlayer && v2MobileVid) {
+        const mobileObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    v2MobilePlayer.pause();
+                }
+            });
+        }, { threshold: 0.3 });
+        mobileObserver.observe(v2MobileVid);
+    }
 }
 
 /* ─── Sticky Mobile CTA ─── */
