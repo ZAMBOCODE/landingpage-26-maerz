@@ -1725,15 +1725,19 @@ ul, ol { list-style: none; }
         display: none !important;
     }
     .produkt-grid {
-        gap: 0.5rem;
+        gap: 0.25rem;
     }
     .produkt-image img {
-        max-width: clamp(220px, 55vw, 300px);
+        max-width: clamp(180px, 45vw, 240px);
         margin-bottom: 0;
-        max-height: clamp(180px, 30vh, 240px);
+        max-height: clamp(140px, 22vh, 200px);
         object-fit: contain;
         object-position: center;
         border-radius: 12px;
+    }
+    .produkt-image {
+        margin: 0 !important;
+        padding: 0 !important;
     }
     .produkt-tab-nav {
         margin-bottom: 1rem;
@@ -1801,7 +1805,7 @@ ul, ol { list-style: none; }
         font-size: 0.725rem;
     }
     .produkt-section-cta {
-        margin-top: 1.25rem;
+        margin-top: 0.75rem;
     }
     .produkt-section-cta a {
         padding: 0.875rem 2rem;
