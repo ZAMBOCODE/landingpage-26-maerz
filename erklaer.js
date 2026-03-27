@@ -819,40 +819,18 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2: click thumbnail to play, fullscreen on mobile
+    // Video2: simple native player, pause on scroll-away, fullscreen on mobile play
     const v2vid = document.querySelector('.video2-vid');
-    const v2overlay = document.querySelector('.video2-overlay');
     const v2section = document.getElementById('video2');
 
-    if (v2vid && v2overlay) {
-        // Click overlay → hide it, show controls, play
-        v2overlay.addEventListener('click', () => {
-            v2overlay.style.display = 'none';
-            v2vid.controls = true;
-            v2vid.muted = false;
-            v2vid.play().catch(() => {});
-            // Fullscreen on mobile (iOS needs webkitEnterFullscreen)
+    if (v2vid) {
+        // On mobile: go fullscreen when play starts
+        v2vid.addEventListener('play', () => {
             if (window.innerWidth <= 768) {
                 if (v2vid.webkitEnterFullscreen) v2vid.webkitEnterFullscreen();
                 else if (v2vid.requestFullscreen) v2vid.requestFullscreen();
-                else if (v2vid.webkitRequestFullscreen) v2vid.webkitRequestFullscreen();
             }
         });
-
-        // When paused or ended → show overlay again
-        v2vid.addEventListener('pause', () => {
-            v2overlay.style.display = 'block';
-        });
-        v2vid.addEventListener('ended', () => {
-            v2overlay.style.display = 'block';
-            v2vid.controls = false;
-        });
-
-        // When exiting fullscreen, pause and show overlay
-        v2vid.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) { v2vid.pause(); }
-        });
-        v2vid.addEventListener('webkitendfullscreen', () => { v2vid.pause(); });
 
         // Pause video when scrolling away from section
         if (v2section) {
