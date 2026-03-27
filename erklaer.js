@@ -811,36 +811,7 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2 Desktop: click thumbnail → show inline video player
-    const v2Container = document.getElementById('video2-inline-container');
-    const v2Thumb = document.getElementById('video2-inline-thumb');
-    const v2Play = document.getElementById('video2-inline-play');
-    const v2InlineVid = document.getElementById('video2-inline-vid');
-
-    if (v2Container && v2Thumb && v2InlineVid) {
-        v2Container.addEventListener('click', function() {
-            if (v2InlineVid.style.display === 'block') return; // already playing
-            v2Thumb.style.display = 'none';
-            if (v2Play) v2Play.style.display = 'none';
-            v2InlineVid.style.display = 'block';
-            v2Container.style.cursor = 'default';
-            v2InlineVid.play().catch(function() {});
-        });
-    }
-
-    // Mobile video: pause when scrolling away from video section
-    const v2MobilePlayer = document.getElementById('video2-mobile-player');
-    const v2MobileVid = document.getElementById('video2-mobile-vid');
-    if (v2MobilePlayer && v2MobileVid) {
-        const mobileObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    v2MobilePlayer.pause();
-                }
-            });
-        }, { threshold: 0.3 });
-        mobileObserver.observe(v2MobileVid);
-    }
+    // Video2: videos play via native controls, no auto-pause on scroll
 }
 
 /* ─── Sticky Mobile CTA ─── */

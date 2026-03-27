@@ -1171,14 +1171,8 @@
             <span style="display:inline-block; background:rgba(134,19,48,0.08); color:#861330; padding:0.25rem 1rem; border-radius:999px; font-size:clamp(0.7rem,1.2vw,0.85rem); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
-            <div id="video2-inline-container" style="position:relative; border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh; cursor:pointer;">
-                <img id="video2-inline-thumb" src="media/Thumbnailvideo.jpeg" alt="Video abspielen" style="width:100%; height:100%; object-fit:cover; display:block;">
-                <div id="video2-inline-play" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-                    <div style="width:64px; height:64px; border-radius:50%; background:rgba(134,19,48,0.85); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="8,5 20,12 8,19"/></svg>
-                    </div>
-                </div>
-                <video id="video2-inline-vid" controls playsinline preload="metadata" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:none;">
+            <div style="border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh;">
+                <video id="video2-inline-vid" controls playsinline preload="metadata" poster="media/Thumbnailvideo.jpeg" style="width:100%; height:100%; object-fit:contain; display:block;">
                     <source src="media/VideoLanding-web.mp4" type="video/mp4">
                 </video>
             </div>
@@ -1196,7 +1190,7 @@
 
     <!-- Mobile only: Section 5b-2 (video fullscreen) -->
     <section id="video2-mobile-vid" class="video2-mobile-only" style="display:none; background:#000; min-height:100dvh; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
-        <video id="video2-mobile-player" controls playsinline preload="metadata" poster="media/Thumbnailvideo.jpeg" style="width:90%; height:90dvh; object-fit:contain; display:block; margin:auto; border-radius:12px;">
+        <video id="video2-mobile-player" controls playsinline preload="metadata" style="width:90%; height:90dvh; object-fit:contain; display:block; margin:auto; border-radius:12px;">
             <source src="media/VideoLanding-web.mp4" type="video/mp4">
         </video>
     </section>
