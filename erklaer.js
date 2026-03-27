@@ -188,22 +188,18 @@ function initSlideshowScroll() {
         }
 
         // --- Type D: Pillar carousel (Wirkung section) ---
-        // Steps 1-3: reveal pillars, Step 4: all visible (reading pause), Step 5: overlay
+        // Steps 1-3: reveal pillars one at a time, Step 4: overlay
         const pillarSlides = sec.querySelectorAll('.pillar-slide');
         if (pillarSlides.length) {
             const overlay = sec.querySelector('.pillar-overlay');
             const mobile = window.innerWidth <= 768;
 
-            const carousel = sec.querySelector('.pillar-carousel');
-
             pillarSlides.forEach((slide, si) => {
                 slide.classList.remove('active', 'peek');
                 if (mobile) {
-                    // Mobile: steps 1-3 show one at a time, step 4 all stacked, step 5 overlay
+                    // Mobile: steps 1-3 show one card at a time, step 4 overlay
                     if (step <= 3) {
                         if (si === step - 1) slide.classList.add('active');
-                    } else {
-                        slide.classList.add('active'); // show all stacked
                     }
                 } else {
                     // Desktop: accumulate slides + peek
@@ -215,12 +211,7 @@ function initSlideshowScroll() {
                 }
             });
 
-            // Mobile step 4+: switch carousel to stacked layout
-            if (carousel && mobile) {
-                carousel.classList.toggle('pillar-stacked', step >= 4);
-            }
-
-            if (overlay) overlay.classList.toggle('visible', step >= 5);
+            if (overlay) overlay.classList.toggle('visible', step >= 4);
             return;
         }
     }
