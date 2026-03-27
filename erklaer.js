@@ -819,35 +819,20 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2: click thumbnail → open overlay, close with X or click outside
-    const v2thumb = document.querySelector('.video2-thumb');
-    const v2overlay = document.getElementById('video2-overlay');
-    const v2vid = document.getElementById('video2-vid');
-    const v2close = document.getElementById('video2-close');
+    // Video2 Desktop: click thumbnail → show inline video player
+    const v2Container = document.getElementById('video2-inline-container');
+    const v2Thumb = document.getElementById('video2-inline-thumb');
+    const v2Play = document.getElementById('video2-inline-play');
+    const v2InlineVid = document.getElementById('video2-inline-vid');
 
-    if (v2thumb && v2overlay && v2vid && v2close) {
-        // Open overlay
-        v2thumb.addEventListener('click', () => {
-            v2overlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            v2vid.play().catch(() => {});
-        });
-
-        // Close overlay
-        function closeVideo2() {
-            v2vid.pause();
-            v2vid.currentTime = 0;
-            v2overlay.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-        v2close.addEventListener('click', closeVideo2);
-        v2overlay.addEventListener('click', (e) => {
-            if (e.target === v2overlay) closeVideo2();
-        });
-
-        // ESC key closes
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && v2overlay.style.display === 'flex') closeVideo2();
+    if (v2Container && v2Thumb && v2InlineVid) {
+        v2Container.addEventListener('click', function() {
+            if (v2InlineVid.style.display === 'block') return; // already playing
+            v2Thumb.style.display = 'none';
+            if (v2Play) v2Play.style.display = 'none';
+            v2InlineVid.style.display = 'block';
+            v2Container.style.cursor = 'default';
+            v2InlineVid.play().catch(function() {});
         });
     }
 
