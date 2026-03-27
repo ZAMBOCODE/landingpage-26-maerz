@@ -819,42 +819,32 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2: thumbnail overlay + play/pause + pause on scroll
+    // Video2: click thumbnail to play, fullscreen on mobile
     const v2vid = document.querySelector('.video2-vid');
     const v2overlay = document.querySelector('.video2-overlay');
-    const v2playBtn = document.querySelector('.video2-play-btn');
     const v2section = document.getElementById('video2');
 
-    if (v2vid && v2overlay && v2playBtn) {
-        // Click play button → hide overlay, show controls, play (fullscreen on mobile)
-        v2playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            v2overlay.style.opacity = '0';
-            v2overlay.style.pointerEvents = 'none';
+    if (v2vid && v2overlay) {
+        // Click overlay → hide it, show controls, play
+        v2overlay.addEventListener('click', () => {
+            v2overlay.style.display = 'none';
             v2vid.controls = true;
             v2vid.muted = false;
-            v2vid.play();
-            // Fullscreen on mobile
+            v2vid.play().catch(() => {});
+            // Fullscreen on mobile (iOS needs webkitEnterFullscreen)
             if (window.innerWidth <= 768) {
-                if (v2vid.requestFullscreen) v2vid.requestFullscreen();
-                else if (v2vid.webkitEnterFullscreen) v2vid.webkitEnterFullscreen();
+                if (v2vid.webkitEnterFullscreen) v2vid.webkitEnterFullscreen();
+                else if (v2vid.requestFullscreen) v2vid.requestFullscreen();
                 else if (v2vid.webkitRequestFullscreen) v2vid.webkitRequestFullscreen();
             }
         });
 
-        // Click overlay area → same as play
-        v2overlay.addEventListener('click', () => {
-            v2playBtn.click();
-        });
-
         // When paused or ended → show overlay again
         v2vid.addEventListener('pause', () => {
-            v2overlay.style.opacity = '1';
-            v2overlay.style.pointerEvents = 'auto';
+            v2overlay.style.display = 'block';
         });
         v2vid.addEventListener('ended', () => {
-            v2overlay.style.opacity = '1';
-            v2overlay.style.pointerEvents = 'auto';
+            v2overlay.style.display = 'block';
             v2vid.controls = false;
         });
 

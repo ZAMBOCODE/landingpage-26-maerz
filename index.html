@@ -257,7 +257,7 @@
         @media (min-width: 769px) {
             .story-card { position: absolute; top: 0; left: 0; right: 0; }
             .story-card.active { position: relative; }
-            .story-card.seen { position: absolute; }
+            .story-card.seen { position: relative; opacity: 1; transform: translateY(0); pointer-events: auto; margin-bottom: 1.5rem; }
         }
         @media (max-width: 768px) {
             .story-card { position: absolute; top: 0; left: 0; right: 0; }
@@ -333,12 +333,13 @@
         /* Real image frame — hero-style rounded with shadow */
         .story-image-frame {
             width: 100%;
-            max-width: 400px;
+            max-width: 100%;
             margin: 0 auto;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
             background: #FDF2F0;
+            aspect-ratio: 4/3;
         }
         .story-image-frame img {
             width: 100%;
@@ -442,12 +443,14 @@
         }
         .story-closing h2 {
             font-family: 'Fraunces', serif;
-            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-size: clamp(2rem, 4vw, 2.75rem);
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.2;
             letter-spacing: -0.02em;
             color: #0f172a;
             display: inline;
+            max-width: 700px;
+            margin: 0 auto;
         }
         .story-closing .underline-anim {
             padding-bottom: 0;
@@ -510,8 +513,7 @@
             border-radius: 24px;
             padding: 2rem 2rem;
             text-align: center;
-            height: 100%;
-            min-height: 26rem;
+            height: 28rem;
             box-shadow: 0 4px 24px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
@@ -537,7 +539,7 @@
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem;
         }
         .pillar-ingredient {
             display: flex;
@@ -573,7 +575,8 @@
             color: #64748b;
             line-height: 1.5;
             max-width: 32rem;
-            margin: auto auto 0;
+            margin: 0 auto 0;
+            min-height: 7rem;
         }
         /* Overlay (glassmorphism — covers cards) */
         .pillar-overlay {
@@ -1177,24 +1180,20 @@
         <div style="max-width:1100px; margin:0 auto; width:100%; text-align:center;">
             <span style="display:inline-block; background:rgba(134,19,48,0.08); color:#861330; padding:0.25rem 1rem; border-radius:999px; font-size:clamp(0.7rem,1.2vw,0.85rem); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475469; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">So kann eine bewusste Abendroutine deinen Schlaf verbessern.</p>
+            <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
             <div class="video2-player" style="position:relative; border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; cursor:pointer; max-width:400px; margin:0 auto; max-height:65vh;">
                 <video class="video2-vid" playsinline preload="metadata" poster="media/Thumbnailvideo.jpeg" style="width:100%; height:100%; object-fit:cover; display:block;">
                     <source src="media/VideoLanding.mp4" type="video/mp4">
                 </video>
-                <!-- Play button overlay (shows thumbnail + play) -->
-                <div class="video2-overlay" style="position:absolute; inset:0; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; background:rgba(0,0,0,0.15); z-index:2; transition:opacity 0.3s ease;">
-                    <button class="video2-play-btn" aria-label="Video abspielen" style="width:72px; height:72px; border-radius:50%; background:#861330; color:#fff; border:none; cursor:pointer; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; box-shadow:0 4px 24px rgba(134,19,48,0.5); transition:transform 0.3s, box-shadow 0.3s;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6,3 20,12 6,21"/></svg>
-                    </button>
-                </div>
+                <!-- Clickable overlay (no button, thumbnail has play icon) -->
+                <div class="video2-overlay" style="position:absolute; inset:0; z-index:2; cursor:pointer;"></div>
             </div>
         </div>
     </section>
 
 
     <!-- === SECTION 6: Produkt-Info (Inhaltsstoffe + Qualität) === -->
-    <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:85vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
+    <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
         <div style="max-width:1300px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:0.75rem;">
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#861330;">deine Abendroutine.</span></h2>
@@ -1252,7 +1251,7 @@
 
 
     <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
-    <section id="wirkung" data-substeps="5" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:85vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
+    <section id="wirkung" data-substeps="5" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
         <div style="max-width:1200px; margin:0 auto; position:relative;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
