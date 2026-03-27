@@ -75,7 +75,8 @@ function initLoadingScreen(onComplete) {
 
 /* ─── Slideshow Scroll (Snap with smooth transition + cooldown + sub-steps) ─── */
 function initSlideshowScroll() {
-    const sections = Array.from(document.querySelectorAll('main > section'));
+    // Filter out hidden sections (e.g. mobile-only sections on desktop, desktop-only on mobile)
+    const sections = Array.from(document.querySelectorAll('main > section')).filter(s => s.offsetHeight > 0);
     if (!sections.length) return;
 
     let currentIndex = 0;
