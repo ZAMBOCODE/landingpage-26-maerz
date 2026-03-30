@@ -985,7 +985,9 @@
 
     <!-- === SECTION 1: Hero (V3 Bottom Gradient) === -->
     <section id="hero" style="position:relative; overflow:hidden; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
-        <video id="hero-video" autoplay muted loop playsinline poster="media/wachsein.png" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
+        <!-- Fallback image (always visible behind video) -->
+        <img id="hero-fallback" src="media/wachsein.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
+        <video id="hero-video" autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
             <source src="media/WachseinNeue2-loop.mp4" type="video/mp4">
         </video>
         <!-- Gradient overlay -->
@@ -1172,7 +1174,7 @@
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
             <div style="border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh;">
-                <video id="video2-inline-vid" controls playsinline preload="metadata" poster="media/Thumbnailvideo.jpeg" style="width:100%; height:100%; object-fit:contain; display:block;">
+                <video id="video2-inline-vid" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:contain; display:block;">
                     <source src="media/VideoLanding-web.mp4" type="video/mp4">
                 </video>
             </div>
@@ -1384,7 +1386,7 @@
 
 
     <!-- === SECTION 13: FAQ (k2-Accordion) === -->
-    <section id="faq-section" style="background:var(--bg-light); padding:0 24px; font-family:'Fraunces',serif;">
+    <section id="faq-section" style="background:var(--bg-light); padding:0 24px; font-family:'Fraunces',serif; overflow-y:auto; max-height:100dvh;">
         <div style="max-width:72rem; margin:0 auto; display:flex; flex-direction:column; justify-content:center; flex:1;">
             <div class="faq-two-col">
                 <div class="faq-left">
@@ -1434,7 +1436,7 @@
             </div>
         </div>
         <!-- Footer integrated into FAQ section -->
-        <footer class="site-footer" style="margin-top:auto; padding-bottom:2rem;">
+        <footer class="site-footer" style="margin-top:auto; padding-bottom:5rem;">
             <div class="footer-inner">
                 <div class="footer-top">
                     <a href="#" class="footer-logo"><img src="LOGOREAL.svg" alt="zZzlim®" style="filter:invert(1);" /></a>

@@ -324,6 +324,14 @@ function initSlideshowScroll() {
     const wheelThreshold = 50;
 
     window.addEventListener('wheel', (e) => {
+        // Allow native scroll inside sections that overflow (e.g. FAQ+footer)
+        const sec = sections[currentIndex];
+        if (sec && sec.scrollHeight > sec.clientHeight + 2) {
+            const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 5;
+            const atTop = sec.scrollTop <= 5;
+            if (e.deltaY > 0 && !atBottom) return; // scrolling down, not at bottom
+            if (e.deltaY < 0 && !atTop) return;    // scrolling up, not at top
+        }
         e.preventDefault();
         if (isAnimating) return;
 
@@ -350,11 +358,22 @@ function initSlideshowScroll() {
     let touchStartY = 0;
     let touchHandled = false;
     window.addEventListener('touchstart', (e) => {
+        // Ignore touches on video players (scrubbing, play/pause)
+        if (e.target.closest('video, .video2-mobile-only, #video2-inline-vid')) {
+            touchHandled = true;
+            return;
+        }
         touchStartY = e.touches[0].clientY;
         touchHandled = false;
     }, { passive: true });
 
     window.addEventListener('touchmove', (e) => {
+        // Allow native scroll inside sections that overflow (e.g. FAQ+footer)
+        const sec = sections[currentIndex];
+        if (sec && sec.scrollHeight > sec.clientHeight + 2) {
+            // Section has internal scroll — let it scroll natively
+            return;
+        }
         // Prevent native scroll to keep sections locked
         if (!touchHandled) {
             e.preventDefault();
@@ -365,6 +384,14 @@ function initSlideshowScroll() {
         if (isAnimating) return;
         const diff = touchStartY - e.changedTouches[0].clientY;
         if (Math.abs(diff) > 30) {
+            // If section has internal scroll, only switch section at scroll boundaries
+            const sec = sections[currentIndex];
+            if (sec && sec.scrollHeight > sec.clientHeight + 2) {
+                const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 5;
+                const atTop = sec.scrollTop <= 5;
+                if (diff > 0 && !atBottom) return; // scrolling down but not at bottom
+                if (diff < 0 && !atTop) return;    // scrolling up but not at top
+            }
             touchHandled = true;
             handleScrollDirection(diff > 0 ? 1 : -1);
         }
