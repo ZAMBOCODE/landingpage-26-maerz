@@ -667,14 +667,15 @@
             #ursachen > div { width: 100%; }
             #ursachen .story-header { margin-bottom: clamp(1rem, 3vw, 1.5rem) !important; }
 
-            /* Selbstcheck: centered with header clearance, fluid */
-            #identification { justify-content: center !important; padding-top: clamp(3.5rem, 8vh, 5rem) !important; min-height: 100dvh; display: flex; align-items: center; }
+            /* Selbstcheck: centered with header clearance, compact */
+            #identification { justify-content: center !important; padding-top: 4rem !important; min-height: 100dvh; display: flex; align-items: center; }
+            #identification > div > div:first-child { margin-bottom: 1.5rem !important; }
 
             /* Symptom tiles: stacked, crossfade one at a time */
             #symptom-grid {
                 display: block !important;
                 position: relative;
-                min-height: 380px;
+                min-height: 320px;
             }
             .symptom-tile {
                 position: absolute !important;
@@ -682,24 +683,22 @@
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
-                padding: 0 1.5rem !important;
-                gap: 1rem !important;
+                padding: 0 1rem !important;
+                gap: 0.75rem !important;
                 opacity: 0 !important;
                 transform: none !important;
                 transition: opacity 0.5s ease !important;
                 pointer-events: none;
             }
-            /* Active tile fades in */
             .symptom-tile.active {
                 opacity: 1 !important;
                 pointer-events: auto;
             }
-            /* Label: fixed 2-line height, always above image */
             .symptom-tile .symptom-label {
                 opacity: 1 !important;
-                font-size: 1.1rem !important;
+                font-size: 1rem !important;
                 line-height: 1.35 !important;
-                min-height: 3em;
+                min-height: 2.5em;
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
@@ -707,13 +706,15 @@
             .symptom-tile.active .symptom-label {
                 opacity: 1 !important;
             }
-            /* Seen tiles: hidden but keep position */
             .symptom-tile.seen { opacity: 0 !important; }
-            /* Symptom circle: large and prominent on mobile */
             .symptom-tile .symptom-circle {
-                width: 240px !important;
-                height: 240px !important;
+                width: 220px !important;
+                height: 220px !important;
             }
+            /* Arrows tight under grid */
+            #symptom-nav { margin-top: 0.75rem !important; }
+            /* Hide the old closing text paragraph */
+            #symptom-closing { display: none !important; }
             /* Border glow visible on active */
             .symptom-tile.active .symptom-border-glow {
                 opacity: 1 !important;
