@@ -91,6 +91,47 @@
         }
         /* No scroll snap — FAQ flows naturally */
 
+        /* Desktop only (>1366px, no touch): show all 3 pillar cards side by side */
+        @media (min-width: 1367px) {
+            html:not(.touch-device) .pillar-carousel {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 24px;
+            }
+            html:not(.touch-device) .pillar-slide {
+                display: block !important;
+                opacity: 1 !important;
+            }
+            html:not(.touch-device) #pillar-nav {
+                display: none !important;
+            }
+            /* Overlay becomes inline block below cards on desktop */
+            html:not(.touch-device) .pillar-overlay {
+                position: relative !important;
+                inset: auto !important;
+                margin-top: 2rem;
+                background: transparent !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+        }
+        /* Touch devices always get carousel even if wide screen */
+        .touch-device .pillar-carousel {
+            display: block !important;
+        }
+        .touch-device .pillar-slide {
+            display: none !important;
+        }
+        .touch-device .pillar-slide.active {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        .touch-device #pillar-nav {
+            display: flex !important;
+        }
+
         /* Rotating border glow for active symptom — sits BEHIND the circle */
         @keyframes rotateBorder {
             0% { transform: rotate(0deg); }
@@ -1621,7 +1662,7 @@
 
 
     <!-- === SECTION 13: FAQ (k2-Accordion) === -->
-    <section id="faq-section" style="background:var(--bg-light); padding:0 24px; font-family:'Fraunces',serif;">
+    <section id="faq-section" style="background:#ffffff; padding:3rem 24px; font-family:'Fraunces',serif;">
         <div style="max-width:72rem; margin:0 auto; display:flex; flex-direction:column; justify-content:center; flex:1;">
             <div class="faq-two-col">
                 <div class="faq-left">
