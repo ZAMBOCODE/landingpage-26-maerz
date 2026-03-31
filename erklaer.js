@@ -89,14 +89,11 @@ function initSlideshowScroll() {
     const sections = Array.from(document.querySelectorAll('main > section')).filter(s => s.offsetHeight > 0);
     if (!sections.length) return;
 
-    // Touch device OR screen ≤ 1366px: no scroll snap, native scrolling + arrows
-    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-    const isSmallScreen = window.innerWidth <= 1366;
+    // No scroll snap anywhere — always use native scrolling + arrows
+    initMobileNativeScroll(sections);
+    return;
 
-    if (isTouchDevice || isSmallScreen) {
-        initMobileNativeScroll(sections);
-        return;
-    }
+    // Legacy scroll-snap code below (disabled)
 
     let currentIndex = 0;
     let isAnimating = false;

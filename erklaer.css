@@ -39,12 +39,15 @@ html {
     font-size: clamp(16px, calc(12px + 0.4vw), 24px);
     scroll-behavior: smooth;
     overflow-x: hidden;
+    max-width: 100vw;
     scrollbar-color: var(--primary) var(--bg-light);
     scrollbar-width: thin;
 }
 
 body {
     font-family: 'Fraunces', serif;
+    overflow-x: hidden;
+    max-width: 100vw;
     background: var(--bg-light);
     color: var(--text-dark);
     -webkit-font-smoothing: antialiased;
@@ -71,6 +74,7 @@ body {
 }
 
 img { max-width: 100%; height: auto; display: block; }
+main, section, header, footer, div { max-width: 100vw; }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 ul, ol { list-style: none; }

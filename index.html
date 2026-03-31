@@ -89,13 +89,7 @@
             justify-content: space-between;
             padding-top: 40px;
         }
-        /* Desktop only: FAQ needs max-height + overflow for scroll snap */
-        @media (min-width: 1367px) {
-            #faq-section {
-                overflow-y: auto;
-                max-height: 100dvh;
-            }
-        }
+        /* No scroll snap — FAQ flows naturally */
 
         /* Rotating border glow for active symptom — sits BEHIND the circle */
         @keyframes rotateBorder {
@@ -136,7 +130,7 @@
             width: 100%;
             max-width: 700px;
             margin: 0 auto;
-            height: 420px;
+            min-height: 420px;
         }
         .stack-card {
             position: absolute;
@@ -187,23 +181,8 @@
         .mobile-scroll-hint {
             display: none;
         }
-        /* Touch devices & tablets: no scroll snap, each section fills screen */
-        @media (max-width: 1366px) {
-            main > section {
-                min-height: 100vh !important;
-                min-height: 100dvh !important;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-            }
-            #faq-section {
-                min-height: auto !important;
-            }
-        }
-        .touch-device main > section {
-            min-height: 100vh !important;
-            min-height: 100dvh !important;
-        }
-        .touch-device #faq-section {
+        /* No scroll snap: FAQ natural height */
+        #faq-section {
             min-height: auto !important;
         }
         @media (max-width: 768px) {
@@ -537,7 +516,7 @@
             border-radius: 24px;
             padding: 2.5rem 2rem;
             text-align: center;
-            height: 30rem;
+            min-height: 30rem;
             width: 100%;
             box-shadow: 0 4px 24px rgba(0,0,0,0.04);
             display: flex;
@@ -636,10 +615,102 @@
             margin: 0 auto;
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 1367px) {
             .story-thread { display: block; }
             .story-container { min-height: 480px; }
         }
+
+        /* ─── Tablet + Mobile: single-column layouts ─── */
+        @media (max-width: 1366px) {
+            /* Prevent ANY horizontal overflow */
+            html, body { overflow-x: hidden !important; max-width: 100vw; }
+            section { max-width: 100vw; overflow-x: hidden; }
+
+            /* Symptom tiles: stacked, one at a time */
+            #symptom-grid {
+                display: block !important;
+                position: relative;
+                min-height: max(320px, 40vh);
+            }
+            .symptom-tile {
+                position: absolute !important;
+                top: 0; left: 0; right: 0;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 0 1rem !important;
+                gap: 0.75rem !important;
+                opacity: 0 !important;
+                transform: none !important;
+                transition: opacity 0.5s ease !important;
+                pointer-events: none;
+            }
+            .symptom-tile.active { opacity: 1 !important; pointer-events: auto; }
+            .symptom-tile.seen { opacity: 0 !important; }
+            .symptom-tile .symptom-label {
+                opacity: 1 !important;
+                font-size: clamp(1rem, 2.5vw, 1.25rem) !important;
+                line-height: 1.35 !important;
+                min-height: 2.5em;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+            }
+            .symptom-tile.active .symptom-label { opacity: 1 !important; }
+            .symptom-tile .symptom-circle {
+                width: clamp(180px, 30vw, 280px) !important;
+                height: clamp(180px, 30vw, 280px) !important;
+            }
+            .symptom-tile.active .symptom-border-glow { opacity: 1 !important; }
+            #symptom-closing { display: none !important; }
+            #symptom-nav { margin-top: 0.75rem !important; }
+
+            /* Story cards: single column */
+            .story-card-inner { grid-template-columns: 1fr !important; gap: 1.5rem !important; padding: 2rem !important; }
+            .story-card--reversed .story-card-inner { direction: ltr; }
+            .story-image-side { order: -1; }
+            .story-text-side { order: 1; }
+            .story-image-frame { max-width: clamp(200px, 40vw, 360px) !important; margin: 0 auto; }
+            .story-container { min-height: auto !important; }
+            .story-card { position: absolute; top: 0; left: 0; right: 0; }
+            .story-card.active { position: relative; }
+            .story-card.seen { position: absolute; }
+            .story-thread { display: none !important; }
+
+            /* Pillar carousel: one at a time */
+            .pillar-carousel {
+                display: block !important;
+                position: relative !important;
+                min-height: clamp(340px, 50vh, 480px);
+            }
+            .pillar-slide {
+                display: none !important;
+                opacity: 0 !important;
+            }
+            .pillar-slide.active {
+                display: block !important;
+                opacity: 1 !important;
+                animation: fadeInPillar 0.5s ease;
+            }
+            .pillar-slide-card { height: auto !important; min-height: 0 !important; }
+
+            /* Pillar overlay: fullscreen on touch devices */
+            .pillar-overlay {
+                position: fixed !important;
+                inset: 0 !important;
+                z-index: 100 !important;
+                background: rgba(255,255,255,0.9) !important;
+                -webkit-backdrop-filter: blur(16px) !important;
+                backdrop-filter: blur(16px) !important;
+            }
+
+            /* Produkt grid: single column */
+            .produkt-grid { grid-template-columns: 1fr !important; }
+
+            /* Video sections */
+            #video1 > div > div { grid-template-columns: 1fr !important; }
+        }
+
         @media (max-width: 768px) {
             section { padding-left: 20px !important; padding-right: 20px !important; }
 
@@ -674,27 +745,12 @@
             #ursachen > div { width: 100%; }
             #ursachen .story-header { margin-bottom: clamp(1rem, 3vw, 1.5rem) !important; }
 
-            /* Selbstcheck: centered with header clearance, compact */
-            #identification { justify-content: center !important; padding-top: 4rem !important; min-height: 100dvh; display: flex; align-items: center; }
+            /* Selbstcheck: tighter on small screens */
+            #identification { justify-content: center !important; padding-top: 4rem !important; }
             #identification > div > div:first-child { margin-bottom: 1.5rem !important; }
 
-            /* Symptom tiles: stacked, crossfade one at a time */
-            #symptom-grid {
-                display: block !important;
-                position: relative;
-                min-height: 320px;
-            }
+            /* Symptom tiles: smaller on phone */
             .symptom-tile {
-                position: absolute !important;
-                top: 0; left: 0; right: 0;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                padding: 0 1rem !important;
-                gap: 0.75rem !important;
-                opacity: 0 !important;
-                transform: none !important;
-                transition: opacity 0.5s ease !important;
                 pointer-events: none;
             }
             .symptom-tile.active {
@@ -768,7 +824,7 @@
             }
 
             /* Schlafbiologie card stack: shorter on mobile */
-            .card-stack { height: 320px !important; }
+            .card-stack { min-height: 280px !important; height: auto !important; }
             .stack-card { padding: 1.5rem !important; }
             .stack-card h3 { font-size: 1.25rem !important; }
             .stack-card p { font-size: 0.85rem !important; }
@@ -803,7 +859,7 @@
             .t-nav-btn { width: 3rem; height: 3rem; }
             .pillar-card-body { padding: 20px !important; }
             .pillar-card-accent { padding: 20px !important; }
-            .card-stack { height: 280px !important; }
+            .card-stack { min-height: 240px !important; height: auto !important; }
             .stack-card { padding: 1.25rem !important; }
             .stack-step-dot { width: 10px; height: 10px; }
         }
@@ -850,24 +906,15 @@
             box-shadow: none;
         }
 
-        /* ─── Carousel Arrow Navigation (mobile/tablet, hidden on large desktop) ─── */
+        /* ─── Carousel Arrow Navigation (visible everywhere) ─── */
         .carousel-nav {
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 1.5rem;
             margin-top: 1.5rem;
             position: relative;
             z-index: 10;
-        }
-        @media (max-width: 1366px) {
-            .carousel-nav {
-                display: flex;
-            }
-        }
-        /* Also show on any touch device via JS class */
-        .touch-device .carousel-nav {
-            display: flex;
         }
         .carousel-arrow {
             width: 52px;
