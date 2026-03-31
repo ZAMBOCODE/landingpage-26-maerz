@@ -1175,7 +1175,7 @@ function initSectionReveals() {
             [':scope > div > span', 1],
             [':scope > div > h2', 2],
             [':scope > div > p', 3],
-            ['.video2-player', 4],
+            ['.video-thumb-container', 5],
         ],
         // Section 7: Wirkung (Pillar Carousel — sub-steps handle slides)
         'wirkung': [
