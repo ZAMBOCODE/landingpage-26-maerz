@@ -92,11 +92,7 @@ ul, ol { list-style: none; }
     border-bottom: 1px solid rgba(134,19,48,0.1);
     transition: transform 0.3s ease;
 }
-@media (max-width: 768px) {
-    .site-header.header-hidden {
-        transform: translateY(-100%);
-    }
-}
+/* Header always visible - no hide/show */
 .header-inner {
     max-width: 90rem; margin: 0 auto; padding: 0 1.5rem;
     height: 3rem; display: flex; align-items: center; justify-content: space-between;

@@ -842,47 +842,51 @@
             box-shadow: none;
         }
 
-        /* ─── Carousel Arrow Navigation ─── */
+        /* ─── Carousel Arrow Navigation (mobile/tablet only) ─── */
         .carousel-nav {
-            display: flex;
+            display: none; /* hidden on desktop */
             align-items: center;
             justify-content: center;
-            gap: 1.25rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
             position: relative;
             z-index: 10;
         }
+        @media (max-width: 1024px) {
+            .carousel-nav {
+                display: flex;
+            }
+        }
         .carousel-arrow {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            border: 1.5px solid rgba(134,19,48,0.3);
-            background: rgba(255,255,255,0.9);
+            border: 2px solid #861330;
+            background: rgba(255,255,255,0.95);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
             flex-shrink: 0;
             -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 8px rgba(134,19,48,0.15);
         }
         .carousel-arrow svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             stroke: #861330;
-        }
-        .carousel-arrow:hover {
-            background: #861330;
-            border-color: #861330;
-        }
-        .carousel-arrow:hover svg {
-            stroke: #fff;
+            stroke-width: 2.5;
         }
         .carousel-arrow:active {
-            transform: scale(0.92);
+            transform: scale(0.9);
+            background: #861330;
+        }
+        .carousel-arrow:active svg {
+            stroke: #fff;
         }
         .carousel-arrow:disabled {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: default;
             pointer-events: none;
         }
@@ -901,16 +905,6 @@
         .carousel-dot.active {
             background: #861330;
             transform: scale(1.3);
-        }
-        @media (max-width: 768px) {
-            .carousel-arrow {
-                width: 48px;
-                height: 48px;
-            }
-            .carousel-arrow svg {
-                width: 22px;
-                height: 22px;
-            }
         }
 
         /* ─── Video Overlay ─── */
@@ -990,30 +984,12 @@
             height: auto;
             display: block;
         }
+        /* Play circle hidden — thumbnail already has a play button */
         .video-play-circle {
             position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: rgba(134,19,48,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(134,19,48,0.4);
-            transition: transform 0.3s, background 0.3s;
-        }
-        .video-thumb-container:hover .video-play-circle {
-            transform: translateX(-50%) scale(1.1);
-            background: #861330;
-        }
-        .video-play-circle svg {
-            width: 24px;
-            height: 24px;
-            fill: #fff;
-            margin-left: 3px;
+            inset: 0;
+            cursor: pointer;
+            opacity: 0;
         }
     </style>
 
@@ -1158,11 +1134,8 @@
 
     <!-- === SECTION 1: Hero (V3 Bottom Gradient) === -->
     <section id="hero" style="position:relative; overflow:hidden; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
-        <!-- Fallback image (always visible behind video) -->
+        <!-- Hero background image -->
         <img id="hero-fallback" src="media/wachsein.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
-        <video id="hero-video" autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
-            <source src="media/WachseinNeue2-loop.mp4" type="video/mp4">
-        </video>
         <!-- Gradient overlay -->
         <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.45) 50%, rgba(15,23,42,0.25) 100%);"></div>
         <!-- Content -->
@@ -1175,7 +1148,7 @@
 
 
     <!-- === SECTION 2: Identifikation === -->
-    <section id="identification" data-substeps="0" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
+    <section id="identification" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
             <div style="max-width:80rem; margin:0 auto;">
                 <div style="text-align:center; margin-bottom:3.5rem;">
                     <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
@@ -1234,6 +1207,7 @@
                         <div class="carousel-dot"></div>
                         <div class="carousel-dot"></div>
                         <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
                     </div>
                     <button class="carousel-arrow carousel-arrow--next" id="symptom-next" aria-label="Weiter">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -1256,7 +1230,7 @@
 
 
     <!-- === SECTION 5: Ursachen – Storytelling Scroll === -->
-    <section id="ursachen" data-substeps="0" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative; overflow:hidden;">
+    <section id="ursachen" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative; overflow:hidden;">
         <div style="max-width:72rem; margin:0 auto; position:relative;">
             <!-- Section Header -->
             <div class="story-header" style="text-align:center; margin-bottom:3rem;">
@@ -1350,6 +1324,7 @@
                     <div class="carousel-dot"></div>
                     <div class="carousel-dot"></div>
                     <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
                 </div>
                 <button class="carousel-arrow carousel-arrow--next" id="story-next" aria-label="Weiter">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -1437,7 +1412,7 @@
 
 
     <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
-    <section id="wirkung" data-substeps="0" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
+    <section id="wirkung" data-substeps="4" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
         <div style="max-width:1400px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">

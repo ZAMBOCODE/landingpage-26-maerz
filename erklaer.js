@@ -36,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initBlobDriftEffect();
         initScrollIndicator();
         initVideoOverlay();
-        // Also init arrow carousels on desktop (they work on both)
-        if (window.innerWidth > 1024) initCarouselArrows();
 
         // Hero reveal on load
         requestAnimationFrame(() => {
@@ -463,80 +461,64 @@ function initMobileNativeScroll(sections) {
 
     // Initialize arrow carousels
     initCarouselArrows();
-
-    // Auto-hide header (debounced)
-    const header = document.querySelector('.site-header');
-    let lastScrollY = 0;
-    let scrollDelta = 0;
-    const headerThreshold = 40;
-
-    window.addEventListener('scroll', () => {
-        if (!header) return;
-        const currentY = window.scrollY;
-        const diff = currentY - lastScrollY;
-        scrollDelta += diff;
-        lastScrollY = currentY;
-
-        if (scrollDelta > headerThreshold && currentY > 100) {
-            header.classList.add('header-hidden');
-            scrollDelta = 0;
-        } else if (scrollDelta < -headerThreshold) {
-            header.classList.remove('header-hidden');
-            scrollDelta = 0;
-        }
-        if ((diff > 0 && scrollDelta < 0) || (diff < 0 && scrollDelta > 0)) {
-            scrollDelta = diff;
-        }
-    }, { passive: true });
 }
 
 /* ─── Carousel Arrow Navigation (used on mobile & desktop) ─── */
 function initCarouselArrows() {
-    // --- Selbstcheck (symptom tiles) ---
+    // --- Selbstcheck (symptom tiles) — 5 steps: 4 tiles + closing ---
     setupCarousel({
         prevBtn: document.getElementById('symptom-prev'),
         nextBtn: document.getElementById('symptom-next'),
         dotsContainer: document.getElementById('symptom-dots'),
-        totalSteps: 4,
+        totalSteps: 5,
         onChange: (step) => {
             const tiles = document.querySelectorAll('.symptom-tile');
             const closing = document.getElementById('selbstcheck-closing');
             const sec = document.getElementById('identification');
+            const isClosing = step >= 4;
+
             tiles.forEach((tile, ti) => {
                 tile.classList.remove('active', 'seen');
-                if (ti === step) tile.classList.add('active');
-                else if (ti < step) tile.classList.add('seen');
+                if (!isClosing) {
+                    if (ti === step) tile.classList.add('active');
+                    else if (ti < step) tile.classList.add('seen');
+                }
             });
-            if (sec) sec.classList.remove('symptom-complete');
-            if (closing) closing.classList.remove('visible');
+            if (sec) sec.classList.toggle('symptom-complete', isClosing);
+            if (closing) closing.classList.toggle('visible', isClosing);
         }
     });
 
-    // --- Ursachen (story cards) ---
+    // --- Ursachen (story cards) — 5 steps: 4 cards + closing ---
     setupCarousel({
         prevBtn: document.getElementById('story-prev'),
         nextBtn: document.getElementById('story-next'),
         dotsContainer: document.getElementById('story-dots'),
-        totalSteps: 4,
+        totalSteps: 5,
         onChange: (step) => {
             const cards = document.querySelectorAll('.story-card');
             const closing = document.getElementById('story-closing');
             const sec = document.getElementById('ursachen');
             const thread = sec ? sec.querySelector('.story-thread') : null;
             const threadFill = sec ? sec.querySelector('.story-thread-fill') : null;
+            const isClosing = step >= 4;
 
             cards.forEach((card, ci) => {
                 card.classList.remove('active', 'seen');
-                if (ci === step) card.classList.add('active');
-                else if (ci < step) card.classList.add('seen');
+                if (isClosing) {
+                    card.classList.add('seen');
+                } else {
+                    if (ci === step) card.classList.add('active');
+                    else if (ci < step) card.classList.add('seen');
+                }
             });
             if (thread) {
-                thread.style.display = step > 0 ? 'block' : '';
-                thread.classList.remove('hidden');
+                thread.style.display = (step > 0 && !isClosing) ? 'block' : '';
+                thread.classList.toggle('hidden', isClosing);
             }
-            if (threadFill) threadFill.style.height = ((step + 1) / cards.length * 100) + '%';
-            if (closing) closing.classList.remove('visible');
-            if (sec) sec.classList.remove('story-complete');
+            if (threadFill) threadFill.style.height = (Math.min(step + 1, cards.length) / cards.length * 100) + '%';
+            if (closing) closing.classList.toggle('visible', isClosing);
+            if (sec) sec.classList.toggle('story-complete', isClosing);
         }
     });
 
