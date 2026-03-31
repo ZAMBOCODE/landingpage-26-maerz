@@ -90,7 +90,7 @@
             padding-top: 40px;
         }
         /* Desktop only: FAQ needs max-height + overflow for scroll snap */
-        @media (min-width: 1025px) {
+        @media (min-width: 1367px) {
             #faq-section {
                 overflow-y: auto;
                 max-height: 100dvh;
@@ -187,17 +187,24 @@
         .mobile-scroll-hint {
             display: none;
         }
-        /* Mobile & Tablet: no scroll snap, each section fills screen */
-        @media (max-width: 1024px) {
+        /* Touch devices & tablets: no scroll snap, each section fills screen */
+        @media (max-width: 1366px) {
             main > section {
+                min-height: 100vh !important;
                 min-height: 100dvh !important;
                 padding-top: 2rem;
                 padding-bottom: 2rem;
             }
-            /* FAQ can be taller than screen - natural scroll */
             #faq-section {
                 min-height: auto !important;
             }
+        }
+        .touch-device main > section {
+            min-height: 100vh !important;
+            min-height: 100dvh !important;
+        }
+        .touch-device #faq-section {
+            min-height: auto !important;
         }
         @media (max-width: 768px) {
             .mobile-scroll-hint {
@@ -843,9 +850,9 @@
             box-shadow: none;
         }
 
-        /* ─── Carousel Arrow Navigation (mobile/tablet only) ─── */
+        /* ─── Carousel Arrow Navigation (mobile/tablet, hidden on large desktop) ─── */
         .carousel-nav {
-            display: none; /* hidden on desktop */
+            display: none;
             align-items: center;
             justify-content: center;
             gap: 1.5rem;
@@ -853,10 +860,14 @@
             position: relative;
             z-index: 10;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1366px) {
             .carousel-nav {
                 display: flex;
             }
+        }
+        /* Also show on any touch device via JS class */
+        .touch-device .carousel-nav {
+            display: flex;
         }
         .carousel-arrow {
             width: 52px;

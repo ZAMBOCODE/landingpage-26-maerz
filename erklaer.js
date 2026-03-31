@@ -2,6 +2,11 @@
    zZzlim® Erklär-Landingpage – JavaScript
    ══════════════════════════════════════════════ */
 
+// Mark touch devices for CSS
+if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
+    document.documentElement.classList.add('touch-device');
+}
+
 // Always start from top on page load / refresh
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
@@ -84,10 +89,11 @@ function initSlideshowScroll() {
     const sections = Array.from(document.querySelectorAll('main > section')).filter(s => s.offsetHeight > 0);
     if (!sections.length) return;
 
-    const isMobileOrTablet = window.innerWidth <= 1024;
+    // Touch device OR screen ≤ 1366px: no scroll snap, native scrolling + arrows
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isSmallScreen = window.innerWidth <= 1366;
 
-    // Mobile/Tablet: no scroll snap — use native scrolling with IntersectionObserver for reveals
-    if (isMobileOrTablet) {
+    if (isTouchDevice || isSmallScreen) {
         initMobileNativeScroll(sections);
         return;
     }
