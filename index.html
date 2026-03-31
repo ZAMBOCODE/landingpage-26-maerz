@@ -89,6 +89,13 @@
             justify-content: space-between;
             padding-top: 40px;
         }
+        /* Desktop only: FAQ needs max-height + overflow for scroll snap */
+        @media (min-width: 1025px) {
+            #faq-section {
+                overflow-y: auto;
+                max-height: 100dvh;
+            }
+        }
 
         /* Rotating border glow for active symptom — sits BEHIND the circle */
         @keyframes rotateBorder {
@@ -179,6 +186,22 @@
         /* ─── Mobile Scroll Hint — fixed overlay ─── */
         .mobile-scroll-hint {
             display: none;
+        }
+        /* Mobile & Tablet: no scroll snap, natural content flow */
+        @media (max-width: 1024px) {
+            main > section {
+                min-height: auto !important;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            /* Hero and video sections still need full height */
+            #hero, #video2-mobile-vid {
+                min-height: 100dvh !important;
+            }
+            /* Identification section needs enough height for symptom tiles */
+            #identification {
+                min-height: 80dvh !important;
+            }
         }
         @media (max-width: 768px) {
             .mobile-scroll-hint {
@@ -1005,7 +1028,7 @@
     <section id="identification" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
             <div style="max-width:80rem; margin:0 auto;">
                 <div style="text-align:center; margin-bottom:3.5rem;">
-                    <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
+                    <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
                     <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="check.title">Kommt dir das bekannt vor?</h2>
                 </div>
                 <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:2.5rem;" id="symptom-grid">
@@ -1079,7 +1102,7 @@
         <div style="max-width:72rem; margin:0 auto; position:relative;">
             <!-- Section Header -->
             <div class="story-header" style="text-align:center; margin-bottom:3rem;">
-                <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="urs.pill">Unser moderner Abend</span>
+                <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="urs.pill">Unser moderner Abend</span>
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="urs.title">Das Problem beginnt vor dem Bett.</h2>
             </div>
 
@@ -1168,9 +1191,9 @@
 
     <!-- === SECTION 5b: Video "So funktioniert" === -->
     <!-- Desktop: text + thumbnail in one section -->
-    <section id="video2" class="video2-desktop" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:85vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
+    <section id="video2" class="video2-desktop" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
         <div style="max-width:1100px; margin:0 auto; width:100%; text-align:center;">
-            <span style="display:inline-block; background:rgba(134,19,48,0.08); color:#861330; padding:0.25rem 1rem; border-radius:999px; font-size:clamp(0.7rem,1.2vw,0.85rem); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
+            <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:clamp(0.7rem,1.2vw,0.85rem); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
             <div style="border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh;">
@@ -1184,7 +1207,7 @@
     <!-- Mobile only: Section 5b-1 (text) -->
     <section id="video2-mobile-text" class="video2-mobile-only" style="display:none; background:#ffffff; font-family:'Fraunces',serif; min-height:100dvh; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; text-align:center; padding:2rem 24px;">
         <div style="max-width:500px; margin:0 auto;">
-            <span style="display:inline-block; background:rgba(134,19,48,0.08); color:#861330; padding:0.25rem 1rem; border-radius:999px; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.25rem;">So funktioniert's</span>
+            <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1.25rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,6vw,2.25rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:1rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.9rem,3.5vw,1.05rem); color:#475569; line-height:1.6;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
         </div>
@@ -1263,7 +1286,7 @@
         <div style="max-width:1400px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
-                <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; border:1.5px solid #861330; border-radius:9999px; padding:6px 18px; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
+                <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
                 <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="wirk.subtitle">Ein aufeinander abgestimmter Komplex, der deinen Körper nachts in drei Phasen unterstützt.</p>
             </div>
@@ -1386,7 +1409,7 @@
 
 
     <!-- === SECTION 13: FAQ (k2-Accordion) === -->
-    <section id="faq-section" style="background:var(--bg-light); padding:0 24px; font-family:'Fraunces',serif; overflow-y:auto; max-height:100dvh;">
+    <section id="faq-section" style="background:var(--bg-light); padding:0 24px; font-family:'Fraunces',serif;">
         <div style="max-width:72rem; margin:0 auto; display:flex; flex-direction:column; justify-content:center; flex:1;">
             <div class="faq-two-col">
                 <div class="faq-left">
