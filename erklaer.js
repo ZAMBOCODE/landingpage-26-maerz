@@ -5,6 +5,10 @@
 // Always start from top on page load / refresh
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
+// Some browsers need a delayed scroll-to-top after layout
+window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
+document.addEventListener('DOMContentLoaded', () => { window.scrollTo(0, 0); });
+window.addEventListener('load', () => { window.scrollTo(0, 0); });
 
 // Lock scroll during loading animation
 document.documentElement.classList.add('is-loading');
