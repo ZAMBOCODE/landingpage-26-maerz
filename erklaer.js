@@ -269,23 +269,21 @@ function initSlideshowScroll() {
         // Fade out old section content
         sections[oldIndex].classList.remove('sr-active');
 
-        // Reset sub-step state of the old section so it replays when revisited
-        if (subStepState[oldIndex]) {
-            subStepState[oldIndex].current = 0;
-            applySubStep(oldIndex, 0);
-        }
-
         // Close pillar overlay if leaving the wirkung section
         const pillarOverlay = document.getElementById('pillar-overlay');
         if (pillarOverlay) pillarOverlay.classList.remove('visible');
-
-        // Reset ChatGPT copied message
         const chatgptCopied = document.getElementById('chatgpt-copied');
         if (chatgptCopied) chatgptCopied.style.opacity = '0';
 
         const target = sections[index].offsetTop;
 
         smoothScrollTo(target, duration).then(() => {
+            // Reset sub-steps AFTER scroll animation (old section is off-screen)
+            if (subStepState[oldIndex]) {
+                subStepState[oldIndex].current = 0;
+                applySubStep(oldIndex, 0);
+            }
+
             // Stagger-reveal new section content
             sections[index].classList.add('sr-active');
             enterSection(index);
@@ -317,7 +315,13 @@ function initSlideshowScroll() {
                     setTimeout(() => { isAnimating = false; }, 600);
                     return;
                 }
-                // All sub-steps done, proceed to next section
+                // All sub-steps done — cooldown before moving to next section
+                isAnimating = true;
+                setTimeout(() => {
+                    isAnimating = false;
+                    goToSection(currentIndex + 1);
+                }, 800);
+                return;
             }
             goToSection(currentIndex + 1);
         } else {
