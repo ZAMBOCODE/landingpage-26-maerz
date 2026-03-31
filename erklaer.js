@@ -530,20 +530,23 @@ function initCarouselArrows() {
         }
     });
 
-    // --- 3 Säulen (pillar slides) ---
+    // --- 3 Säulen (pillar slides) — 4 steps: 3 slides + overlay ---
     setupCarousel({
         prevBtn: document.getElementById('pillar-prev'),
         nextBtn: document.getElementById('pillar-next'),
         dotsContainer: document.getElementById('pillar-dots'),
-        totalSteps: 3,
+        totalSteps: 4,
         onChange: (step) => {
             const slides = document.querySelectorAll('.pillar-slide');
             const overlay = document.getElementById('pillar-overlay');
+            const isOverlay = step >= 3;
+
             slides.forEach((slide, si) => {
                 slide.classList.remove('active', 'peek');
-                if (si === step) slide.classList.add('active');
+                if (!isOverlay && si === step) slide.classList.add('active');
+                if (isOverlay) slide.classList.add('active'); // show all behind overlay
             });
-            if (overlay) overlay.classList.remove('visible');
+            if (overlay) overlay.classList.toggle('visible', isOverlay);
         }
     });
 }
