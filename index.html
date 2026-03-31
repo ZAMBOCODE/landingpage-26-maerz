@@ -187,20 +187,16 @@
         .mobile-scroll-hint {
             display: none;
         }
-        /* Mobile & Tablet: no scroll snap, natural content flow */
+        /* Mobile & Tablet: no scroll snap, each section fills screen */
         @media (max-width: 1024px) {
             main > section {
-                min-height: auto !important;
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-            }
-            /* Hero and video sections still need full height */
-            #hero, #video2-mobile-vid {
                 min-height: 100dvh !important;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
             }
-            /* Identification section needs enough height for symptom tiles */
-            #identification {
-                min-height: 80dvh !important;
+            /* FAQ can be taller than screen - natural scroll */
+            #faq-section {
+                min-height: auto !important;
             }
         }
         @media (max-width: 768px) {
@@ -247,9 +243,8 @@
                 min-height: 100dvh !important;
                 padding: clamp(2rem, 5vh, 4rem) 16px !important;
             }
-            .video2-player {
-                max-width: 85vw !important;
-                max-height: 60vh !important;
+            .video-thumb-container {
+                max-width: 280px !important;
             }
         }
 
@@ -776,28 +771,9 @@
             /* Video sections: stack */
             #video1 > div > div { grid-template-columns: 1fr !important; }
 
-            /* Video2: hide desktop version, show mobile sections */
-            .video2-desktop { display: none !important; }
-            .video2-mobile-only {
-                display: -webkit-flex !important;
-                display: flex !important;
-                -webkit-flex-direction: column;
-                flex-direction: column;
-            }
-            #video2-mobile-text {
-                min-height: 100dvh;
-                -webkit-align-items: center;
-                align-items: center;
-                -webkit-justify-content: center;
-                justify-content: center;
-                padding: 2rem 24px !important;
-            }
-            #video2-mobile-vid {
-                min-height: 100dvh;
-                -webkit-align-items: center;
-                align-items: center;
-                -webkit-justify-content: center;
-                justify-content: center;
+            /* Video2: responsive thumbnail */
+            .video-thumb-container {
+                max-width: 260px !important;
             }
 
             /* Pillar cards: stack on mobile */
@@ -864,6 +840,180 @@
         body.scroll-indicator-dark .scroll-indicator-line {
             background: rgba(15,23,42,0.35);
             box-shadow: none;
+        }
+
+        /* ─── Carousel Arrow Navigation ─── */
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        .carousel-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(134,19,48,0.3);
+            background: rgba(255,255,255,0.9);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .carousel-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: #861330;
+        }
+        .carousel-arrow:hover {
+            background: #861330;
+            border-color: #861330;
+        }
+        .carousel-arrow:hover svg {
+            stroke: #fff;
+        }
+        .carousel-arrow:active {
+            transform: scale(0.92);
+        }
+        .carousel-arrow:disabled {
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+        }
+        .carousel-dots {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(134,19,48,0.15);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .carousel-dot.active {
+            background: #861330;
+            transform: scale(1.3);
+        }
+        @media (max-width: 768px) {
+            .carousel-arrow {
+                width: 48px;
+                height: 48px;
+            }
+            .carousel-arrow svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        /* ─── Video Overlay ─── */
+        .video-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .video-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .video-overlay video {
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            border-radius: 16px;
+            object-fit: contain;
+        }
+        .video-overlay-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .video-overlay-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        /* Click-to-close side areas */
+        .video-overlay::before,
+        .video-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 15%;
+            z-index: 1;
+        }
+        .video-overlay::before { left: 0; }
+        .video-overlay::after { right: 0; }
+
+        /* Video thumbnail play button */
+        .video-thumb-container {
+            position: relative;
+            cursor: pointer;
+            border-radius: 1rem;
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        .video-thumb-container:hover {
+            transform: scale(1.02);
+        }
+        .video-thumb-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .video-play-circle {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(134,19,48,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(134,19,48,0.4);
+            transition: transform 0.3s, background 0.3s;
+        }
+        .video-thumb-container:hover .video-play-circle {
+            transform: translateX(-50%) scale(1.1);
+            background: #861330;
+        }
+        .video-play-circle svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            margin-left: 3px;
         }
     </style>
 
@@ -942,7 +1092,7 @@
     <!-- ═══ SECTION 0: HEADER ═══ -->
     <header class="site-header" id="site-header">
         <div class="header-inner">
-            <a href="#" class="header-logo"><img src="LOGOREAL.svg" alt="zZzlim®" /></a>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="header-logo"><img src="LOGOREAL.svg" alt="zZzlim®" /></a>
             <nav class="header-nav">
                 <a href="#ursachen" data-nav data-i18n="nav.ursachen">Ursachen</a>
                 <a href="#wirkung" data-nav data-i18n="nav.wirkung">Wirkung</a>
@@ -1025,7 +1175,7 @@
 
 
     <!-- === SECTION 2: Identifikation === -->
-    <section id="identification" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
+    <section id="identification" data-substeps="0" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
             <div style="max-width:80rem; margin:0 auto;">
                 <div style="text-align:center; margin-bottom:3.5rem;">
                     <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
@@ -1074,12 +1224,20 @@
                     </div>
                 </div>
                 <p id="symptom-closing" style="text-align:center; font-size:1.5rem; color:#475569; margin-top:2.5rem; font-family:'Fraunces',serif; opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease;" data-i18n="check.closing">Dann bist du nicht allein.</p>
-                <!-- Step progress bar -->
-                <div id="symptom-dots" style="display:flex; justify-content:center; align-items:center; gap:0; margin-top:2rem; max-width:240px; margin-left:auto; margin-right:auto; position:relative; z-index:5;">
-                    <div class="symptom-dot" style="flex:1; height:3px; background:#e5e5e5; border-radius:3px 0 0 3px; transition:background 0.4s ease;"></div>
-                    <div class="symptom-dot" style="flex:1; height:3px; background:#e5e5e5; transition:background 0.4s ease;"></div>
-                    <div class="symptom-dot" style="flex:1; height:3px; background:#e5e5e5; transition:background 0.4s ease;"></div>
-                    <div class="symptom-dot" style="flex:1; height:3px; background:#e5e5e5; border-radius:0 3px 3px 0; transition:background 0.4s ease;"></div>
+                <!-- Arrow navigation + progress dots -->
+                <div class="carousel-nav" id="symptom-nav">
+                    <button class="carousel-arrow carousel-arrow--prev" id="symptom-prev" aria-label="Zurück">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <div class="carousel-dots" id="symptom-dots">
+                        <div class="carousel-dot active"></div>
+                        <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow--next" id="symptom-next" aria-label="Weiter">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
                 </div>
             </div>
 
@@ -1098,7 +1256,7 @@
 
 
     <!-- === SECTION 5: Ursachen – Storytelling Scroll === -->
-    <section id="ursachen" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative; overflow:hidden;">
+    <section id="ursachen" data-substeps="0" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative; overflow:hidden;">
         <div style="max-width:72rem; margin:0 auto; position:relative;">
             <!-- Section Header -->
             <div class="story-header" style="text-align:center; margin-bottom:3rem;">
@@ -1181,43 +1339,40 @@
             <div class="story-closing" id="story-closing">
                 <h2><span class="underline-anim" data-i18n="urs.closing">Schon kleine Veränderungen am Abend können helfen.</span></h2>
             </div>
-        </div>
-        <div class="mobile-scroll-hint" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+
+            <!-- Arrow navigation for story cards -->
+            <div class="carousel-nav" id="story-nav">
+                <button class="carousel-arrow carousel-arrow--prev" id="story-prev" aria-label="Zurück">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="carousel-dots" id="story-dots">
+                    <div class="carousel-dot active"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
+                </div>
+                <button class="carousel-arrow carousel-arrow--next" id="story-next" aria-label="Weiter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
         </div>
     </section>
 
 
     <!-- === SECTION 5b: Video "So funktioniert" === -->
-    <!-- Desktop: text + thumbnail in one section -->
-    <section id="video2" class="video2-desktop" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
+    <section id="video2" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
         <div style="max-width:1100px; margin:0 auto; width:100%; text-align:center;">
             <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:clamp(0.7rem,1.2vw,0.85rem); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
             <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
-            <div style="border-radius:1rem; overflow:hidden; aspect-ratio:9/16; background:#000; max-width:400px; margin:0 auto; max-height:65vh;">
-                <video id="video2-inline-vid" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:contain; display:block;">
-                    <source src="media/VideoLanding-web.mp4" type="video/mp4">
-                </video>
+            <!-- Thumbnail with play button -->
+            <div class="video-thumb-container" id="video2-thumb">
+                <img src="media/Thumbnailvideo.jpeg" alt="Video abspielen: So funktioniert zZzlim®" />
+                <div class="video-play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Mobile only: Section 5b-1 (text) -->
-    <section id="video2-mobile-text" class="video2-mobile-only" style="display:none; background:#ffffff; font-family:'Fraunces',serif; min-height:100dvh; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; text-align:center; padding:2rem 24px;">
-        <div style="max-width:500px; margin:0 auto;">
-            <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1.25rem;">So funktioniert's</span>
-            <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,6vw,2.25rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:1rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(0.9rem,3.5vw,1.05rem); color:#475569; line-height:1.6;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
-        </div>
-    </section>
-
-    <!-- Mobile only: Section 5b-2 (video fullscreen) -->
-    <section id="video2-mobile-vid" class="video2-mobile-only" style="display:none; background:#000; min-height:100dvh; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
-        <video id="video2-mobile-player" controls playsinline preload="metadata" style="width:90%; height:90dvh; object-fit:contain; display:block; margin:auto; border-radius:12px;">
-            <source src="media/VideoLanding-web.mp4" type="video/mp4">
-        </video>
     </section>
 
     <!-- Video overlay removed — using inline video player instead -->
@@ -1282,7 +1437,7 @@
 
 
     <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
-    <section id="wirkung" data-substeps="4" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
+    <section id="wirkung" data-substeps="0" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
         <div style="max-width:1400px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
@@ -1394,9 +1549,21 @@
                 </div>
             </div>
             </div><!-- /pillar-carousel -->
-            <div class="mobile-scroll-hint" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+
+            <!-- Arrow navigation for pillars -->
+            <div class="carousel-nav" id="pillar-nav">
+                <button class="carousel-arrow carousel-arrow--prev" id="pillar-prev" aria-label="Zurück">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="carousel-dots" id="pillar-dots">
+                    <div class="carousel-dot active"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
+                </div>
+                <button class="carousel-arrow carousel-arrow--next" id="pillar-next" aria-label="Weiter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
             </div>
         </div>
     </section>
@@ -1521,6 +1688,14 @@
             <img src="media/Popup.png" alt="zZzlim® auf einer Wolke" />
         </div>
         <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="product-popup-btn" data-i18n="popup.btn">Jetzt ausprobieren</a>
+    </div>
+
+    <!-- Video Overlay -->
+    <div class="video-overlay" id="video-overlay">
+        <button class="video-overlay-close" id="video-overlay-close" aria-label="Video schließen">&times;</button>
+        <video id="video-overlay-player" controls playsinline preload="none" style="position:relative; z-index:2;">
+            <source src="media/VideoLanding-web.mp4" type="video/mp4">
+        </video>
     </div>
 
     <script src="erklaer.js"></script>

@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         initFloatingDustEffect();
         initBlobDriftEffect();
         initScrollIndicator();
+        initVideoOverlay();
+        // Also init arrow carousels on desktop (they work on both)
+        if (window.innerWidth > 1024) initCarouselArrows();
 
         // Hero reveal on load
         requestAnimationFrame(() => {
@@ -301,10 +304,7 @@ function initSlideshowScroll() {
     function handleScrollDirection(direction) {
         if (isAnimating) return;
 
-        // Hide header on scroll down, show on scroll up (mobile only)
-        if (header && window.innerWidth <= 768) {
-            header.classList.toggle('header-hidden', direction > 0);
-        }
+        // Header is managed by mobile handler on small screens; on desktop keep visible
 
         const state = subStepState[currentIndex];
 
@@ -440,164 +440,207 @@ function initSlideshowScroll() {
     enterSection(0);
 }
 
-/* ─── Mobile Native Scroll (no snap, IntersectionObserver reveals) ─── */
+/* ─── Mobile/Tablet Native Scroll (no snap, arrow navigation) ─── */
 function initMobileNativeScroll(sections) {
-    // Sub-step state for mobile: auto-advance sub-steps as section is visible
-    const subStepState = {};
-    sections.forEach((sec, i) => {
-        const total = parseInt(sec.dataset.substeps, 10);
-        if (total > 0) {
-            subStepState[i] = { current: 0, total: total };
-        }
-    });
-
-    // Reuse the same applySubStep logic from the desktop version
-    function applySubStep(sectionIndex, step) {
-        const sec = sections[sectionIndex];
-
-        // --- Symptom tiles ---
-        const tiles = sec.querySelectorAll('.symptom-tile');
-        if (tiles.length) {
-            const dots = sec.querySelectorAll('.symptom-dot');
-            const state = subStepState[sectionIndex];
-            const isClosing = step >= state.total;
-            const closingOverlay = sec.querySelector('.selbstcheck-closing');
-            tiles.forEach((tile, ti) => {
-                const tileStep = ti + 1;
-                tile.classList.remove('active', 'seen');
-                if (!isClosing) {
-                    if (tileStep === step) tile.classList.add('active');
-                    else if (tileStep < step) tile.classList.add('seen');
-                }
-            });
-            dots.forEach((dot, di) => {
-                dot.style.background = (di + 1 <= Math.min(step, 4)) ? '#861330' : '#e5e5e5';
-            });
-            sec.classList.toggle('symptom-complete', isClosing);
-            if (closingOverlay) closingOverlay.classList.toggle('visible', isClosing);
-            return;
-        }
-
-        // --- Card stack ---
-        const cards = sec.querySelectorAll('.stack-card');
-        if (cards.length) {
-            const stackDots = sec.querySelectorAll('.stack-step-dot');
-            const activeIndex = step - 1;
-            cards.forEach((card, ci) => {
-                card.classList.remove('dismissed');
-                if (ci < activeIndex) {
-                    card.classList.add('dismissed');
-                    card.removeAttribute('data-stack');
-                } else {
-                    card.setAttribute('data-stack', Math.min(ci - activeIndex, 3));
-                }
-            });
-            stackDots.forEach((dot, di) => dot.classList.toggle('active', di === activeIndex));
-            return;
-        }
-
-        // --- Story cards ---
-        const storyCards = sec.querySelectorAll('.story-card');
-        if (storyCards.length) {
-            const state = subStepState[sectionIndex];
-            const closingEl = sec.querySelector('.story-closing');
-            const thread = sec.querySelector('.story-thread');
-            const threadFill = sec.querySelector('.story-thread-fill');
-            const isClosingStep = step >= state.total;
-            const cardStep = Math.min(step, storyCards.length);
-            if (thread) {
-                thread.style.display = (step >= 2 && !isClosingStep) ? 'block' : '';
-                thread.classList.toggle('hidden', isClosingStep);
-            }
-            storyCards.forEach((card, ci) => {
-                card.classList.remove('active', 'seen');
-                if (isClosingStep) { card.classList.add('seen'); }
-                else if (ci < cardStep - 1) { card.classList.add('seen'); }
-                else if (ci === cardStep - 1) { card.classList.add('active'); }
-            });
-            if (threadFill) threadFill.style.height = (cardStep / storyCards.length * 100) + '%';
-            if (closingEl) closingEl.classList.toggle('visible', isClosingStep);
-            sec.classList.toggle('story-complete', isClosingStep);
-            return;
-        }
-
-        // --- Pillar carousel ---
-        const pillarSlides = sec.querySelectorAll('.pillar-slide');
-        if (pillarSlides.length) {
-            const overlay = sec.querySelector('.pillar-overlay');
-            pillarSlides.forEach((slide, si) => {
-                slide.classList.remove('active', 'peek');
-                if (step <= 3 && si === step - 1) slide.classList.add('active');
-            });
-            if (overlay) overlay.classList.toggle('visible', step >= 4);
-            return;
-        }
-    }
-
-    // Auto-advance sub-steps with a timer when section is in view
-    let activeTimers = {};
-
-    function startSubStepAutoAdvance(sectionIndex) {
-        if (!subStepState[sectionIndex] || activeTimers[sectionIndex]) return;
-        const state = subStepState[sectionIndex];
-        if (state.current >= state.total) return;
-
-        // Start from step 1
-        state.current = 1;
-        applySubStep(sectionIndex, 1);
-
-        activeTimers[sectionIndex] = setInterval(() => {
-            if (state.current < state.total) {
-                state.current++;
-                applySubStep(sectionIndex, state.current);
-            } else {
-                clearInterval(activeTimers[sectionIndex]);
-                activeTimers[sectionIndex] = null;
-            }
-        }, 1500);
-    }
-
-    function resetSubSteps(sectionIndex) {
-        if (activeTimers[sectionIndex]) {
-            clearInterval(activeTimers[sectionIndex]);
-            activeTimers[sectionIndex] = null;
-        }
-        if (subStepState[sectionIndex]) {
-            subStepState[sectionIndex].current = 0;
-            applySubStep(sectionIndex, 0);
-        }
-        // Close pillar overlay when leaving wirkung section
-        const pillarOverlay = document.getElementById('pillar-overlay');
-        if (pillarOverlay) pillarOverlay.classList.remove('visible');
-        const chatgptCopied = document.getElementById('chatgpt-copied');
-        if (chatgptCopied) chatgptCopied.style.opacity = '0';
-    }
-
-    // IntersectionObserver for section reveals
+    // IntersectionObserver for section reveals (no auto-play)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const sec = entry.target;
-            const index = sections.indexOf(sec);
             if (entry.isIntersecting) {
                 sec.classList.add('sr-active');
-                startSubStepAutoAdvance(index);
             } else {
                 sec.classList.remove('sr-active');
-                resetSubSteps(index);
+                // Close pillar overlay when leaving
+                const pillarOverlay = document.getElementById('pillar-overlay');
+                if (pillarOverlay) pillarOverlay.classList.remove('visible');
+                const chatgptCopied = document.getElementById('chatgpt-copied');
+                if (chatgptCopied) chatgptCopied.style.opacity = '0';
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
 
     sections.forEach(sec => observer.observe(sec));
 
-    // Auto-hide header on mobile
+    // Initialize arrow carousels
+    initCarouselArrows();
+
+    // Auto-hide header (debounced)
     const header = document.querySelector('.site-header');
     let lastScrollY = 0;
+    let scrollDelta = 0;
+    const headerThreshold = 40;
+
     window.addEventListener('scroll', () => {
-        if (header) {
-            header.classList.toggle('header-hidden', window.scrollY > lastScrollY && window.scrollY > 100);
+        if (!header) return;
+        const currentY = window.scrollY;
+        const diff = currentY - lastScrollY;
+        scrollDelta += diff;
+        lastScrollY = currentY;
+
+        if (scrollDelta > headerThreshold && currentY > 100) {
+            header.classList.add('header-hidden');
+            scrollDelta = 0;
+        } else if (scrollDelta < -headerThreshold) {
+            header.classList.remove('header-hidden');
+            scrollDelta = 0;
         }
-        lastScrollY = window.scrollY;
+        if ((diff > 0 && scrollDelta < 0) || (diff < 0 && scrollDelta > 0)) {
+            scrollDelta = diff;
+        }
+    }, { passive: true });
+}
+
+/* ─── Carousel Arrow Navigation (used on mobile & desktop) ─── */
+function initCarouselArrows() {
+    // --- Selbstcheck (symptom tiles) ---
+    setupCarousel({
+        prevBtn: document.getElementById('symptom-prev'),
+        nextBtn: document.getElementById('symptom-next'),
+        dotsContainer: document.getElementById('symptom-dots'),
+        totalSteps: 4,
+        onChange: (step) => {
+            const tiles = document.querySelectorAll('.symptom-tile');
+            const closing = document.getElementById('selbstcheck-closing');
+            const sec = document.getElementById('identification');
+            tiles.forEach((tile, ti) => {
+                tile.classList.remove('active', 'seen');
+                if (ti === step) tile.classList.add('active');
+                else if (ti < step) tile.classList.add('seen');
+            });
+            if (sec) sec.classList.remove('symptom-complete');
+            if (closing) closing.classList.remove('visible');
+        }
+    });
+
+    // --- Ursachen (story cards) ---
+    setupCarousel({
+        prevBtn: document.getElementById('story-prev'),
+        nextBtn: document.getElementById('story-next'),
+        dotsContainer: document.getElementById('story-dots'),
+        totalSteps: 4,
+        onChange: (step) => {
+            const cards = document.querySelectorAll('.story-card');
+            const closing = document.getElementById('story-closing');
+            const sec = document.getElementById('ursachen');
+            const thread = sec ? sec.querySelector('.story-thread') : null;
+            const threadFill = sec ? sec.querySelector('.story-thread-fill') : null;
+
+            cards.forEach((card, ci) => {
+                card.classList.remove('active', 'seen');
+                if (ci === step) card.classList.add('active');
+                else if (ci < step) card.classList.add('seen');
+            });
+            if (thread) {
+                thread.style.display = step > 0 ? 'block' : '';
+                thread.classList.remove('hidden');
+            }
+            if (threadFill) threadFill.style.height = ((step + 1) / cards.length * 100) + '%';
+            if (closing) closing.classList.remove('visible');
+            if (sec) sec.classList.remove('story-complete');
+        }
+    });
+
+    // --- 3 Säulen (pillar slides) ---
+    setupCarousel({
+        prevBtn: document.getElementById('pillar-prev'),
+        nextBtn: document.getElementById('pillar-next'),
+        dotsContainer: document.getElementById('pillar-dots'),
+        totalSteps: 3,
+        onChange: (step) => {
+            const slides = document.querySelectorAll('.pillar-slide');
+            const overlay = document.getElementById('pillar-overlay');
+            slides.forEach((slide, si) => {
+                slide.classList.remove('active', 'peek');
+                if (si === step) slide.classList.add('active');
+            });
+            if (overlay) overlay.classList.remove('visible');
+        }
+    });
+}
+
+function setupCarousel({ prevBtn, nextBtn, dotsContainer, totalSteps, onChange }) {
+    if (!prevBtn || !nextBtn) return;
+
+    let current = 0;
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
+
+    function update() {
+        prevBtn.disabled = current <= 0;
+        nextBtn.disabled = current >= totalSteps - 1;
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+        onChange(current);
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (current > 0) { current--; update(); }
+    });
+    nextBtn.addEventListener('click', () => {
+        if (current < totalSteps - 1) { current++; update(); }
+    });
+
+    // Initialize first step
+    update();
+
+    // Touch swipe support on the section
+    const section = prevBtn.closest('section');
+    if (section) {
+        let touchStartX = 0;
+        section.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        section.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && current < totalSteps - 1) { current++; update(); }
+                else if (diff < 0 && current > 0) { current--; update(); }
+            }
+        }, { passive: true });
+    }
+}
+
+/* ─── Video Overlay ─── */
+function initVideoOverlay() {
+    const thumb = document.getElementById('video2-thumb');
+    const overlay = document.getElementById('video-overlay');
+    const player = document.getElementById('video-overlay-player');
+    const closeBtn = document.getElementById('video-overlay-close');
+    if (!thumb || !overlay || !player) return;
+
+    function openOverlay() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        player.currentTime = 0;
+        player.play().catch(() => {});
+    }
+
+    function closeOverlay() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        player.pause();
+        player.currentTime = 0;
+    }
+
+    thumb.addEventListener('click', openOverlay);
+    if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+
+    // Click on dark side areas to close
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeOverlay();
+    });
+
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
+    });
+
+    // Close on scroll (if user manages to scroll past)
+    let wasActive = false;
+    window.addEventListener('scroll', () => {
+        if (overlay.classList.contains('active')) {
+            if (!wasActive) { wasActive = true; return; } // skip first scroll event
+            closeOverlay();
+            wasActive = false;
+        }
     }, { passive: true });
 }
 
@@ -1020,23 +1063,7 @@ function initVideoLazyLoad() {
         });
     });
 
-    // Video2: pause when scrolling away, resume is manual via controls
-    const video2Vids = [
-        document.getElementById('video2-inline-vid'),
-        document.getElementById('video2-mobile-player')
-    ].filter(Boolean);
-
-    if (video2Vids.length) {
-        const video2Observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const vid = entry.target;
-                if (!entry.isIntersecting && !vid.paused) {
-                    vid.pause();
-                }
-            });
-        }, { threshold: 0.1 });
-        video2Vids.forEach(vid => video2Observer.observe(vid));
-    }
+    // Video overlay player: handled by initVideoOverlay
 }
 
 /* ─── Sticky Mobile CTA ─── */
