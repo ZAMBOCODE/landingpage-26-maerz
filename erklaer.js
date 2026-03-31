@@ -531,7 +531,7 @@ function initCarouselArrows() {
     });
 
     // --- 3 Säulen (pillar slides) — 4 steps: 3 slides + overlay ---
-    setupCarousel({
+    window._pillarCarousel = setupCarousel({
         prevBtn: document.getElementById('pillar-prev'),
         nextBtn: document.getElementById('pillar-next'),
         dotsContainer: document.getElementById('pillar-dots'),
@@ -552,7 +552,7 @@ function initCarouselArrows() {
 }
 
 function setupCarousel({ prevBtn, nextBtn, dotsContainer, totalSteps, onChange }) {
-    if (!prevBtn || !nextBtn) return;
+    if (!prevBtn || !nextBtn) return null;
 
     let current = 0;
     const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
@@ -562,6 +562,11 @@ function setupCarousel({ prevBtn, nextBtn, dotsContainer, totalSteps, onChange }
         nextBtn.disabled = current >= totalSteps - 1;
         dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
         onChange(current);
+    }
+
+    function goTo(step) {
+        current = Math.max(0, Math.min(step, totalSteps - 1));
+        update();
     }
 
     prevBtn.addEventListener('click', () => {
@@ -589,6 +594,8 @@ function setupCarousel({ prevBtn, nextBtn, dotsContainer, totalSteps, onChange }
             }
         }, { passive: true });
     }
+
+    return { goTo };
 }
 
 /* ─── Video Overlay ─── */
@@ -1358,12 +1365,16 @@ function initChatGPTButton() {
     btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.05)');
     btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
 
-    // Overlay close button
+    // Overlay close button — go back to last pillar slide (Säule 3)
     const overlayClose = document.getElementById('pillar-overlay-close');
     const overlay = document.getElementById('pillar-overlay');
     if (overlayClose && overlay) {
         overlayClose.addEventListener('click', () => {
-            overlay.classList.remove('visible');
+            if (window._pillarCarousel) {
+                window._pillarCarousel.goTo(2); // back to Säule 3
+            } else {
+                overlay.classList.remove('visible');
+            }
         });
     }
 }
