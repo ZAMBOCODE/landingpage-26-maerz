@@ -94,19 +94,18 @@
         /* Story carousel arrows: pinned right under the cards (touch + small screens) */
         @media (max-width: 1366px) {
             #ursachen {
-                justify-content: flex-start !important;
+                display: block !important;
+                min-height: auto !important;
                 padding-top: 4rem !important;
+                padding-bottom: 2rem !important;
             }
-            #ursachen > div {
-                margin-top: 0 !important;
+            #ursachen > div { margin-top: 0 !important; }
+            #ursachen .story-container {
+                margin-bottom: 0 !important;
+                min-height: auto !important;
             }
-            #story-nav {
-                margin-top: 1rem !important;
-            }
-            /* Same for selbstcheck (if still used) */
-            #symptom-nav {
-                margin-top: 0.75rem !important;
-            }
+            #story-nav { margin-top: 1rem !important; }
+            #symptom-nav { margin-top: 0.75rem !important; }
         }
 
         /* Testimonials grid: 1 col on tablet/mobile */
@@ -879,17 +878,22 @@
             .story-number { width: 32px; height: 32px; font-size: 0.875rem; margin-bottom: 0.5rem !important; }
             /* Story thread: right side on mobile */
             .story-thread { left: auto !important; right: -8px !important; transform: none !important; }
-            /* Ursachen section: top-aligned so arrows sit close to cards */
+            /* Ursachen section: tight layout, arrows directly under cards */
             #ursachen {
-                padding: 4rem 16px 2rem !important;
-                min-height: 100dvh;
-                display: flex !important;
-                flex-direction: column;
-                align-items: stretch !important;
-                justify-content: flex-start !important;
+                padding: 3rem 16px 2rem !important;
+                min-height: auto !important;
+                display: block !important;
             }
             #ursachen > div { width: 100%; }
-            #ursachen .story-header { margin-bottom: clamp(1rem, 3vw, 1.5rem) !important; }
+            #ursachen .story-header { margin-bottom: 1rem !important; }
+            #ursachen .story-container {
+                margin-bottom: 0 !important;
+                min-height: auto !important;
+            }
+            #story-nav {
+                margin-top: 0.75rem !important;
+                margin-bottom: 0 !important;
+            }
 
             /* Selbstcheck: tighter on small screens */
             #identification { justify-content: center !important; padding-top: 4rem !important; }
