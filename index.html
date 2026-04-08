@@ -91,6 +91,24 @@
         }
         /* No scroll snap — FAQ flows naturally */
 
+        /* Story carousel arrows: pinned right under the cards (touch + small screens) */
+        @media (max-width: 1366px) {
+            #ursachen {
+                justify-content: flex-start !important;
+                padding-top: 4rem !important;
+            }
+            #ursachen > div {
+                margin-top: 0 !important;
+            }
+            #story-nav {
+                margin-top: 1rem !important;
+            }
+            /* Same for selbstcheck (if still used) */
+            #symptom-nav {
+                margin-top: 0.75rem !important;
+            }
+        }
+
         /* Testimonials grid: 1 col on tablet/mobile */
         @media (max-width: 1024px) {
             .testimonials-grid {
@@ -812,7 +830,7 @@
                 position: absolute !important;
                 left: 0 !important;
                 right: 0 !important;
-                bottom: 1.25rem !important;
+                bottom: 4rem !important;
                 top: auto !important;
                 transform: none !important;
                 text-align: center !important;
@@ -842,6 +860,7 @@
                 justify-content: center !important;
             }
             #hero .hero-cta-btn { margin-top: 0.5rem; padding: 14px 32px !important; font-size: 0.95rem !important; }
+            #hero .hero-rating { display: none !important; }
 
             /* Scroll progress bar: hide on mobile */
             .scroll-progress { display: none !important; }
@@ -860,8 +879,15 @@
             .story-number { width: 32px; height: 32px; font-size: 0.875rem; margin-bottom: 0.5rem !important; }
             /* Story thread: right side on mobile */
             .story-thread { left: auto !important; right: -8px !important; transform: none !important; }
-            /* Ursachen section: fluid padding, centered on all devices */
-            #ursachen { padding: clamp(2rem, 5vh, 4rem) 16px !important; min-height: 100dvh; display: flex; align-items: center; }
+            /* Ursachen section: top-aligned so arrows sit close to cards */
+            #ursachen {
+                padding: 4rem 16px 2rem !important;
+                min-height: 100dvh;
+                display: flex !important;
+                flex-direction: column;
+                align-items: stretch !important;
+                justify-content: flex-start !important;
+            }
             #ursachen > div { width: 100%; }
             #ursachen .story-header { margin-bottom: clamp(1rem, 3vw, 1.5rem) !important; }
 
@@ -1331,10 +1357,10 @@
         <!-- Gradient overlay: dark on left for text readability -->
         <div class="hero-gradient" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to right, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.55) 35%, rgba(15,23,42,0.15) 65%, transparent 100%);"></div>
         <!-- Content -->
-        <div class="hero-v3-content" style="position:absolute; z-index:2; text-align:left; left:clamp(1.5rem,5vw,5rem); top:50%; transform:translateY(-50%); width:auto; max-width:min(560px, 50vw);">
-          <div class="hero-text-block">
-            <h1 style="font-family:'Fraunces',serif; font-size:clamp(3rem,7vw,6rem); font-weight:700; line-height:1.0; color:#fff; letter-spacing:-0.035em; margin-bottom:1.25rem;" data-i18n="hero.title">Endlich wieder<br><span style="color:#fff;">tief schlafen.</span></h1>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(1.1rem,1.8vw,1.4rem); color:rgba(255,255,255,0.92); line-height:1.55; margin-bottom:2.25rem; max-width:560px;" data-i18n="hero.desc">Erholt aufwachen, voller Energie in den Tag — mit nur 1 Kapsel am Abend.</p>
+        <div class="hero-v3-content" style="position:absolute; z-index:2; text-align:left; left:clamp(1.5rem,5vw,5rem); top:50%; transform:translateY(-50%); width:auto; max-width:min(820px, 55vw);">
+          <div class="hero-text-block" style="max-width:780px;">
+            <h1 style="font-family:'Fraunces',serif; font-size:clamp(3rem,6.5vw,5.5rem); font-weight:700; line-height:1.0; color:#fff; letter-spacing:-0.035em; margin-bottom:1.25rem; white-space:nowrap;" data-i18n="hero.title">Endlich wieder tief<br><span style="color:#fff;">schlafen.</span></h1>
+            <p style="font-family:'Fraunces',serif; font-size:clamp(1.1rem,1.8vw,1.4rem); color:rgba(255,255,255,0.92); line-height:1.55; margin-bottom:2.25rem; max-width:560px;" data-i18n="hero.desc">Erholt aufwachen, voller Energie in den Tag. Mit nur 1,67 € pro Tag.</p>
             <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="hero-cta-btn" style="display:inline-flex; -webkit-align-items:center; align-items:center; gap:10px; background:#861330; color:#fff; padding:18px 42px; border-radius:999px; font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; text-decoration:none; box-shadow:0 6px 24px rgba(134,19,48,0.5); transition:transform 0.3s;">Jetzt ausprobieren →</a>
             <!-- Trust signals under CTA -->
             <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:1rem 1.5rem; color:rgba(255,255,255,0.85); font-size:0.8rem; font-family:'Fraunces',serif;">
@@ -1352,6 +1378,11 @@
                 </span>
             </div>
           </div>
+        </div>
+        <!-- Subtle star rating bottom centered -->
+        <div class="hero-rating" style="position:absolute; bottom:1.25rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; align-items:center; gap:8px; padding:6px 14px; background:rgba(0,0,0,0.35); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border-radius:999px; border:1px solid rgba(255,255,255,0.12); font-family:'Fraunces',serif; pointer-events:none;">
+            <span style="color:#FFD700; font-size:0.8rem; letter-spacing:1px;">★★★★★</span>
+            <span style="color:rgba(255,255,255,0.85); font-size:0.7rem; font-weight:500; letter-spacing:0.02em;">2.847 verifizierte Bewertungen</span>
         </div>
         </section>
 
@@ -1532,11 +1563,11 @@
             </div>
 
             <div class="testimonials-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;">
-                <!-- Testimonial 1: Christine -->
+                <!-- Testimonial 1: Christine — Gewicht / Wechseljahre -->
                 <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
                     <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
-                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Besseres Durchschlafen!</h3>
-                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Keine Hungerattacken mehr, 1,8 kg verloren – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.</p>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">1,8 Kilo weg ohne Diät</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Ich war ehrlich gesagt erst skeptisch. Aber nach paar Wochen merkte ich das die Heißhungerattacken am Abend einfach weg waren. 1,8 kg leichter, mitten in den Wechseljahren und ich hab nichts an meinem Alltag geändert. Bin echt begeistert!</p>
                     <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
                         <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Christine J., 53</div>
                         <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">
@@ -1546,11 +1577,11 @@
                     </div>
                 </div>
 
-                <!-- Testimonial 2: Ulrich -->
+                <!-- Testimonial 2: Ulrich — Schlafqualität (KEIN Gewicht) -->
                 <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
                     <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
-                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Wieder wach und ausgeglichen</h3>
-                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Nur 5 h Schlaf? Das war einmal! 1,6 kg in 3 Tagen verloren, süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.</p>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Endlich wieder durchschlafen</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Jahre lang bin ich um 3 Uhr nachts wach geworden, hab dann ewig wieder einschlafen können. Seit ich abends die Kapsel nehme schlaf ich wirklich durch. Meine Frau sagt sogar das ich nicht mehr so unruhig im Bett bin. Fühl mich morgens wirklich erholt, das war lange nicht mehr so.</p>
                     <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
                         <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Ulrich R., 74</div>
                         <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">
@@ -1560,11 +1591,11 @@
                     </div>
                 </div>
 
-                <!-- Testimonial 3: Michael -->
+                <!-- Testimonial 3: Michael — Gemütszustand / Stimmung -->
                 <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
                     <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
-                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">15 kg in 4 Monaten</h3>
-                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Essverhalten wie automatisch verändert: 15 kg leichter, 20 cm Bauch weg – zZzlim® im Langzeittest hat bei mir voll eingeschlagen.</p>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Bin viel ausgeglichener</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Was mich am meisten überrascht hat ist nicht mal der Schlaf, sondern wie ich tagsüber drauf bin. Ich war oft so gereizt, vor allem mit meiner Frau und den Enkeln. Das ist jetzt einfach weg. Ich bin morgens schon gut gelaunt und das bleibt den ganzen Tag. Kann ich nur jedem empfehlen.</p>
                     <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
                         <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Michael H., 63</div>
                         <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">

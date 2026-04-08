@@ -2210,24 +2210,9 @@ ul, ol { list-style: none; }
     transform: translateX(-50%) scale(1.06);
 }
 
-/* Mobile: small popup bottom-left, above sticky CTA */
+/* Mobile: hide popup completely (desktop only) */
 @media (max-width: 768px) {
     .product-popup {
-        bottom: 80px;
-        left: 12px;
-        width: 160px;
-        max-width: 50vw;
-    }
-    .product-popup-close {
-        width: 24px;
-        height: 24px;
-        font-size: 0.9rem;
-        top: 6px;
-        right: 6px;
-    }
-    .product-popup-btn {
-        padding: 7px 14px;
-        font-size: 0.55rem;
-        bottom: 8px;
+        display: none !important;
     }
 }
