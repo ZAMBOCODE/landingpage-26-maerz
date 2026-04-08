@@ -91,6 +91,15 @@
         }
         /* No scroll snap — FAQ flows naturally */
 
+        /* Testimonials grid: 1 col on tablet/mobile */
+        @media (max-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr !important;
+                max-width: 480px;
+                margin: 0 auto;
+            }
+        }
+
         /* Desktop only (>1366px, no touch): show all 3 pillar cards side by side */
         @media (min-width: 1367px) {
             html:not(.touch-device) .pillar-carousel {
@@ -538,25 +547,28 @@
             transition: opacity 0.6s ease;
         }
 
-        /* ─── Section Reveal Stagger System ─── */
+        /* ─── Section Reveal Stagger System (faster, no white space) ─── */
         [data-sr] {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.375s ease, transform 0.375s ease;
+            transform: translateY(12px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
             transition-delay: 0s;
         }
         main > section.sr-active [data-sr] {
             opacity: 1;
             transform: translateY(0);
         }
-        main > section.sr-active [data-sr="1"] { transition-delay: 0.045s; }
-        main > section.sr-active [data-sr="2"] { transition-delay: 0.135s; }
-        main > section.sr-active [data-sr="3"] { transition-delay: 0.24s; }
-        main > section.sr-active [data-sr="4"] { transition-delay: 0.36s; }
-        main > section.sr-active [data-sr="5"] { transition-delay: 0.465s; }
-        main > section.sr-active [data-sr="6"] { transition-delay: 0.555s; }
-        main > section.sr-active [data-sr="7"] { transition-delay: 0.645s; }
-        main > section.sr-active [data-sr="8"] { transition-delay: 0.735s; }
+        main > section.sr-active [data-sr="1"] { transition-delay: 0.02s; }
+        main > section.sr-active [data-sr="2"] { transition-delay: 0.06s; }
+        main > section.sr-active [data-sr="3"] { transition-delay: 0.1s; }
+        main > section.sr-active [data-sr="4"] { transition-delay: 0.14s; }
+        main > section.sr-active [data-sr="5"] { transition-delay: 0.18s; }
+        main > section.sr-active [data-sr="6"] { transition-delay: 0.22s; }
+        main > section.sr-active [data-sr="7"] { transition-delay: 0.26s; }
+        main > section.sr-active [data-sr="8"] { transition-delay: 0.3s; }
+        /* Failsafe: if section is in viewport but not yet sr-active, show content anyway after 200ms */
+        @keyframes fallbackReveal { to { opacity: 1; transform: translateY(0); } }
+        [data-sr] { animation: fallbackReveal 0.4s ease 0.8s forwards; }
 
         @media (prefers-reduced-motion: reduce) {
             [data-sr] { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -788,11 +800,48 @@
             /* Hide background blobs on mobile */
             #effects-layer { display: none !important; }
 
-            /* Mobile Hero: V3 Bottom Gradient */
-            #hero { padding: 0 !important; min-height: 100dvh !important; -webkit-align-items: center !important; align-items: center !important; }
-            #hero .hero-v3-content { text-align: center; padding: 0 1.5rem 3rem !important; }
-            #hero .hero-v3-content p { max-width: 100%; }
-            #hero .hero-cta-btn { margin-top: 1rem; }
+            /* Mobile Hero: text bottom, image fills, gradient bottom-up */
+            #hero {
+                padding: 0 !important;
+                min-height: 100dvh !important;
+            }
+            #hero .hero-gradient {
+                background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.78) 25%, rgba(15,23,42,0.35) 45%, transparent 65%) !important;
+            }
+            #hero .hero-v3-content {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 1.25rem !important;
+                top: auto !important;
+                transform: none !important;
+                text-align: center !important;
+                padding: 0 1.25rem !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            #hero .hero-text-block,
+            #hero .hero-text-block h1,
+            #hero .hero-text-block p {
+                text-align: center !important;
+            }
+            #hero .hero-text-block {
+                max-width: 100% !important;
+                margin: 0 auto;
+            }
+            #hero .hero-text-block h1 {
+                font-size: clamp(2.25rem, 8vw, 3.25rem) !important;
+                line-height: 1.0 !important;
+            }
+            #hero .hero-text-block p {
+                font-size: clamp(0.95rem, 3.5vw, 1.1rem) !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            #hero .hero-text-block > div:last-child {
+                justify-content: center !important;
+            }
+            #hero .hero-cta-btn { margin-top: 0.5rem; padding: 14px 32px !important; font-size: 0.95rem !important; }
 
             /* Scroll progress bar: hide on mobile */
             .scroll-progress { display: none !important; }
@@ -1273,100 +1322,38 @@
 
 
     <!-- === SECTION 1: Hero (V3 Bottom Gradient) === -->
-    <section id="hero" style="position:relative; overflow:hidden; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
-        <!-- Hero background image (focus left) -->
-        <img id="hero-fallback" src="media/hero-bg.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:40% center; z-index:0;">
-        <!-- Gradient overlay -->
-        <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.45) 50%, rgba(15,23,42,0.25) 100%);"></div>
+    <section id="hero" style="position:relative; overflow:hidden; font-family:'Fraunces',serif; min-height:100vh;">
+        <!-- Hero background image (responsive: mobile vs desktop) -->
+        <picture>
+            <source media="(max-width: 768px)" srcset="media/hero-mobile.webp">
+            <img id="hero-fallback" src="media/hero-desktop.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; z-index:0;">
+        </picture>
+        <!-- Gradient overlay: dark on left for text readability -->
+        <div class="hero-gradient" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to right, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.55) 35%, rgba(15,23,42,0.15) 65%, transparent 100%);"></div>
         <!-- Content -->
-        <div class="hero-v3-content" style="position:relative; z-index:2; text-align:center; padding:clamp(2rem,4vw,4rem) clamp(1.5rem,4vw,4rem); max-width:900px; width:100%; margin:0 auto;">
-            <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.25rem,5vw,3.75rem); font-weight:700; line-height:1.08; color:#fff; letter-spacing:-0.03em; margin-bottom:1rem;" data-i18n="hero.title">Warum Zucker am Abend deinen Schlaf <span style="color:#fff;">sabotiert.</span></h1>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(0.85rem,1.3vw,1.05rem); color:rgba(255,255,255,0.75); line-height:1.6; margin-bottom:2.5rem; max-width:600px; margin-left:auto; margin-right:auto;" data-i18n="hero.desc">Dein Abend entscheidet über Schlaf, Stoffwechsel und Wohlbefinden. Erfahre warum.</p>
-            <a href="#identification" class="hero-cta-btn" style="display:inline-flex; -webkit-align-items:center; align-items:center; gap:10px; background:#861330; color:#fff; padding:14px 34px; border-radius:999px; font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; text-decoration:none; box-shadow:0 4px 20px rgba(134,19,48,0.4); transition:transform 0.3s;">Jetzt entdecken</a>
+        <div class="hero-v3-content" style="position:absolute; z-index:2; text-align:left; left:clamp(1.5rem,5vw,5rem); top:50%; transform:translateY(-50%); width:auto; max-width:min(560px, 50vw);">
+          <div class="hero-text-block">
+            <h1 style="font-family:'Fraunces',serif; font-size:clamp(3rem,7vw,6rem); font-weight:700; line-height:1.0; color:#fff; letter-spacing:-0.035em; margin-bottom:1.25rem;" data-i18n="hero.title">Endlich wieder<br><span style="color:#fff;">tief schlafen.</span></h1>
+            <p style="font-family:'Fraunces',serif; font-size:clamp(1.1rem,1.8vw,1.4rem); color:rgba(255,255,255,0.92); line-height:1.55; margin-bottom:2.25rem; max-width:560px;" data-i18n="hero.desc">Erholt aufwachen, voller Energie in den Tag — mit nur 1 Kapsel am Abend.</p>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="hero-cta-btn" style="display:inline-flex; -webkit-align-items:center; align-items:center; gap:10px; background:#861330; color:#fff; padding:18px 42px; border-radius:999px; font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; text-decoration:none; box-shadow:0 6px 24px rgba(134,19,48,0.5); transition:transform 0.3s;">Jetzt ausprobieren →</a>
+            <!-- Trust signals under CTA -->
+            <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:1rem 1.5rem; color:rgba(255,255,255,0.85); font-size:0.8rem; font-family:'Fraunces',serif;">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    60 Tage Geld-zurück
+                </span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Made in EU
+                </span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Kostenloser Versand
+                </span>
+            </div>
+          </div>
         </div>
         </section>
-
-
-    <!-- === SECTION 2: Identifikation === -->
-    <section id="identification" data-substeps="5" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; position:relative;">
-            <div style="max-width:80rem; margin:0 auto;">
-                <div style="text-align:center; margin-bottom:3.5rem;">
-                    <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#861330; margin-bottom:1rem;" data-i18n="check.pill">Selbstcheck</span>
-                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="check.title">Kommt dir das bekannt vor?</h2>
-                </div>
-                <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:2.5rem;" id="symptom-grid">
-                    <!-- Tile 1 -->
-                    <div class="symptom-tile" data-step="1" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t1">Du greifst abends noch zu Süßem, obwohl du eigentlich satt bist</p>
-                        <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
-                            <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
-                            <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
-                                <img src="media/1s%C3%BC%C3%9Fes.webp" alt="Abends zu Süßem greifen" style="width:100%; height:100%; object-fit:cover; transform:scale(1.15);">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tile 2 -->
-                    <div class="symptom-tile" data-step="2" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t2">Du wachst nachts plötzlich auf und weißt nicht warum</p>
-                        <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
-                            <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
-                            <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
-                                <img src="media/2Nachtswach.webp" alt="Nachts wach" style="width:100%; height:100%; object-fit:cover; transform:scale(1.15);">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tile 3 -->
-                    <div class="symptom-tile" data-step="3" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t3">Du fühlst dich morgens schwerer als am Vorabend</p>
-                        <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
-                            <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
-                            <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
-                                <img src="media/Waage.webp" alt="Waage" style="width:100%; height:100%; object-fit:cover;">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tile 4 -->
-                    <div class="symptom-tile" data-step="4" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; transition:transform 0.6s ease, opacity 0.6s ease; opacity:0.35; transform:scale(0.85);">
-                        <p class="symptom-label" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0f172a; line-height:1.4; transition:opacity 0.4s ease; opacity:0.4;" data-i18n="check.t4">Du schwitzt nachts ohne Grund</p>
-                        <div class="symptom-circle" style="position:relative; width:280px; height:280px; border-radius:9999px; flex-shrink:0;">
-                            <div class="symptom-border-glow" style="position:absolute; inset:-4px; border-radius:9999px; opacity:0; transition:opacity 0.6s ease;"></div>
-                            <div style="width:100%; height:100%; border-radius:9999px; overflow:hidden;">
-                                <img src="media/Schwei%C3%9F.webp" alt="Nachtschweiß" style="width:100%; height:100%; object-fit:cover;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p id="symptom-closing" style="text-align:center; font-size:1.5rem; color:#475569; margin-top:2.5rem; font-family:'Fraunces',serif; opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease;" data-i18n="check.closing">Dann bist du nicht allein.</p>
-                <!-- Arrow navigation + progress dots -->
-                <div class="carousel-nav" id="symptom-nav">
-                    <button class="carousel-arrow carousel-arrow--prev" id="symptom-prev" aria-label="Zurück">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                    </button>
-                    <div class="carousel-dots" id="symptom-dots">
-                        <div class="carousel-dot active"></div>
-                        <div class="carousel-dot"></div>
-                        <div class="carousel-dot"></div>
-                        <div class="carousel-dot"></div>
-                        <div class="carousel-dot"></div>
-                    </div>
-                    <button class="carousel-arrow carousel-arrow--next" id="symptom-next" aria-label="Weiter">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Closing overlay (appears at step 5, everything else fades) -->
-            <div class="selbstcheck-closing" id="selbstcheck-closing">
-                <h2><span class="underline-anim" data-i18n="check.closing2">Dann bist du nicht allein.</span></h2>
-            </div>
-            <div class="mobile-scroll-hint" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
-        </section>
-
-
-
 
 
     <!-- === SECTION 5: Ursachen – Storytelling Scroll === -->
@@ -1474,26 +1461,7 @@
     </section>
 
 
-    <!-- === SECTION 5b: Video "So funktioniert" === -->
-    <section id="video2" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
-        <div style="max-width:1100px; margin:0 auto; width:100%; text-align:center;">
-            <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:clamp(0.7rem,1.2vw,0.85rem); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
-            <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
-            <!-- Thumbnail with play button -->
-            <div class="video-thumb-container" id="video2-thumb">
-                <img src="media/Thumbnailvideo.jpeg" alt="Video abspielen: So funktioniert zZzlim®" />
-                <div class="video-play-circle">
-                    <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Video overlay removed — using inline video player instead -->
-
-
-    <!-- === SECTION 6: Produkt-Info (Inhaltsstoffe + Qualität) === -->
     <section id="produkt-info" style="padding:5rem 50px; background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
         <div style="max-width:1300px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:0.75rem;">
@@ -1541,8 +1509,12 @@
                     </div>
                     </div>
                     <div class="produkt-section-cta">
-                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" data-i18n="prod.cta">In Ruhe ausprobieren</a>
-                        <p class="produkt-cta-note" data-i18n="prod.cta.note">30 Tage – eine Entscheidung ohne Stress.</p>
+                        <div style="display:flex; align-items:baseline; justify-content:center; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap;">
+                            <span style="font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:#0f172a;">49,95 €</span>
+                            <span style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569;">/ Monatskur (30 Kapseln)</span>
+                        </div>
+                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" data-i18n="prod.cta">Jetzt ausprobieren</a>
+                        <p class="produkt-cta-note" data-i18n="prod.cta.note">60 Tage Geld-zurück-Garantie · Kostenloser Versand</p>
                     </div>
                 </div>
             </div>
@@ -1551,7 +1523,68 @@
 
 
 
-    <!-- === SECTION 7: Die 3 Säulen — Scroll Carousel === -->
+    <section id="testimonials-real" style="padding:4rem 24px; background:#fafafa; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="max-width:1200px; margin:0 auto; width:100%;">
+            <div style="text-align:center; margin-bottom:2.5rem;">
+                <span style="display:inline-block; color:#861330; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; opacity:0.7;">Kundenstimmen</span>
+                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Was unsere Kunden berichten</h2>
+                <p style="font-family:'Fraunces',serif; font-size:clamp(0.9rem,1.5vw,1.05rem); color:#475569; line-height:1.6; max-width:38rem; margin:0 auto;">Echte Erfahrungen von verifizierten Käufern.</p>
+            </div>
+
+            <div class="testimonials-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;">
+                <!-- Testimonial 1: Christine -->
+                <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
+                    <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Besseres Durchschlafen!</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Keine Hungerattacken mehr, 1,8 kg verloren – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.</p>
+                    <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
+                        <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Christine J., 53</div>
+                        <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Verifizierter Käufer
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2: Ulrich -->
+                <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
+                    <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">Wieder wach und ausgeglichen</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Nur 5 h Schlaf? Das war einmal! 1,6 kg in 3 Tagen verloren, süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.</p>
+                    <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
+                        <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Ulrich R., 74</div>
+                        <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Verifizierter Käufer
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3: Michael -->
+                <div class="testimonial-card" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:1.25rem; padding:1.75rem; box-shadow:0 2px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column;">
+                    <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
+                    <h3 style="font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:0.75rem;">15 kg in 4 Monaten</h3>
+                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:1.25rem; flex:1;">Essverhalten wie automatisch verändert: 15 kg leichter, 20 cm Bauch weg – zZzlim® im Langzeittest hat bei mir voll eingeschlagen.</p>
+                    <div style="border-top:1px solid #e5e7eb; padding-top:0.75rem;">
+                        <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Michael H., 63</div>
+                        <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:0.7rem; color:#16a34a; font-weight:600;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Verifizierter Käufer
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini CTA below testimonials -->
+            <div style="text-align:center; margin-top:2.5rem;">
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" style="display:inline-flex; align-items:center; gap:10px; background:#861330; color:#fff; padding:14px 32px; border-radius:999px; font-family:'Fraunces',serif; font-size:0.95rem; font-weight:700; text-decoration:none; box-shadow:0 4px 16px rgba(134,19,48,0.3);">Jetzt selbst erleben →</a>
+                <p style="font-family:'Fraunces',serif; font-size:0.8rem; color:#475569; margin-top:0.75rem;">60 Tage Geld-zurück-Garantie</p>
+            </div>
+        </div>
+    </section>
+
+
+
     <section id="wirkung" data-substeps="4" style="background:#ffffff; padding:5rem 24px; font-family:'Fraunces',serif; min-height:100vh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
         <div style="max-width:1400px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
@@ -1650,7 +1683,7 @@
                     </div>
                 </div>
 
-                <!-- Glassmorphism Overlay (Step 4) -->
+                <!-- Glassmorphism Overlay (Step 4) — Mehr erfahren / ChatGPT -->
                 <div class="pillar-overlay" id="pillar-overlay">
                 <div class="pillar-overlay-content" style="position:relative;">
                     <button id="pillar-overlay-close" style="position:absolute; top:12px; right:12px; width:28px; height:28px; border:none; background:rgba(0,0,0,0.08); border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#475569; transition:background 0.2s;" aria-label="Schließen">&times;</button>
@@ -1680,6 +1713,23 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </button>
             </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="video2" style="padding:5rem 24px; background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative; overflow:hidden;">
+        <div style="max-width:1100px; margin:0 auto; width:100%; text-align:center;">
+            <span style="display:inline-block; color:#861330; font-family:'Fraunces',serif; font-size:clamp(0.7rem,1.2vw,0.85rem); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">So funktioniert's</span>
+            <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.15; color:#0f172a; letter-spacing:-0.02em; margin-bottom:0.75rem;">Kleine Veränderungen am Abend,<br><span style="color:#861330;">die wirklich helfen.</span></h2>
+            <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:2rem;">Schau dir in diesem kurzen Video an, wie es funktioniert.</p>
+            <!-- Thumbnail with play button -->
+            <div class="video-thumb-container" id="video2-thumb">
+                <img src="media/Thumbnailvideo.jpeg" alt="Video abspielen: So funktioniert zZzlim®" />
+                <div class="video-play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>
             </div>
         </div>
     </section>
@@ -1737,7 +1787,54 @@
                     </button>
                     <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faq.a5">Der Versand innerhalb Deutschlands ist kostenlos per DHL. EU-Versand ist ebenfalls möglich.</div></div>
                 </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was, wenn es bei mir nicht wirkt?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Wir geben dir 60 Tage Zeit, zZzlim® in Ruhe auszuprobieren. Wenn du nicht zufrieden bist, erstatten wir dir den vollen Kaufpreis – ohne Wenn und Aber.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bin ich zu alt dafür?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Nein. zZzlim® wurde speziell für Menschen entwickelt, deren Schlafqualität mit dem Alter nachlässt. Unsere ältesten zufriedenen Kundinnen und Kunden sind über 80 Jahre alt.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Muss ich meine Ernährung umstellen?</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">Nein. zZzlim® funktioniert ohne Diät und ohne strengen Speiseplan. Eine Kapsel am Abend reicht – den Rest erledigt dein Körper im Schlaf.</div></div>
+                </div>
             </div>
+                </div>
+            </div>
+
+            <!-- Final CTA Block -->
+            <div style="margin-top:3rem; padding:2.5rem 2rem; background:linear-gradient(135deg, #861330 0%, #6e0f28 100%); border-radius:1.5rem; text-align:center; color:#fff; box-shadow:0 8px 32px rgba(134,19,48,0.2);">
+                <div style="color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:0.75rem;">★★★★★</div>
+                <h3 style="font-family:'Fraunces',serif; font-size:clamp(1.5rem,3.5vw,2.25rem); font-weight:700; line-height:1.15; margin-bottom:0.75rem;">Bereit für besseren Schlaf?</h3>
+                <p style="font-family:'Fraunces',serif; font-size:clamp(0.95rem,1.5vw,1.1rem); color:rgba(255,255,255,0.9); line-height:1.5; margin-bottom:1.5rem; max-width:32rem; margin-left:auto; margin-right:auto;">Teste zZzlim® 60 Tage lang risikofrei. Wenn du nicht überzeugt bist, bekommst du dein Geld zurück.</p>
+                <div style="display:flex; align-items:baseline; justify-content:center; gap:0.75rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+                    <span style="font-family:'Fraunces',serif; font-size:2.25rem; font-weight:700; color:#fff;">49,95 €</span>
+                    <span style="font-family:'Fraunces',serif; font-size:0.95rem; color:rgba(255,255,255,0.85);">/ Monatskur</span>
+                </div>
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" style="display:inline-flex; align-items:center; gap:10px; background:#fff; color:#861330; padding:16px 38px; border-radius:999px; font-family:'Fraunces',serif; font-size:1rem; font-weight:700; text-decoration:none; box-shadow:0 6px 24px rgba(0,0,0,0.2);">Jetzt ausprobieren →</a>
+                <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.75rem 1.5rem; color:rgba(255,255,255,0.9); font-size:0.8rem;">
+                    <span style="display:inline-flex; align-items:center; gap:6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        60 Tage Geld-zurück
+                    </span>
+                    <span style="display:inline-flex; align-items:center; gap:6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Kostenloser Versand
+                    </span>
+                    <span style="display:inline-flex; align-items:center; gap:6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Made in EU
+                    </span>
                 </div>
             </div>
         </div>
@@ -1801,7 +1898,7 @@
     <div id="product-popup" class="product-popup">
         <button class="product-popup-close" aria-label="Schließen">&times;</button>
         <div class="product-popup-image">
-            <img src="media/Popup.png" alt="zZzlim® auf einer Wolke" />
+            <img src="media/popup.webp" alt="zZzlim® Night Complex" />
         </div>
         <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="product-popup-btn" data-i18n="popup.btn">Jetzt ausprobieren</a>
     </div>

@@ -451,22 +451,22 @@ function initSlideshowScroll() {
 
 /* ─── Mobile/Tablet Native Scroll (no snap, arrow navigation) ─── */
 function initMobileNativeScroll(sections) {
-    // IntersectionObserver for section reveals (no auto-play)
+    // IntersectionObserver for section reveals — early trigger to avoid white gaps
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const sec = entry.target;
             if (entry.isIntersecting) {
                 sec.classList.add('sr-active');
             } else {
-                sec.classList.remove('sr-active');
-                // Close pillar overlay when leaving
+                // Don't remove sr-active when leaving — keep content visible
+                // (was causing white flash when scrolling back up)
                 const pillarOverlay = document.getElementById('pillar-overlay');
                 if (pillarOverlay) pillarOverlay.classList.remove('visible');
                 const chatgptCopied = document.getElementById('chatgpt-copied');
                 if (chatgptCopied) chatgptCopied.style.opacity = '0';
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 
     sections.forEach(sec => observer.observe(sec));
 
@@ -1294,9 +1294,9 @@ function initProductPopup() {
     let popupClosed = false;
 
     function showPopupElements() {
-        // Shop button at 2s, close button at 5s
-        if (shopBtn) setTimeout(() => shopBtn.classList.add('show'), 2000);
-        if (closeBtn) setTimeout(() => closeBtn.classList.add('show'), 5000);
+        // Shop button at 1s, close button at 1.5s — both available quickly
+        if (shopBtn) setTimeout(() => shopBtn.classList.add('show'), 1000);
+        if (closeBtn) setTimeout(() => closeBtn.classList.add('show'), 1500);
     }
 
     function hidePopupElements() {
@@ -1307,7 +1307,7 @@ function initProductPopup() {
     function closePopup() {
         if (popupClosed) return;
         popupClosed = true;
-        sessionStorage.setItem('popupDismissed', '1');
+        localStorage.setItem('popupDismissed', '1');
         hidePopupElements();
         setTimeout(() => {
             popup.classList.remove('visible');
@@ -1316,7 +1316,7 @@ function initProductPopup() {
     }
 
     // Show popup after 15 seconds, but not if already dismissed
-    if (sessionStorage.getItem('popupDismissed')) return;
+    if (localStorage.getItem('popupDismissed')) return;
     setTimeout(() => {
         if (popupClosed) return;
         popup.classList.add('visible');
