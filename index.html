@@ -304,7 +304,9 @@
         /* ─── Story Scroll Section (Section 5) ─── */
         .story-container {
             position: relative;
-            min-height: 440px;
+        }
+        @media (min-width: 1367px) {
+            .story-container { min-height: 440px; }
         }
 
         .story-card {
@@ -889,9 +891,16 @@
             #ursachen .story-container {
                 margin-bottom: 0 !important;
                 min-height: auto !important;
+                height: auto !important;
+            }
+            /* Force .story-card.active height to drive container */
+            #ursachen .story-card.active {
+                position: relative !important;
+                height: auto !important;
+                min-height: auto !important;
             }
             #story-nav {
-                margin-top: 0.75rem !important;
+                margin-top: 1rem !important;
                 margin-bottom: 0 !important;
             }
 
@@ -1375,10 +1384,6 @@
                 <span style="display:inline-flex; align-items:center; gap:6px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     Made in EU
-                </span>
-                <span style="display:inline-flex; align-items:center; gap:6px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    Kostenloser Versand
                 </span>
             </div>
           </div>
