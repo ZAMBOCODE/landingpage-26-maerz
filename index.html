@@ -468,9 +468,10 @@
             transform: translate(-50%, -50%) scale(1);
             pointer-events: auto;
         }
-        /* On mobile: relative positioning to avoid arrow overlap */
+        /* On mobile: only takes space when visible */
         @media (max-width: 1366px) {
             .selbstcheck-closing {
+                display: none;
                 position: relative;
                 top: auto;
                 left: auto;
@@ -479,6 +480,7 @@
                 padding: 2rem 1rem;
             }
             .selbstcheck-closing.visible {
+                display: block;
                 transform: scale(1);
             }
         }
@@ -530,9 +532,10 @@
             transform: translate(-50%, -50%) scale(1);
             pointer-events: auto;
         }
-        /* On mobile: keep closing text above arrows */
+        /* On mobile: closing text only takes space when visible */
         @media (max-width: 1366px) {
             .story-closing {
+                display: none;
                 position: relative;
                 top: auto;
                 left: auto;
@@ -541,6 +544,7 @@
                 padding: 2rem 1rem;
             }
             .story-closing.visible {
+                display: block;
                 transform: scale(1);
             }
         }
