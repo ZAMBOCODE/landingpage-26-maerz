@@ -476,6 +476,26 @@ function initMobileNativeScroll(sections) {
 
 /* ─── Carousel Arrow Navigation (used on mobile & desktop) ─── */
 function initCarouselArrows() {
+    // Story container height = active card height (so arrows sit right under)
+    const storyContainer = document.querySelector('#ursachen .story-container');
+    function syncStoryHeight() {
+        if (!storyContainer) return;
+        const active = storyContainer.querySelector('.story-card.active');
+        if (active) {
+            storyContainer.style.height = active.offsetHeight + 'px';
+        }
+    }
+    if (storyContainer) {
+        // Initial + on resize
+        setTimeout(syncStoryHeight, 50);
+        setTimeout(syncStoryHeight, 300);
+        window.addEventListener('resize', syncStoryHeight);
+        // Re-sync whenever a story card transitions
+        storyContainer.addEventListener('transitionend', syncStoryHeight);
+    }
+    // Expose for use in story carousel onChange
+    window._syncStoryHeight = syncStoryHeight;
+
     // --- Selbstcheck (symptom tiles) — 5 steps: 4 tiles + closing ---
     setupCarousel({
         prevBtn: document.getElementById('symptom-prev'),
@@ -530,6 +550,13 @@ function initCarouselArrows() {
             if (threadFill) threadFill.style.height = (Math.min(step + 1, cards.length) / cards.length * 100) + '%';
             if (closing) closing.classList.toggle('visible', isClosing);
             if (sec) sec.classList.toggle('story-complete', isClosing);
+            // Re-sync container height after class changes settle
+            if (window._syncStoryHeight) {
+                requestAnimationFrame(() => {
+                    window._syncStoryHeight();
+                    setTimeout(window._syncStoryHeight, 600);
+                });
+            }
         }
     });
 
