@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /media/Jingle.mp4
+
+Sitemap: https://k2.zzzlim.de/sitemap.xml

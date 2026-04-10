@@ -7,13 +7,8 @@ if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
     document.documentElement.classList.add('touch-device');
 }
 
-// Always start from top on page load / refresh
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
-// Some browsers need a delayed scroll-to-top after layout
-window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
-document.addEventListener('DOMContentLoaded', () => { window.scrollTo(0, 0); });
-window.addEventListener('load', () => { window.scrollTo(0, 0); });
+// Let browser handle scroll restoration naturally
+if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
 
 // Lock scroll during loading animation
 document.documentElement.classList.add('is-loading');
@@ -45,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBlobDriftEffect();
         initScrollIndicator();
         initVideoOverlay();
+        initKreislaufCarousel();
 
         // Hero reveal on load
         requestAnimationFrame(() => {
@@ -83,370 +79,11 @@ function initLoadingScreen(onComplete) {
     }, { once: true });
 }
 
-/* ─── Slideshow Scroll (Snap with smooth transition + cooldown + sub-steps) ─── */
+/* ─── Slideshow Scroll (native scrolling + arrow carousels) ─── */
 function initSlideshowScroll() {
-    // Filter out hidden sections (e.g. mobile-only sections on desktop, desktop-only on mobile)
     const sections = Array.from(document.querySelectorAll('main > section')).filter(s => s.offsetHeight > 0);
     if (!sections.length) return;
-
-    // No scroll snap anywhere — always use native scrolling + arrows
     initMobileNativeScroll(sections);
-    return;
-
-    // Legacy scroll-snap code below (disabled)
-
-    let currentIndex = 0;
-    let isAnimating = false;
-    const cooldown = 500;
-    const duration = 1000;
-
-    // Sub-step tracking per section
-    const subStepState = {};
-    sections.forEach((sec, i) => {
-        const total = parseInt(sec.dataset.substeps, 10);
-        if (total > 0) {
-            subStepState[i] = { current: 0, total: total };
-        }
-    });
-
-    // Apply sub-step visuals for a section
-    function applySubStep(sectionIndex, step) {
-        const sec = sections[sectionIndex];
-
-        // --- Type A: Symptom tiles (Section 2) ---
-        const tiles = sec.querySelectorAll('.symptom-tile');
-        if (tiles.length) {
-            const dots = sec.querySelectorAll('.symptom-dot');
-            const state = subStepState[sectionIndex];
-            const isClosing = step >= state.total;
-            const closingOverlay = sec.querySelector('.selbstcheck-closing');
-
-            tiles.forEach((tile, ti) => {
-                const tileStep = ti + 1;
-                tile.classList.remove('active', 'seen');
-                if (!isClosing) {
-                    if (tileStep === step) tile.classList.add('active');
-                    else if (tileStep < step) tile.classList.add('seen');
-                }
-            });
-
-            dots.forEach((dot, di) => {
-                dot.style.background = (di + 1 <= Math.min(step, 4)) ? '#861330' : '#e5e5e5';
-            });
-
-            // Step 5: fade everything, show centered closing text
-            sec.classList.toggle('symptom-complete', isClosing);
-            if (closingOverlay) closingOverlay.classList.toggle('visible', isClosing);
-            return;
-        }
-
-        // --- Type B: Card stack (Section 3) ---
-        const cards = sec.querySelectorAll('.stack-card');
-        if (cards.length) {
-            const stackDots = sec.querySelectorAll('.stack-step-dot');
-            const activeIndex = step - 1; // step 1 = card index 0
-
-            cards.forEach((card, ci) => {
-                card.classList.remove('dismissed');
-                if (ci < activeIndex) {
-                    // Already flipped away
-                    card.classList.add('dismissed');
-                    card.removeAttribute('data-stack');
-                } else {
-                    // Position in remaining stack
-                    const stackPos = ci - activeIndex;
-                    card.setAttribute('data-stack', Math.min(stackPos, 3));
-                }
-            });
-
-            stackDots.forEach((dot, di) => {
-                dot.classList.toggle('active', di === activeIndex);
-            });
-            return;
-        }
-
-        // --- Type C: Story scroll cards (Section 5) ---
-        // Steps 1-4: cards, step 5: closing
-        const storyCards = sec.querySelectorAll('.story-card');
-        if (storyCards.length) {
-            const state = subStepState[sectionIndex];
-            const closingEl = sec.querySelector('.story-closing');
-            const thread = sec.querySelector('.story-thread');
-            const threadFill = sec.querySelector('.story-thread-fill');
-            const isClosingStep = step >= state.total;
-            const cardStep = Math.min(step, storyCards.length);
-
-            // Thread: visible from step 2, hidden at closing
-            if (thread) {
-                thread.style.display = (step >= 2 && !isClosingStep) ? 'block' : '';
-                thread.classList.toggle('hidden', isClosingStep);
-            }
-
-            storyCards.forEach((card, ci) => {
-                card.classList.remove('active', 'seen');
-                if (isClosingStep) {
-                    card.classList.add('seen'); // all cards slide up at closing
-                } else if (ci < cardStep - 1) {
-                    card.classList.add('seen');
-                } else if (ci === cardStep - 1) {
-                    card.classList.add('active');
-                }
-            });
-
-            if (threadFill) {
-                threadFill.style.height = (cardStep / storyCards.length * 100) + '%';
-            }
-
-            if (closingEl) closingEl.classList.toggle('visible', isClosingStep);
-            sec.classList.toggle('story-complete', isClosingStep);
-            return;
-        }
-
-        // --- Type D: Pillar carousel (Wirkung section) ---
-        // Steps 1-3: reveal pillars one at a time, Step 4: overlay
-        const pillarSlides = sec.querySelectorAll('.pillar-slide');
-        if (pillarSlides.length) {
-            const overlay = sec.querySelector('.pillar-overlay');
-            const mobile = window.innerWidth <= 768;
-
-            pillarSlides.forEach((slide, si) => {
-                slide.classList.remove('active', 'peek');
-                if (mobile) {
-                    // Mobile: steps 1-3 show one card at a time, step 4 overlay
-                    if (step <= 3) {
-                        if (si === step - 1) slide.classList.add('active');
-                    }
-                } else {
-                    // Desktop: accumulate slides + peek
-                    if (step >= 4 || si < step) {
-                        slide.classList.add('active');
-                    } else if (si === step && step <= 2) {
-                        slide.classList.add('peek');
-                    }
-                }
-            });
-
-            if (overlay) overlay.classList.toggle('visible', step >= 4);
-            return;
-        }
-    }
-
-    // Initialize first sub-step when entering a section
-    function enterSection(index) {
-        if (subStepState[index] && subStepState[index].current === 0) {
-            subStepState[index].current = 1;
-            applySubStep(index, 1);
-        }
-    }
-
-    // Smooth scroll with custom duration
-    function smoothScrollTo(targetY, dur) {
-        const startY = window.scrollY;
-        const diff = targetY - startY;
-        if (Math.abs(diff) < 2) return Promise.resolve();
-        const startTime = performance.now();
-
-        return new Promise(resolve => {
-            function step(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / dur, 1);
-                const ease = progress < 0.5
-                    ? 4 * progress * progress * progress
-                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-                window.scrollTo(0, startY + diff * ease);
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    resolve();
-                }
-            }
-            requestAnimationFrame(step);
-        });
-    }
-
-    function goToSection(index) {
-        if (isAnimating) return;
-        index = Math.max(0, Math.min(index, sections.length - 1));
-        if (index === currentIndex) return;
-
-        isAnimating = true;
-        const oldIndex = currentIndex;
-        currentIndex = index;
-
-        // Fade out old section content
-        sections[oldIndex].classList.remove('sr-active');
-
-        // Close pillar overlay if leaving the wirkung section
-        const pillarOverlay = document.getElementById('pillar-overlay');
-        if (pillarOverlay) pillarOverlay.classList.remove('visible');
-        const chatgptCopied = document.getElementById('chatgpt-copied');
-        if (chatgptCopied) chatgptCopied.style.opacity = '0';
-
-        const target = sections[index].offsetTop;
-
-        smoothScrollTo(target, duration).then(() => {
-            // Reset sub-steps AFTER scroll animation (old section is off-screen)
-            if (subStepState[oldIndex]) {
-                subStepState[oldIndex].current = 0;
-                applySubStep(oldIndex, 0);
-            }
-
-            // Stagger-reveal new section content
-            sections[index].classList.add('sr-active');
-            enterSection(index);
-            setTimeout(() => {
-                isAnimating = false;
-            }, cooldown);
-        });
-    }
-
-    // Auto-hide header on mobile
-    const header = document.querySelector('.site-header');
-
-    // Handle scroll direction with sub-step awareness
-    function handleScrollDirection(direction) {
-        if (isAnimating) return;
-
-        // Header is managed by mobile handler on small screens; on desktop keep visible
-
-        const state = subStepState[currentIndex];
-
-        if (direction > 0) {
-            // Scrolling DOWN
-            if (state) {
-                if (state.current < state.total) {
-                    state.current++;
-                    applySubStep(currentIndex, state.current);
-                    // Lock briefly so it doesn't fly through
-                    isAnimating = true;
-                    setTimeout(() => { isAnimating = false; }, 600);
-                    return;
-                }
-                // All sub-steps done — cooldown before moving to next section
-                isAnimating = true;
-                setTimeout(() => {
-                    isAnimating = false;
-                    goToSection(currentIndex + 1);
-                }, 800);
-                return;
-            }
-            goToSection(currentIndex + 1);
-        } else {
-            // Scrolling UP
-            if (state) {
-                if (state.current > 1) {
-                    state.current--;
-                    applySubStep(currentIndex, state.current);
-                    isAnimating = true;
-                    setTimeout(() => { isAnimating = false; }, 600);
-                    return;
-                }
-                // At sub-step 1, reset and go to previous section
-                state.current = 0;
-                applySubStep(currentIndex, 0);
-            }
-            goToSection(currentIndex - 1);
-        }
-    }
-
-    // Wheel event
-    let wheelAccumulator = 0;
-    const wheelThreshold = 50;
-
-    window.addEventListener('wheel', (e) => {
-        // Allow native scroll inside sections that overflow (e.g. FAQ+footer)
-        const sec = sections[currentIndex];
-        if (sec && sec.scrollHeight > sec.clientHeight + 2) {
-            const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 5;
-            const atTop = sec.scrollTop <= 5;
-            if (e.deltaY > 0 && !atBottom) return; // scrolling down, not at bottom
-            if (e.deltaY < 0 && !atTop) return;    // scrolling up, not at top
-        }
-        e.preventDefault();
-        if (isAnimating) return;
-
-        wheelAccumulator += e.deltaY;
-        if (Math.abs(wheelAccumulator) >= wheelThreshold) {
-            handleScrollDirection(wheelAccumulator > 0 ? 1 : -1);
-            wheelAccumulator = 0;
-        }
-    }, { passive: false });
-
-    // Keyboard
-    window.addEventListener('keydown', (e) => {
-        if (isAnimating) return;
-        if (['ArrowDown', 'PageDown', 'Space'].includes(e.code)) {
-            e.preventDefault();
-            handleScrollDirection(1);
-        } else if (['ArrowUp', 'PageUp'].includes(e.code)) {
-            e.preventDefault();
-            handleScrollDirection(-1);
-        }
-    });
-
-    // Touch/swipe — block native scroll to enforce snap + substeps
-    let touchStartY = 0;
-    let touchHandled = false;
-    window.addEventListener('touchstart', (e) => {
-        // Ignore touches on video players (scrubbing, play/pause)
-        if (e.target.closest('video, .video2-mobile-only, #video2-inline-vid')) {
-            touchHandled = true;
-            return;
-        }
-        touchStartY = e.touches[0].clientY;
-        touchHandled = false;
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-        // Allow native scroll inside sections that overflow (e.g. FAQ+footer)
-        const sec = sections[currentIndex];
-        if (sec && sec.scrollHeight > sec.clientHeight + 2) {
-            // Section has internal scroll — let it scroll natively
-            return;
-        }
-        // Prevent native scroll to keep sections locked
-        if (!touchHandled) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-
-    window.addEventListener('touchend', (e) => {
-        if (isAnimating) return;
-        const diff = touchStartY - e.changedTouches[0].clientY;
-        if (Math.abs(diff) > 30) {
-            // If section has internal scroll, only switch section at scroll boundaries
-            const sec = sections[currentIndex];
-            if (sec && sec.scrollHeight > sec.clientHeight + 2) {
-                const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 5;
-                const atTop = sec.scrollTop <= 5;
-                if (diff > 0 && !atBottom) return; // scrolling down but not at bottom
-                if (diff < 0 && !atTop) return;    // scrolling up but not at top
-            }
-            touchHandled = true;
-            handleScrollDirection(diff > 0 ? 1 : -1);
-        }
-    }, { passive: true });
-
-    // Sync currentIndex on scroll (anchor links, dev-nav, etc.)
-    window.addEventListener('scroll', () => {
-        if (isAnimating) return;
-        const scrollY = window.scrollY + window.innerHeight / 2;
-        for (let i = sections.length - 1; i >= 0; i--) {
-            if (scrollY >= sections[i].offsetTop) {
-                if (currentIndex !== i) {
-                    sections[currentIndex].classList.remove('sr-active');
-                    currentIndex = i;
-                    sections[i].classList.add('sr-active');
-                    enterSection(i);
-                }
-                break;
-            }
-        }
-    }, { passive: true });
-
-    // Initialize first section with reveal
-    sections[0].classList.add('sr-active');
-    enterSection(0);
 }
 
 /* ─── Mobile/Tablet Native Scroll (no snap, arrow navigation) ─── */
@@ -1114,6 +751,8 @@ function initStickyMobileCTA() {
 
 /* ─── Closer Section Particles ─── */
 function initCloserParticles() {
+    // Skip on mobile — DOM particles + keyframes cause constant reflows
+    if (window.innerWidth < 768) return;
     const container = document.querySelector('.closer-particles');
     if (!container) return;
 
@@ -1437,6 +1076,8 @@ function initBackToTop() {
 
 /* ─── Floating Dust Particles (global background effect) ─── */
 function initFloatingDustEffect() {
+    // Skip on mobile — 50 canvas particles @ 60fps cause massive GPU load (INP 604ms)
+    if (window.innerWidth < 768) return;
     const container = document.getElementById('effect-dust');
     if (!container) return;
 
@@ -1509,6 +1150,8 @@ function initFloatingDustEffect() {
 
 /* ─── Organic Blob Drift (global background effect) ─── */
 function initBlobDriftEffect() {
+    // Skip on mobile — fixed blobs with CSS keyframes add GPU overhead
+    if (window.innerWidth < 768) return;
     const container = document.getElementById('effect-blobs');
     if (!container) return;
 
@@ -1608,5 +1251,144 @@ function initScrollIndicator() {
     // Run after a short delay to ensure layout is computed
     setTimeout(checkVisibility, 100);
     checkVisibility();
+})();
+
+/* ═══ Kreislauf Timeline Carousel ═══ */
+function initKreislaufCarousel() {
+    const steps = document.querySelectorAll('.kreislauf-step');
+    const lineFill = document.getElementById('kreislauf-line-fill');
+    const prevBtn = document.getElementById('kreislauf-prev');
+    const nextBtn = document.getElementById('kreislauf-next');
+    const dotsContainer = document.getElementById('kreislauf-dots');
+    if (!steps.length || !prevBtn || !nextBtn) return;
+
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
+    let current = 0;
+    const total = steps.length;
+
+    function update() {
+        steps.forEach((step, i) => {
+            step.classList.remove('active', 'seen');
+            if (i === current) step.classList.add('active');
+            else if (i < current) step.classList.add('seen');
+        });
+
+        // Update line fill
+        if (lineFill) {
+            const progress = total > 1 ? (current / (total - 1)) * 100 : 0;
+            lineFill.style.width = progress + '%';
+        }
+
+        // Update dots
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+
+        // Update buttons
+        prevBtn.disabled = current <= 0;
+        nextBtn.disabled = current >= total - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (current > 0) { current--; update(); }
+    });
+    nextBtn.addEventListener('click', () => {
+        if (current < total - 1) { current++; update(); }
+    });
+
+    // Touch swipe on section
+    const section = document.getElementById('kreislauf');
+    if (section) {
+        let touchStartX = 0;
+        section.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        section.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && current < total - 1) { current++; update(); }
+                else if (diff < 0 && current > 0) { current--; update(); }
+            }
+        }, { passive: true });
+    }
+
+    // Auto-advance on scroll into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && current === 0) {
+                // Start the first step reveal
+                update();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const kreislaufSection = document.getElementById('kreislauf');
+    if (kreislaufSection) observer.observe(kreislaufSection);
+
+    // Init
+    update();
+}
+
+/* ─── Testimonials Mobile Carousel ─── */
+(function initTestimonialCarousel() {
+    if (window.innerWidth > 768) return;
+
+    const grid = document.querySelector('.testimonials-grid');
+    const cards = grid ? grid.querySelectorAll('.testimonial-card') : [];
+    const prev = document.getElementById('testimonial-prev');
+    const next = document.getElementById('testimonial-next');
+    if (!grid || cards.length < 2) return;
+
+    let current = 0;
+
+    function update() {
+        cards.forEach((card, i) => {
+            card.style.transform = `translateX(-${current * 100}%)`;
+        });
+    }
+
+    prev?.addEventListener('click', () => {
+        current = Math.max(0, current - 1);
+        update();
+    });
+
+    next?.addEventListener('click', () => {
+        current = Math.min(cards.length - 1, current + 1);
+        update();
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    grid.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    grid.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && current < cards.length - 1) { current++; update(); }
+            else if (diff < 0 && current > 0) { current--; update(); }
+        }
+    }, { passive: true });
+})();
+
+/* ─── Cookie Consent Banner ─── */
+(function initCookieConsent() {
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent) return; // Already decided
+
+    const banner = document.getElementById('cookie-consent');
+    if (!banner) return;
+
+    // Show banner after a short delay so it doesn't compete with loading screen
+    setTimeout(() => { banner.style.display = 'block'; }, 2000);
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+        localStorage.setItem('cookie-consent', 'accepted');
+        banner.style.display = 'none';
+        if (typeof loadClarity === 'function') loadClarity();
+        if (typeof loadGA4 === 'function') loadGA4();
+        if (typeof loadFBPixel === 'function') loadFBPixel();
+    });
+
+    document.getElementById('cookie-reject')?.addEventListener('click', () => {
+        localStorage.setItem('cookie-consent', 'rejected');
+        banner.style.display = 'none';
+    });
 })();
 
