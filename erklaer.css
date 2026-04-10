@@ -1927,11 +1927,14 @@ ul, ol { list-style: none; }
    23. RESPONSIVE – Tablet & Desktop
    ═══════════════════════════════════════ */
 
-@media (min-width: 768px) {
-    /* Header */
+@media (min-width: 1025px) {
+    /* Header: show desktop nav only on actual desktops */
     .hamburger { display: none; }
     .header-nav { display: flex; }
     .btn-shop { display: flex; }
+}
+
+@media (min-width: 768px) {
 
     /* Hero */
     .hero-content {
