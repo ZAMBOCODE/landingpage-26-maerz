@@ -24,7 +24,9 @@
         function gtag(){dataLayer.push(arguments);}
         window.gtag=gtag;
         gtag('js',new Date());
-        gtag('config','G-5T4DK6TSPE');
+        gtag('config','G-5T4DK6TSPE',{
+            linker:{domains:['zzzlim.de','k2.zzzlim.de','zl-hunger.zzzlim.de']}
+        });
     }
     function loadFBPixel(){
         if(window.fbPixelLoaded)return;window.fbPixelLoaded=true;

@@ -1367,6 +1367,27 @@ function initKreislaufCarousel() {
     }, { passive: true });
 })();
 
+/* ─── CTA Click Tracking (FB Pixel + GA4) ─── */
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href*="zzzlim.de/products"]');
+    if (!link) return;
+    if (typeof fbq === 'function') {
+        fbq('track', 'AddToCart', {
+            content_name: 'zZzlim Night Complex',
+            content_type: 'product',
+            value: 49.95,
+            currency: 'EUR'
+        });
+    }
+    if (typeof gtag === 'function') {
+        gtag('event', 'cta_click', {
+            event_category: 'conversion',
+            event_label: link.textContent.trim().substring(0, 50),
+            value: 49.95
+        });
+    }
+});
+
 /* ─── Cookie Consent Banner ─── */
 (function initCookieConsent() {
     const consent = localStorage.getItem('cookie-consent');
