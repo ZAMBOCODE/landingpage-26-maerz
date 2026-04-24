@@ -10,9 +10,6 @@ if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
 // Let browser handle scroll restoration naturally
 if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
 
-// Lock scroll during loading animation
-document.documentElement.classList.add('is-loading');
-
 document.addEventListener('DOMContentLoaded', () => {
     // Start loading animation first
     initLoadingScreen(() => {
