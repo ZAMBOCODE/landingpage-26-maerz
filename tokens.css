@@ -1,0 +1,30 @@
+/* ══════════════════════════════════════════════════════════
+   zZzlim® Brand Tokens
+   Source of truth: BRANDS/zZzlim/brand-profile.md (2026-04-16)
+   ══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Colors */
+  --zz-burgundy: #851330;          /* primary, accent — buttons, headlines */
+  --zz-burgundy-soft: rgba(133, 19, 48, 0.5);
+  --zz-burgundy-glow: rgba(133, 19, 48, 0.3);
+  --zz-sage: #C3CCA6;              /* secondary — calm surfaces */
+  --zz-bg: #FFFFFF;
+  --zz-text: #150706;              /* near-black warm */
+  --zz-text-on-dark: #FFFFFF;
+  --zz-link: #150706;
+  --zz-muted: #475569;
+
+  /* Typography per brand-profile.md
+     Display (Hero, Karusselle): Fraunces
+     Heading (H1/H2/H3): Instrument Sans
+     Body: Onest */
+  --zz-font-display: 'Fraunces', Georgia, serif;
+  --zz-font-heading: 'Instrument Sans', system-ui, sans-serif;
+  --zz-font-body: 'Onest', system-ui, sans-serif;
+
+  /* Layout */
+  --zz-base-unit: 4px;
+  --zz-radius: 8px;
+  --zz-radius-pill: 999px;
+}
