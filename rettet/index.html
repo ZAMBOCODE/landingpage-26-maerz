@@ -229,10 +229,9 @@
             overflow-y: scroll;
             scroll-behavior: auto;
         }
-        /* Fraunces Display variant (opsz 144) on all headings, no italic */
+        /* Fraunces Display variant (opsz 144) on all headings */
         h1, h2, h3, .story-title, .pillar-slide-title {
             font-variation-settings: 'opsz' 144 !important;
-            font-style: normal !important;
         }
         main > section {
             min-height: 100vh;
@@ -1880,7 +1879,7 @@
                     <div class="zahlen-label">Tage<br>Geld-zur&uuml;ck-Garantie</div>
                 </div>
                 <div class="zahlen-card">
-                    <div class="zahlen-num"><span class="count-up" data-target="1" data-decimal>1,66</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
+                    <div class="zahlen-num"><span class="count-up" data-target="1.66" data-decimal>1,66</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
                     <div class="zahlen-label">pro Abend<br>statt 3&times; Einzelpr&auml;parate</div>
                 </div>
                 <div class="zahlen-card">
@@ -2554,7 +2553,7 @@
         }
         .zahlen-wrap { max-width: 1200px; margin: 0 auto; }
         .zahlen-head { text-align: center; margin-bottom: 4rem; }
-        .zahlen-head span {
+        .zahlen-head > span {
             display: inline-block;
             font-family: 'Instrument Sans', sans-serif;
             color: #851330;
@@ -2636,7 +2635,7 @@
         }
         .routine-wrap { max-width: 720px; margin: 0 auto; }
         .routine-head { text-align: center; margin-bottom: 4rem; }
-        .routine-head span {
+        .routine-head > span {
             display: inline-block;
             font-family: 'Instrument Sans', sans-serif;
             color: #851330;
@@ -2773,7 +2772,7 @@
         }
         .anti-wrap { max-width: 900px; margin: 0 auto; }
         .anti-head { text-align: center; margin-bottom: 4rem; }
-        .anti-head span {
+        .anti-head > span {
             display: inline-block;
             font-family: 'Instrument Sans', sans-serif;
             color: #6b7a5a;
@@ -3063,7 +3062,7 @@
         }
         .authority-wrap { max-width: 1200px; margin: 0 auto; }
         .authority-head { text-align: center; margin-bottom: 4rem; }
-        .authority-head span {
+        .authority-head > span {
             display: inline-block;
             font-family: 'Instrument Sans', sans-serif;
             color: #C3CCA6;
