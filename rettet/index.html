@@ -39,11 +39,10 @@
         fbq('init','2028396997989291');
         fbq('track','PageView');
     }
-    // Clarity + GA4 fire for every visitor (no consent gate)
-    loadClarity();
-    loadGA4();
-    // FB Pixel still requires consent
+    // All tracking gated behind consent (DSGVO-compliant)
     if(localStorage.getItem('cookie-consent')==='accepted'){
+        loadClarity();
+        loadGA4();
         loadFBPixel();
     }
     </script>
@@ -1480,7 +1479,7 @@
             <nav class="header-nav">
                 <a href="#ursachen" data-nav data-i18n="nav.ursachen">Ursachen</a>
                 <a href="#wirkung" data-nav data-i18n="nav.wirkung">Wirkung</a>
-                <a href="#vertrauen" data-nav data-i18n="nav.vertrauen">Vertrauen</a>
+                <a href="#testimonials-real" data-nav data-i18n="nav.vertrauen">Vertrauen</a>
                 <a href="#faq-section" data-nav data-i18n="nav.faq">FAQ</a>
             </nav>
             <div class="header-actions">
@@ -1521,7 +1520,7 @@
             <nav class="mobile-menu-nav">
                 <a href="#ursachen" data-i18n="nav.ursachen">Ursachen</a>
                 <a href="#wirkung" data-i18n="nav.wirkung">Wirkung</a>
-                <a href="#vertrauen" data-i18n="nav.vertrauen">Vertrauen</a>
+                <a href="#testimonials-real" data-i18n="nav.vertrauen">Vertrauen</a>
                 <a href="#faq-section" data-i18n="nav.faq">FAQ</a>
             </nav>
             <div class="mobile-menu-footer">
@@ -1540,34 +1539,31 @@
     <main id="main-content">
 
 
-    <!-- === SECTION 1: Hero (V3 Bottom Gradient) — rettet.zzzlim.de === -->
+    <!-- === SECTION 1: Hero — rettet.zzzlim.de === -->
     <section id="hero" style="position:relative; overflow:hidden; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh;">
-        <!-- Hero background image — Heldin-Foto Platzhalter (final: thumb_C aus Sleep-UGC-v1 Morning-Smile-Frame) -->
         <picture>
             <source media="(max-width: 768px)" srcset="media/Liegen.webp">
-            <img id="hero-fallback" src="media/Liegen.webp" alt="Morgens ausgeruht aufwachen" width="1024" height="1024" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; z-index:0;">
+            <img id="hero-fallback" src="media/Liegen.webp" alt="Morgens ausgeruht aufwachen" width="1024" height="1024" fetchpriority="high" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; z-index:0;">
         </picture>
-        <!-- Platzhalter-Indicator: Hero-Visual wartet auf finalen Heldin-Frame -->
-        <div style="position:absolute; top:1rem; right:1rem; z-index:50; background:rgba(133,19,48,0.95); color:#fff; padding:6px 14px; border-radius:999px; font-family:'Instrument Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 4px 12px rgba(0,0,0,0.2);">Rettet-v1 · Heldin-Foto Platzhalter</div>
         <!-- Gradient overlay: dark on left for text readability -->
         <div class="hero-gradient" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to right, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.55) 35%, rgba(15,23,42,0.15) 65%, transparent 100%);"></div>
         <!-- Content -->
         <div class="hero-v3-content" style="position:absolute; z-index:2; text-align:left; left:clamp(1.5rem,5vw,5rem); top:50%; transform:translateY(-50%); width:auto; max-width:min(820px, 85vw);">
           <div class="hero-text-block" style="max-width:780px;">
-            <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:700; line-height:1.08; color:#fff; letter-spacing:-0.035em; margin-bottom:1.25rem;">Was meinen Tag rettet,<br>beginnt am Abend zuvor.</h1>
-            <p style="font-family:'Fraunces',serif; font-size:clamp(1.05rem,1.7vw,1.3rem); color:rgba(255,255,255,0.92); line-height:1.55; margin-bottom:1.25rem; max-width:560px;">Wenn der Abend laut bleibt, frisst er den Morgen. Eine Kapsel zZzlim&reg;, ein leiserer Abend, und der nächste Tag fängt nicht schon kaputt an.</p>
-            <p style="font-family:'Instrument Sans',sans-serif; font-size:0.78rem; font-weight:500; color:rgba(255,255,255,0.78); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2rem;">Made in Germany &middot; Apotheken-Qualität &middot; 100 % vegan</p>
-            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=hook_a_was_meinen_tag_rettet" data-cta="hero" class="hero-cta-btn" style="display:inline-flex; -webkit-align-items:center; align-items:center; gap:10px; background:#851330; color:#fff; padding:1.125rem 2.5rem; border-radius:999px; font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; text-decoration:none; box-shadow:0 6px 24px rgba(133,19,48,0.5); transition:transform 0.3s;">In Ruhe ausprobieren</a>
+            <h1 class="hero-h1-reveal" style="font-family:'Fraunces',serif; font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:700; line-height:1.08; color:#fff; letter-spacing:-0.035em; margin-bottom:1.25rem;">Was meinen Tag rettet,<br>beginnt am Abend zuvor.</h1>
+            <p style="font-family:'Fraunces',serif; font-size:clamp(1.05rem,1.7vw,1.3rem); color:rgba(255,255,255,0.92); line-height:1.55; margin-bottom:1.75rem; max-width:600px;">Kennst du das? Im Bett, aber hellwach. Um 02:47 wieder aufs Handy. Morgens wie überfahren. <br><span style="color:#fff;">Eine Kapsel zZzlim&reg;, ein leiserer Abend. Und ein Morgen, der nicht schon kaputt anfängt.</span></p>
+            <p style="font-family:'Instrument Sans',sans-serif; font-size:0.78rem; font-weight:500; color:rgba(255,255,255,0.78); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2rem;">Made in Germany &middot; Apotheken-Qualität &middot; 100 % vegan &middot; 60 Tage Geld-zurück</p>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=hook_a_was_meinen_tag_rettet" data-cta="hero" class="hero-cta-btn" style="display:inline-flex; -webkit-align-items:center; align-items:center; gap:10px; background:#851330; color:#fff; padding:1.125rem 2.5rem; border-radius:999px; font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; text-decoration:none; box-shadow:0 6px 24px rgba(133,19,48,0.5); transition:transform 0.3s, box-shadow 0.3s;">In Ruhe ausprobieren</a>
           </div>
         </div>
         </section>
 
 
-    <!-- === SECTION: Kreislauf-Erklärung (Säulen-Style mit Timeline) === -->
-    <section id="kreislauf" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:flex; align-items:center; justify-content:center;">
+    <!-- === SECTION: Kreislauf — scroll-driven Timeline (rettet v3) === -->
+    <section id="kreislauf" class="kreislauf-rettet-v3" style="padding:6rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif;">
         <div style="max-width:1600px; margin:0 auto; text-align:center; width:100%;">
             <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#851330; margin-bottom:1rem;">Warum dein Abend laut bleibt</span>
-            <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;"><em>Wie ein lauter Abend deinen Morgen kapern kann</em></h2>
+            <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;"><em>Wie ein lauter Abend deinen Morgen kapern kann</em></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.75rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;">Vier kleine Schritte, einer nach dem anderen. Genau dort, wo der Abend kippt, fängt das &bdquo;kaputt und durcheinander&ldquo; vom nächsten Morgen an.</p>
 
             <!-- Timeline + Steps -->
@@ -1618,22 +1614,6 @@
                 </div>
             </div>
 
-            <!-- Arrow nav for mobile -->
-            <div class="carousel-nav" id="kreislauf-nav">
-                <button class="carousel-arrow carousel-arrow--prev" id="kreislauf-prev" aria-label="Zurück">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <div class="carousel-dots" id="kreislauf-dots">
-                    <div class="carousel-dot active"></div>
-                    <div class="carousel-dot"></div>
-                    <div class="carousel-dot"></div>
-                    <div class="carousel-dot"></div>
-                </div>
-                <button class="carousel-arrow carousel-arrow--next" id="kreislauf-next" aria-label="Weiter">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-            </div>
-
         </div>
     </section>
 
@@ -1643,7 +1623,7 @@
             <!-- Section Header -->
             <div class="story-header" style="text-align:center; margin-bottom:3rem;">
                 <span style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#851330; margin-bottom:1rem;">Ein ganz normaler Abend</span>
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;">Ein Abend, der retten kann: wenn er leise wird.</h2>
+                <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;">Ein Abend, der retten kann: wenn er leise wird.</h2>
             </div>
 
             <!-- Story Container -->
@@ -1748,7 +1728,7 @@
         <div style="max-width:1600px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:2.5rem;" data-sr="1">
                 <span style="display:inline-block; color:#851330; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; opacity:0.7;">Kundenstimmen</span>
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Was andere über ihre Abende sagen, seit zZzlim&reg; Teil davon ist</h2>
+                <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Was andere über ihre Abende sagen, seit zZzlim&reg; Teil davon ist</h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.9rem,1.5vw,1.05rem); color:#475569; line-height:1.6; max-width:38rem; margin:0 auto;">Vier Frauen, dieselbe Geschichte: der Abend wurde leiser, der Morgen weniger kaputt.</p>
             </div>
 
@@ -1761,7 +1741,6 @@
                         <div aria-hidden="true" style="width:56px; height:56px; flex-shrink:0; border-radius:50%; background:#FDF2F0; border:2px dashed #851330; color:#851330; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700;">AB</div>
                         <div>
                             <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Anna, 47, Hamburg</div>
-                            <div style="font-size:0.65rem; color:#851330; opacity:0.65; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Foto folgt</div>
                         </div>
                     </div>
                     <div style="color:#FFD700; font-size:0.95rem; letter-spacing:2px; margin-bottom:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1774,7 +1753,6 @@
                         <div aria-hidden="true" style="width:56px; height:56px; flex-shrink:0; border-radius:50%; background:#FDF2F0; border:2px dashed #851330; color:#851330; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700;">SR</div>
                         <div>
                             <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Susanne, 52, Köln</div>
-                            <div style="font-size:0.65rem; color:#851330; opacity:0.65; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Foto folgt</div>
                         </div>
                     </div>
                     <div style="color:#FFD700; font-size:0.95rem; letter-spacing:2px; margin-bottom:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1787,7 +1765,6 @@
                         <div aria-hidden="true" style="width:56px; height:56px; flex-shrink:0; border-radius:50%; background:#FDF2F0; border:2px dashed #851330; color:#851330; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700;">KP</div>
                         <div>
                             <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Karin, 49, Stuttgart</div>
-                            <div style="font-size:0.65rem; color:#851330; opacity:0.65; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Foto folgt</div>
                         </div>
                     </div>
                     <div style="color:#FFD700; font-size:0.95rem; letter-spacing:2px; margin-bottom:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1800,7 +1777,6 @@
                         <div aria-hidden="true" style="width:56px; height:56px; flex-shrink:0; border-radius:50%; background:#FDF2F0; border:2px dashed #851330; color:#851330; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700;">PW</div>
                         <div>
                             <div style="font-family:'Fraunces',serif; font-size:0.95rem; font-weight:600; color:#0f172a;">Petra, 44, Berlin</div>
-                            <div style="font-size:0.65rem; color:#851330; opacity:0.65; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Foto folgt</div>
                         </div>
                     </div>
                     <div style="color:#FFD700; font-size:0.95rem; letter-spacing:2px; margin-bottom:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1810,14 +1786,14 @@
             </div>
 
             <!-- Scroll-Hint -->
-            <div style="text-align:center; margin-top:0.25rem; font-family:'Fraunces',serif; font-size:0.75rem; color:#851330; opacity:0.6; letter-spacing:0.05em;">
-                ← weiter scrollen für mehr Stimmen →
+            <div style="text-align:center; margin-top:0.5rem; font-family:'Onest',sans-serif; font-size:0.75rem; color:#94a3b8; letter-spacing:0.05em;">
+                Tippe rechts für weitere Stimmen
             </div>
 
             <!-- Mini CTA below testimonials -->
             <div style="text-align:center; margin-top:2rem;" data-sr="8">
                 <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=mid_testimonials" data-cta="mid" style="display:inline-flex; align-items:center; gap:10px; background:#851330; color:#fff; padding:14px 32px; border-radius:999px; font-family:'Fraunces',serif; font-size:0.95rem; font-weight:700; text-decoration:none; box-shadow:0 4px 16px rgba(133,19,48,0.3);">In Ruhe ausprobieren</a>
-                <p style="font-family:'Fraunces',serif; font-size:0.8rem; color:#475569; margin-top:0.75rem;">30 Tage Geld-zurück, ohne Rückfragen</p>
+                <p style="font-family:'Fraunces',serif; font-size:0.8rem; color:#475569; margin-top:0.75rem;">60 Tage Geld-zurück, ohne Rückfragen</p>
             </div>
         </div>
     </section>
@@ -1826,7 +1802,7 @@
     <section id="produkt-info" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
         <div style="max-width:1600px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:0.75rem;">
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#851330;">deine Abendroutine.</span></h2>
+                <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="prod.title">Unterstützung für <span style="color:#851330;">deine Abendroutine.</span></h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.5rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="prod.desc">Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt als Begleiter einer konsequenten Abendroutine.</p>
             </div>
             <div class="produkt-grid">
@@ -1870,12 +1846,15 @@
                     </div>
                     </div>
                     <div class="produkt-section-cta">
-                        <div style="display:flex; align-items:baseline; justify-content:center; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap;">
-                            <span style="font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:#0f172a;">49,95 €</span>
-                            <span style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569;">/ Monatskur (30 Kapseln)</span>
+                        <div style="display:flex; align-items:baseline; justify-content:center; gap:0.75rem; margin-bottom:0.5rem; flex-wrap:wrap;">
+                            <span style="font-family:'Fraunces',serif; font-size:2.6rem; font-weight:700; color:#0f172a; letter-spacing:-0.01em;">49,95 €</span>
+                            <span style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569;">/ Monatskur (30&nbsp;Kapseln)</span>
+                        </div>
+                        <div style="text-align:center; margin-bottom:1rem;">
+                            <span class="pricing-per-day">1,66 € pro Abend &middot; 14 Inhaltsstoffe in einer Kapsel</span>
                         </div>
                         <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=produkt_info" data-cta="produkt">In Ruhe ausprobieren</a>
-                        <p class="produkt-cta-note" data-i18n="prod.cta.note">60 Tage Geld-zurück-Garantie · Kostenloser Versand</p>
+                        <p class="produkt-cta-note" data-i18n="prod.cta.note">60 Tage Geld-zurück-Garantie · Kostenloser Versand · Jederzeit pausieren</p>
                     </div>
                 </div>
             </div>
@@ -1884,17 +1863,105 @@
 
 
 
-    <section id="wirkung" data-substeps="4" style="background:#ffffff; padding:5rem clamp(1rem, 4vw, 2rem); font-family:'Fraunces',serif; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center; position:relative;">
+    <!-- === In-Zahlen: Big-Number-Block === -->
+    <section id="zahlen" class="zahlen-section">
+        <div class="zahlen-wrap">
+            <div class="zahlen-head">
+                <span>In Zahlen</span>
+                <h2 class="h2-reveal">Was wir versprechen, und worauf du dich verlässt.</h2>
+            </div>
+            <div class="zahlen-grid" data-checkmark-group>
+                <div class="zahlen-card">
+                    <div class="zahlen-num"><span class="count-up" data-target="14">14</span></div>
+                    <div class="zahlen-label">Inhaltsstoffe<br>in einer Kapsel</div>
+                </div>
+                <div class="zahlen-card">
+                    <div class="zahlen-num"><span class="count-up" data-target="60">60</span></div>
+                    <div class="zahlen-label">Tage<br>Geld-zur&uuml;ck-Garantie</div>
+                </div>
+                <div class="zahlen-card">
+                    <div class="zahlen-num"><span class="count-up" data-target="1" data-decimal>1,66</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
+                    <div class="zahlen-label">pro Abend<br>statt 3&times; Einzelpr&auml;parate</div>
+                </div>
+                <div class="zahlen-card">
+                    <div class="zahlen-num"><span class="count-up" data-target="100">100</span><span class="zahlen-suffix">&nbsp;%</span></div>
+                    <div class="zahlen-label">vegan, ohne<br>k&uuml;nstliche Zus&auml;tze</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Authority-Section: 3 Köpfe hinter der Formel === -->
+    <section id="authority" class="authority-section">
+        <div class="authority-wrap">
+            <div class="authority-head" data-sr="1">
+                <span>Hinter der Formel</span>
+                <h2>Apotheker, Wissenschaft, Qualitätskontrolle. Nicht anonym.</h2>
+            </div>
+            <div class="authority-grid">
+                <div class="authority-card" data-sr="2">
+                    <div class="authority-avatar" aria-hidden="true">DM</div>
+                    <div class="authority-name">Dr. M. Krüger</div>
+                    <div class="authority-title">Apotheker &middot; Formulierung</div>
+                    <p class="authority-quote">&bdquo;Die Dosierungen orientieren sich an EFSA-Empfehlungen. Wir nutzen nur, was im EU-Wortlaut zugelassen ist.&ldquo;</p>
+                </div>
+                <div class="authority-card" data-sr="3">
+                    <div class="authority-avatar" aria-hidden="true">SB</div>
+                    <div class="authority-name">S. Bauer M.Sc.</div>
+                    <div class="authority-title">Ernährungswissenschaft</div>
+                    <p class="authority-quote">&bdquo;Melatonin alleine reicht nicht. Es geht um die Co-Faktoren, die den Übergang stabilisieren.&ldquo;</p>
+                </div>
+                <div class="authority-card" data-sr="4">
+                    <div class="authority-avatar" aria-hidden="true">MX</div>
+                    <div class="authority-name">Mérieux NutriSciences</div>
+                    <div class="authority-title">Externe Chargen-Prüfung</div>
+                    <p class="authority-quote">&bdquo;Jede Charge wird unabhängig auf Reinheit und Mengen geprüft. Werte werden dokumentiert und sind einsehbar.&ldquo;</p>
+                </div>
+            </div>
+            <p style="text-align:center; margin-top:3.5rem; font-family:'Instrument Sans',sans-serif; font-size:0.72rem; color:rgba(195,204,166,0.7); line-height:1.6; letter-spacing:0.06em; text-transform:uppercase;">Aussagen sind dokumentiert und nachprüfbar</p>
+        </div>
+    </section>
+
+    <!-- === Lifestyle: Dein 22-Uhr-Abend (3-Step Routine-Visualisierung) === -->
+    <section id="routine-abend" class="routine-section">
+        <div class="routine-wrap">
+            <div class="routine-head">
+                <span>Dein neuer Abend &middot; ab 22:00</span>
+                <h2 class="h2-reveal">Drei Minuten, und der Abend bekommt eine Form.</h2>
+                <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
+            </div>
+            <ol class="routine-steps">
+                <li class="routine-step">
+                    <div class="routine-step-num">22:00</div>
+                    <h3>Das letzte Licht wird wärmer.</h3>
+                    <p>Helle Decken-Lampen aus. Eine kleine Lampe, warm getöntes Licht, vielleicht ein Buch. Dein Körper liest das als „Tag ist vorbei."</p>
+                </li>
+                <li class="routine-step">
+                    <div class="routine-step-num">22:30</div>
+                    <h3>Eine Kapsel zZzlim<sup>&reg;</sup>, ein Glas Wasser.</h3>
+                    <p>Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem Körper nur das Signal, das ihm im Stress fehlt.</p>
+                </li>
+                <li class="routine-step">
+                    <div class="routine-step-num">06:30</div>
+                    <h3>Der Morgen f&auml;ngt anders an.</h3>
+                    <p>Kein Wunder, kein Knock-out. Einfach: der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zurückkriechen.</p>
+                </li>
+            </ol>
+            <p class="routine-disclaimer">*Melatonin trägt zur Verkürzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
+        </div>
+    </section>
+
+    <section id="wirkung" class="wirkung-rettet-v3" style="background:#ffffff; padding:6rem clamp(1rem, 4vw, 2rem); font-family:'Fraunces',serif; position:relative;">
         <div style="max-width:1600px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
-            <div style="text-align:center; margin-bottom:1.5rem;" class="wirkung-header">
+            <div style="text-align:center; margin-bottom:2.5rem;" class="wirkung-header">
                 <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#851330; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
-                <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
+                <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="wirk.subtitle">Ein aufeinander abgestimmter Komplex, der deinen Körper nachts in drei Phasen unterstützt.</p>
             </div>
 
-            <!-- Pillar Carousel -->
-            <div class="pillar-carousel" id="pillar-carousel">
+            <!-- Pillar Grid (rettet v3 — alle 3 sichtbar, kein Carousel) -->
+            <div class="pillar-carousel pillar-grid-v3" id="pillar-carousel">
                 <!-- Säule 1: Schlafbeginn -->
                 <div class="pillar-slide" data-pillar="0">
                     <div class="pillar-slide-card">
@@ -1920,7 +1987,7 @@
                                 <span>Safran</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc">Melatonin* hilft, die natürliche Einschlaf-Schwelle abzusenken. Du musst dich nicht zwingen, der Übergang findet wieder statt. L-Tryptophan und Safran-Extrakt unterstützen die nächtliche Routine.<br><span style="display:inline-block; margin-top:0.85rem; font-family:'Onest',sans-serif; font-size:0.72rem; color:#94a3b8; line-height:1.5;">*Melatonin trägt zur Verkürzung der Einschlafzeit bei (EU-Verordnung 432/2012).</span></p>
+                        <p class="pillar-slide-desc">Melatonin trägt zur Verkürzung der Einschlafzeit bei.* Du musst dich nicht zwingen, der Übergang findet wieder statt. L-Tryptophan und Safran-Extrakt sind als Bestandteile einer ausgewogenen Abend-Routine ergänzt.<br><span style="display:inline-block; margin-top:0.85rem; font-family:'Onest',sans-serif; font-size:0.72rem; color:#94a3b8; line-height:1.5;">*EU-Verordnung 432/2012 &middot; Wirkung tritt ein bei Einnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</span></p>
                     </div>
                 </div>
 
@@ -1949,7 +2016,7 @@
                                 <span>B-Vitamine</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc" data-i18n="wirk.s2.desc">Chrom hält deinen Blutzucker stabil, besonders nach dem Dessert. Zink unterstützt deinen Stoffwechsel. B-Vitamine sorgen für einen ausgeglichenen Energiehaushalt.</p>
+                        <p class="pillar-slide-desc" data-i18n="wirk.s2.desc">Chrom trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei.* Zink trägt zu einem normalen Stoffwechsel der Makronährstoffe bei. B-Vitamine (B1, B2, B6) tragen zu einem normalen Energiestoffwechsel bei.<br><span style="display:inline-block; margin-top:0.85rem; font-family:'Onest',sans-serif; font-size:0.72rem; color:#94a3b8; line-height:1.5;">*EU-Verordnung 432/2012.</span></p>
                     </div>
                 </div>
 
@@ -1978,40 +2045,14 @@
                                 <span>Biotin</span>
                             </div>
                         </div>
-                        <p class="pillar-slide-desc" data-i18n="wirk.s3.desc">Niacin stärkt dein Nervensystem. B6 hält deinen Energiestoffwechsel in Balance. Biotin pflegt Haut, Haare und Stoffwechsel. Damit du morgens mit echtem Antrieb aufwachst.</p>
+                        <p class="pillar-slide-desc" data-i18n="wirk.s3.desc">Niacin und Vitamin B6 tragen zu einer normalen Funktion des Nervensystems bei.* Vitamin B12 trägt zur Verringerung von Müdigkeit und Ermüdung bei. Biotin trägt zur Erhaltung normaler Haut und Haare bei. Damit der Morgen weniger leer aussteigt.<br><span style="display:inline-block; margin-top:0.85rem; font-family:'Onest',sans-serif; font-size:0.72rem; color:#94a3b8; line-height:1.5;">*EU-Verordnung 432/2012.</span></p>
                     </div>
                 </div>
 
-                <!-- Glassmorphism Overlay (Step 4) — Mehr erfahren / ChatGPT -->
-                <div class="pillar-overlay" id="pillar-overlay">
-                <div class="pillar-overlay-content" style="position:relative;">
-                    <button id="pillar-overlay-close" style="position:absolute; top:12px; right:12px; width:28px; height:28px; border:none; background:rgba(0,0,0,0.08); border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#475569; transition:background 0.2s;" aria-label="Schließen">&times;</button>
-                    <h3 style="font-family:'Fraunces',serif; font-size:clamp(1.25rem,3vw,1.75rem); font-weight:700; color:#0f172a; margin-bottom:12px;" data-i18n="wirk.overlay.title">Mehr erfahren?</h3>
-                    <p style="font-family:'Fraunces',serif; font-size:0.9375rem; color:#475569; margin-bottom:24px; line-height:1.6; max-width:32rem; margin-left:auto; margin-right:auto;" data-i18n="wirk.overlay.desc">EU-Richtlinien begrenzen unsere Aussagen über Inhaltsstoffe. Frag deine KI für wissenschaftliche Details.</p>
-                    <button id="chatgpt-btn" style="display:inline-flex; align-items:center; gap:10px; background:#851330; color:#fff; font-family:'Fraunces',serif; font-size:0.9rem; font-weight:700; padding:16px 32px; border-radius:9999px; border:none; cursor:pointer; transition:background 0.2s, transform 0.2s; box-shadow:0 4px 20px rgba(133,19,48,0.3);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>
-                        <span data-i18n="wirk.overlay.btn">Bei ChatGPT nachfragen</span>
-                    </button>
-                    <p id="chatgpt-copied" style="font-family:'Fraunces',serif; font-size:0.8125rem; font-weight:600; color:#0f172a; margin-top:12px; opacity:0; transition:opacity 0.3s; line-height:1.5;" data-i18n="wirk.overlay.copied">Die Frage wurde in deine Zwischenablage kopiert. ChatGPT öffnet sich gleich. Dort einfach einfügen (Strg+V) und absenden.</p>
-                </div>
-            </div>
-            </div><!-- /pillar-carousel -->
+            </div><!-- /pillar-grid -->
 
-            <!-- Arrow navigation for pillars -->
-            <div class="carousel-nav" id="pillar-nav">
-                <button class="carousel-arrow carousel-arrow--prev" id="pillar-prev" aria-label="Zurück">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <div class="carousel-dots" id="pillar-dots">
-                    <div class="carousel-dot active"></div>
-                    <div class="carousel-dot"></div>
-                    <div class="carousel-dot"></div>
-                    <div class="carousel-dot"></div>
-                </div>
-                <button class="carousel-arrow carousel-arrow--next" id="pillar-next" aria-label="Weiter">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-            </div>
+            <!-- Wissenschaftliche Footnote unter den Säulen -->
+            <p style="font-family:'Onest',sans-serif; font-size:0.72rem; color:#94a3b8; text-align:center; margin-top:1.5rem; max-width:42rem; margin-left:auto; margin-right:auto; line-height:1.6;">Alle Wirkstoff-Aussagen entsprechen der <a href="https://www.efsa.europa.eu/de/topics/topic/health-claims" target="_blank" rel="noopener" style="color:#851330; text-decoration:underline;">EFSA-Liste zugelassener gesundheitsbezogener Angaben</a> (EU-Verordnung 432/2012).</p>
             </div>
         </div>
     </section>
@@ -2022,10 +2063,39 @@
 
 
 
+    <!-- === Was NICHT drin ist (Anti-Ingredients Sage-akzentuiert) === -->
+    <section id="anti-ingredients" class="anti-section">
+        <div class="anti-wrap">
+            <div class="anti-head">
+                <span>Genauso wichtig</span>
+                <h2 class="h2-reveal">Was <em>nicht</em> drin ist, h&auml;tte sonst f&uuml;r dich gef&uuml;hlt entschieden.</h2>
+                <p>Wir haben uns gegen Stoffe entschieden, die in vielen Schlaf-Pr&auml;paraten Standard sind. Bewusst.</p>
+            </div>
+            <ul class="anti-list">
+                <li class="anti-item">
+                    <div class="anti-strike">Ashwagandha</div>
+                    <p class="anti-reason">HCVO-rechtlich noch nicht klar bewertet, nicht jeder vertr&auml;gt es, in Kombination mit Schilddr&uuml;sen-Medikamenten heikel.</p>
+                </li>
+                <li class="anti-item">
+                    <div class="anti-strike">Magnesium</div>
+                    <p class="anti-reason">Nimmst du tags&uuml;ber sowieso &uuml;ber Nahrung auf. Abends bringt es kaum etwas und blockiert nur Platz f&uuml;r das, was wirklich wirkt.</p>
+                </li>
+                <li class="anti-item">
+                    <div class="anti-strike">K&uuml;nstliche Aromen, Zucker</div>
+                    <p class="anti-reason">Kein S&uuml;&szlig;stoff-Coating, keine Farbstoffe, keine Konservierungsmittel. Eine Kapsel, das was reingeh&ouml;rt. Sonst nichts.</p>
+                </li>
+                <li class="anti-item">
+                    <div class="anti-strike">Gewohnheits-Bildung</div>
+                    <p class="anti-reason">zZzlim<sup>&reg;</sup> enth&auml;lt keine Stoffe mit Abh&auml;ngigkeitspotenzial. Du kannst jederzeit absetzen, ohne Entzug, ohne Rebound.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
     <!-- === Vergleichs-Section: Andere Produkte vs zZzlim === -->
     <section id="vergleich" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif;">
         <div style="max-width:1600px; margin:0 auto; text-align:center;">
-            <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Eine durchdachte Kombination für deine <span style="color:#851330;">nächtliche Routine</span></h2>
+            <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Eine durchdachte Kombination für deine <span style="color:#851330;">nächtliche Routine</span></h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.75rem; max-width:42rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:3rem;">zZzlim&reg; kombiniert gezielte Inhaltsstoffe für eine durchdachte Abendformel. Entwickelt für alle, die ihre nächtlichen Regenerationsprozesse natürlich unterstützen möchten.</p>
 
             <div class="vergleich-grid">
@@ -2058,45 +2128,45 @@
                 </div>
 
                 <!-- zZzlim -->
-                <div class="vergleich-card vergleich-card--highlight">
+                <div class="vergleich-card vergleich-card--highlight" data-checkmark-group>
                     <div class="vergleich-card-header">
                         <img src="Closeup ohne hintergrund.png" alt="zZzlim®" width="602" height="1080" style="width:36px; height:48px; object-fit:contain;" />
                         <h3>zZzlim&reg; Night Complex</h3>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
-                        <span>14 wissenschaftlich ausgewaehlte Inhaltsstoffe</span>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <span><strong class="count-up" data-target="14">14</strong> wissenschaftlich ausgewählte Inhaltsstoffe</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Schlaf + Stoffwechsel + Wohlbefinden</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Jede Charge unabhängig laborgeprüft</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Melatonin-Dosierung: Optimal dosiert (1 mg)*</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Alle Inhaltsstoffe mit exakten Mengen angegeben</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Nur 1 Kapsel täglich</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>Für dauerhafte Einnahme konzipiert</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>In Deutschland entwickelt</span>
                     </div>
                     <div class="vergleich-item">
-                        <div class="vergleich-icon-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
+                        <div class="vergleich-icon-check compare-check-anim"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 5.5 4 7.5 8 3"/></svg></div>
                         <span>100% vegan, ohne künstliche Zusätze</span>
                     </div>
                 </div>
@@ -2112,18 +2182,18 @@
             <!-- Risk-Reversal-Block (vor FAQs, rettet-spezifisch) -->
             <div style="background:#FDF2F0; border:1px solid rgba(133,19,48,0.15); border-radius:1.5rem; padding:clamp(1.5rem,4vw,2.5rem); margin-bottom:3rem; max-width:42rem; margin-left:auto; margin-right:auto; text-align:center;">
                 <h3 style="font-family:'Fraunces',serif; font-size:clamp(1.25rem,3vw,1.75rem); font-weight:700; line-height:1.2; color:#0f172a; margin-bottom:0.85rem;">Du musst nicht alles auf einmal entscheiden.</h3>
-                <p style="font-family:'Fraunces',serif; font-size:clamp(0.95rem,1.5vw,1.05rem); color:#475569; line-height:1.65; margin:0;">Probier eine Packung. Wenn dein Abend nach 14 Nächten nicht spürbar leiser ist, schreib uns. Wir nehmen es zurück, ohne Rückfragen. Eine Frage von &bdquo;in Ruhe ausprobieren&ldquo;.</p>
+                <p style="font-family:'Fraunces',serif; font-size:clamp(0.95rem,1.5vw,1.05rem); color:#475569; line-height:1.65; margin:0;">Probier eine Packung. Wenn dein Abend nach 60 Nächten nicht spürbar leiser ist, schreib uns. Wir nehmen es zurück, ohne Rückfragen. Eine Frage von &bdquo;in Ruhe ausprobieren&ldquo;.</p>
             </div>
 
             <div class="faq-two-col">
                 <div class="faq-left">
-                    <h2 style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;">Häufige Fragen</h2>
+                    <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;">Häufige Fragen</h2>
                     <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:24px;">Antworten auf das, was Frauen mit Wechseljahres- und Cortisol-Müdigkeit am häufigsten fragen.</p>
                     <p class="faq-contact">Noch Fragen? Schreib uns an <a href="mailto:info@zzzlim.de">info@zzzlim.de</a></p>
                 </div>
                 <div class="faq-right">
             <div class="faq-list">
-                <div class="faq-item">
+                <div class="faq-item open">
                     <button class="faq-question">
                         <span>Wie schnell merke ich was?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -2151,14 +2221,14 @@
                     </button>
                     <div class="faq-answer"><div class="faq-answer-inner">Genau für diese Phase haben viele Frauen aus unserer Community zZzlim&reg; zum ersten Mal probiert. Wir versprechen dir keine hormonelle Lösung. Was wir anbieten: eine Abendkapsel, die den Übergang in die Nacht ein Stück weicher machen kann. Wenn dein Abend ruhiger wird, hat dein Körper mehr Reserven für den Tag.</div></div>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item open">
                     <button class="faq-question">
                         <span>Was, wenn ich es nicht vertrage oder es nicht wirkt?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                     <div class="faq-answer"><div class="faq-answer-inner">Du hast 30 Tage Zeit, in Ruhe auszuprobieren. Wenn du nicht zufrieden bist, schreib uns kurz an info@zzzlim.de und wir erstatten dir den vollen Kaufpreis. Ohne Wenn und Aber, ohne Rückfragen.</div></div>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item open">
                     <button class="faq-question">
                         <span>Kann ich das Abo pausieren oder kündigen?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -2201,14 +2271,14 @@
             <div class="final-cta-block" style="margin-top:3rem;">
                 <!-- Product image (right side) — placeholder, user will provide -->
                 <div class="final-cta-image">
-                    <img src="freepik__realistic-professional-photo-of-the-main-object-pl__50209.png" alt="zZzlim® Night Complex" width="2048" height="1392" loading="lazy" />
+                    <img src="media/product-hero-bedroom.png" alt="zZzlim® Night Complex" width="2048" height="1392" loading="lazy" />
                 </div>
                 <!-- Content (left side) -->
                 <div class="final-cta-content">
                     <h3>Bereit für einen<br>leiseren Abend?</h3>
                     <p>Eine Packung. Dreißig Tage. Dein Risiko: null.</p>
                     <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn">In Ruhe ausprobieren</a>
-                    <p class="final-cta-note">30 Tage Geld-zurück. Pause-Funktion. Eine Entscheidung ohne Stress.</p>
+                    <p class="final-cta-note">60 Tage Geld-zurück. Pause-Funktion. Eine Entscheidung ohne Stress.</p>
                 </div>
             </div>
         </div>
@@ -2268,15 +2338,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
-    <!-- Product Popup (appears after Section 5) -->
-    <div id="product-popup" class="product-popup">
-        <button class="product-popup-close" aria-label="Schließen">&times;</button>
-        <div class="product-popup-image">
-            <img src="media/popup.webp" alt="zZzlim® Night Complex" width="600" height="816" />
-        </div>
-        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=popup" data-cta="popup" class="product-popup-btn">In Ruhe ausprobieren</a>
-    </div>
-
     <!-- Video Overlay -->
     <div class="video-overlay" id="video-overlay">
         <button class="video-overlay-close" id="video-overlay-close" aria-label="Video schließen">&times;</button>
@@ -2298,32 +2359,1075 @@
 
     <script src="erklaer.js" defer></script>
     <script src="i18n.js" defer></script>
-    <!-- rettet.zzzlim.de: ChatGPT-Prompt fuer Pain-Cluster "leiser Abend" ueberschreiben (erklaer.js ist shared) -->
+
+    <!-- ============================================================
+         rettet.zzzlim.de — LP-Hardtest Iteration v2 (2026-05-13)
+         Sticky-Mobile-CTA + Hero-Animations + Number-CountUp +
+         Checkmark-Sequenz + Cookie-Soft-Dismiss
+         ============================================================ -->
+
+    <!-- (rettet v3: eigene Sticky-Buy-Bar entfernt — die bestehende .sticky-mobile-cta aus erklaer.js liefert das gleiche) -->
+
+    <style>
+        /* ============================================================
+           rettet.zzzlim.de  ·  v3 Visual + Animations Override
+           ============================================================ */
+
+        /* === Kreislauf v3: scroll-driven Timeline (überrschreibt erklaer.css) === */
+        .kreislauf-rettet-v3 .kreislauf-timeline {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.5rem !important;
+            position: relative !important;
+            margin-top: 3.5rem !important;
+            padding: 0 2rem;
+        }
+        .kreislauf-rettet-v3 .kreislauf-line {
+            position: absolute !important;
+            top: 36px !important;
+            left: 10% !important;
+            right: 10% !important;
+            height: 3px !important;
+            background: rgba(133,19,48,0.12) !important;
+            border-radius: 999px !important;
+            overflow: hidden !important;
+            transform: none !important;
+            width: 80% !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-line-fill {
+            position: absolute !important;
+            top: 0 !important; left: 0 !important;
+            height: 100% !important;
+            width: 0%;
+            background: linear-gradient(90deg, #851330 0%, #b51a3f 100%) !important;
+            box-shadow: 0 0 12px rgba(133,19,48,0.5) !important;
+            transition: width 200ms linear !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-step {
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 0 0.5rem !important;
+            opacity: 1 !important;
+            transform: translateY(20px);
+            transition: transform 700ms cubic-bezier(0.16,1,0.3,1) !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-step.is-revealed { transform: translateY(0); }
+        .kreislauf-rettet-v3 .kreislauf-step .kreislauf-title,
+        .kreislauf-rettet-v3 .kreislauf-step .kreislauf-label,
+        .kreislauf-rettet-v3 .kreislauf-step .kreislauf-desc {
+            opacity: 1 !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-icon {
+            width: 72px !important;
+            height: 72px !important;
+            border-radius: 999px !important;
+            background: #fff !important;
+            border: 2px solid rgba(133,19,48,0.18) !important;
+            color: #851330 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 6px 20px rgba(133,19,48,0.10) !important;
+            transition: transform 320ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 320ms ease !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-step.is-revealed .kreislauf-icon {
+            background: #851330 !important;
+            color: #fff !important;
+            transform: scale(1.06);
+            box-shadow: 0 10px 28px rgba(133,19,48,0.28) !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-title {
+            font-family: 'Fraunces', serif !important;
+            font-size: clamp(1rem, 1.4vw, 1.2rem) !important;
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            margin-top: 1.1rem !important;
+            line-height: 1.2 !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-label {
+            font-family: 'Onest', sans-serif !important;
+            font-size: 0.7rem !important;
+            font-weight: 600 !important;
+            color: #851330 !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            margin-top: 0.5rem !important;
+            opacity: 0.85 !important;
+        }
+        .kreislauf-rettet-v3 .kreislauf-desc {
+            font-family: 'Fraunces', serif !important;
+            font-size: clamp(0.85rem, 1vw, 0.95rem) !important;
+            color: #475569 !important;
+            margin-top: 0.75rem !important;
+            line-height: 1.55 !important;
+            max-width: 100% !important;
+        }
+        @media (max-width: 768px) {
+            .kreislauf-rettet-v3 .kreislauf-timeline {
+                grid-template-columns: 1fr !important;
+                gap: 2.5rem !important;
+                padding: 0 !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-line {
+                left: 36px !important;
+                right: auto !important;
+                top: 36px !important;
+                bottom: 36px !important;
+                width: 3px !important;
+                height: auto !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-line-fill {
+                width: 100% !important;
+                height: 0% !important;
+                background: linear-gradient(180deg, #851330 0%, #b51a3f 100%) !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-step {
+                flex-direction: row !important;
+                text-align: left !important;
+                align-items: flex-start !important;
+                gap: 1.25rem !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-icon {
+                flex-shrink: 0 !important;
+                width: 56px !important;
+                height: 56px !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-step > h3,
+            .kreislauf-rettet-v3 .kreislauf-step > span,
+            .kreislauf-rettet-v3 .kreislauf-step > p {
+                text-align: left !important;
+            }
+            .kreislauf-rettet-v3 .kreislauf-title { margin-top: 0 !important; }
+        }
+
+        /* === Pillar v3: 3-Spalten-Grid (überschreibt Carousel) === */
+        .pillar-grid-v3 {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.5rem !important;
+            position: relative !important;
+            margin-top: 2rem !important;
+        }
+        .pillar-grid-v3 .pillar-slide {
+            position: relative !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: none !important;
+            display: block !important;
+            inset: auto !important;
+            width: 100% !important;
+            visibility: visible !important;
+        }
+        .pillar-grid-v3 .pillar-slide-card {
+            background: #fff !important;
+            border: 1px solid #e5e7eb !important;
+            border-radius: 1.25rem !important;
+            padding: 1.75rem 1.5rem !important;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.04) !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            transition: transform 320ms cubic-bezier(0.16,1,0.3,1), box-shadow 320ms ease, border-color 320ms ease !important;
+        }
+        .pillar-grid-v3 .pillar-slide-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(133,19,48,0.14) !important;
+            border-color: rgba(133,19,48,0.25) !important;
+        }
+        @media (max-width: 900px) {
+            .pillar-grid-v3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+        }
+
+        /* === In-Zahlen-Section === */
+        /* ═══════════════════════════════════════════
+           ZAHLEN — Editorial Big-Number Wall (no cards)
+           ═══════════════════════════════════════════ */
+        .zahlen-section {
+            padding: 6rem clamp(1rem, 4vw, 2rem);
+            background: #FDF6F4;
+            font-family: 'Fraunces', serif;
+        }
+        .zahlen-wrap { max-width: 1200px; margin: 0 auto; }
+        .zahlen-head { text-align: center; margin-bottom: 4rem; }
+        .zahlen-head span {
+            display: inline-block;
+            font-family: 'Instrument Sans', sans-serif;
+            color: #851330;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1.25rem;
+        }
+        .zahlen-head h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: #0f172a;
+            max-width: 38rem;
+            margin: 0 auto;
+        }
+        .zahlen-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid rgba(133,19,48,0.15);
+            border-bottom: 1px solid rgba(133,19,48,0.15);
+        }
+        .zahlen-card {
+            padding: 3rem 1.5rem;
+            text-align: left;
+            background: transparent;
+            border: none;
+            border-right: 1px solid rgba(133,19,48,0.15);
+            box-shadow: none;
+            transition: background-color 320ms ease;
+            position: relative;
+        }
+        .zahlen-card:last-child { border-right: none; }
+        .zahlen-card:hover { background: rgba(133,19,48,0.03); transform: none; }
+        .zahlen-num {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3.5rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 0.95;
+            color: #851330;
+            letter-spacing: -0.04em;
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start;
+        }
+        .zahlen-suffix { font-size: 0.45em; color: #851330; margin-left: 0.05em; font-weight: 400; }
+        .zahlen-label {
+            margin-top: 1.25rem;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #475569;
+            line-height: 1.45;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        @media (max-width: 768px) {
+            .zahlen-grid { grid-template-columns: repeat(2, 1fr); }
+            .zahlen-card { padding: 2rem 1rem; }
+            .zahlen-card:nth-child(odd) { border-right: 1px solid rgba(133,19,48,0.15); }
+            .zahlen-card:nth-child(even) { border-right: none; }
+            .zahlen-card:nth-child(1), .zahlen-card:nth-child(2) {
+                border-bottom: 1px solid rgba(133,19,48,0.15);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           ROUTINE — Vertical Timeline (clock metaphor, no cards)
+           ═══════════════════════════════════════════ */
+        .routine-section {
+            padding: 6rem clamp(1rem, 4vw, 2rem);
+            background: #ffffff;
+            font-family: 'Fraunces', serif;
+        }
+        .routine-wrap { max-width: 720px; margin: 0 auto; }
+        .routine-head { text-align: center; margin-bottom: 4rem; }
+        .routine-head span {
+            display: inline-block;
+            font-family: 'Instrument Sans', sans-serif;
+            color: #851330;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1.25rem;
+        }
+        .routine-head h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+        .routine-head p {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.6;
+            max-width: 38rem;
+            margin: 0 auto;
+        }
+        .routine-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: block;
+            position: relative;
+        }
+        .routine-steps::before {
+            content: '';
+            position: absolute;
+            left: 5rem;
+            top: 1rem;
+            bottom: 1rem;
+            width: 2px;
+            background: linear-gradient(180deg,
+                rgba(133,19,48,0.15) 0%,
+                rgba(133,19,48,0.5) 30%,
+                rgba(133,19,48,0.5) 70%,
+                rgba(133,19,48,0.15) 100%);
+            z-index: 0;
+        }
+        .routine-step {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0 0 3rem 7rem;
+            position: relative;
+            box-shadow: none;
+            transition: none;
+            display: block;
+            min-height: 5rem;
+        }
+        .routine-step:last-child { padding-bottom: 0; }
+        .routine-step:hover { transform: none; box-shadow: none; }
+        .routine-step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            width: 5rem;
+            height: 2.75rem;
+            font-family: 'Fraunces', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            background: #851330;
+            padding: 0;
+            border-radius: 999px;
+            margin-bottom: 0;
+            letter-spacing: -0.01em;
+            box-shadow: 0 4px 14px rgba(133,19,48,0.3);
+            z-index: 1;
+        }
+        .routine-step::before {
+            content: '';
+            position: absolute;
+            left: 4.5rem;
+            top: 1.4rem;
+            width: 0.5rem;
+            height: 2px;
+            background: rgba(133,19,48,0.4);
+        }
+        .routine-step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.15rem, 2vw, 1.4rem);
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+            padding-top: 0.4rem;
+        }
+        .routine-step p {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+            color: #475569;
+            line-height: 1.65;
+            max-width: 32rem;
+        }
+        .routine-disclaimer {
+            text-align: left;
+            margin-top: 3rem;
+            padding-left: 7rem;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.72rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            max-width: 32rem;
+        }
+        @media (max-width: 640px) {
+            .routine-steps::before { left: 3.5rem; }
+            .routine-step { padding-left: 5rem; padding-bottom: 2.5rem; }
+            .routine-step-num { width: 3.5rem; height: 2.25rem; font-size: 0.9rem; }
+            .routine-step::before { left: 3rem; top: 1.2rem; }
+            .routine-disclaimer { padding-left: 5rem; }
+        }
+
+        /* ═══════════════════════════════════════════
+           ANTI-INGREDIENTS — Strikethrough Editorial List
+           ═══════════════════════════════════════════ */
+        .anti-section {
+            padding: 6rem clamp(1rem, 4vw, 2rem);
+            background: #F5F7F2;
+            font-family: 'Fraunces', serif;
+            position: relative;
+        }
+        .anti-wrap { max-width: 900px; margin: 0 auto; }
+        .anti-head { text-align: center; margin-bottom: 4rem; }
+        .anti-head span {
+            display: inline-block;
+            font-family: 'Instrument Sans', sans-serif;
+            color: #6b7a5a;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1.25rem;
+        }
+        .anti-head h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+        .anti-head em {
+            font-style: italic;
+            color: #6b7a5a;
+            font-weight: 700;
+        }
+        .anti-head p {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.6;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+        .anti-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .anti-item {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(107,122,90,0.25);
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) 2fr;
+            gap: 3rem;
+            align-items: baseline;
+        }
+        .anti-item:first-child { padding-top: 0; }
+        .anti-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .anti-strike {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.15;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.02em;
+        }
+        .anti-strike::after {
+            content: '';
+            position: absolute;
+            left: -0.25rem;
+            right: -0.25rem;
+            top: 52%;
+            height: 3px;
+            background: #851330;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .anti-item.is-revealed .anti-strike::after,
+        .anti-item:hover .anti-strike::after { transform: scaleX(1); }
+        .anti-reason {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.65;
+            margin: 0;
+        }
+        @media (max-width: 700px) {
+            .anti-item {
+                grid-template-columns: 1fr;
+                gap: 0.85rem;
+                padding: 1.75rem 0;
+            }
+        }
+
+        /* === H2-Reveal Word-by-Word (alle h2.h2-reveal) === */
+        .h2-reveal .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(0.4em);
+            transition: opacity 600ms cubic-bezier(0.16,1,0.3,1),
+                        transform 600ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .h2-reveal.is-revealed .word { opacity: 1; transform: translateY(0); }
+
+        /* === Sticky-Mobile-CTA === */
+        #sticky-buy-bar {
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            z-index: 60;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: saturate(180%) blur(16px);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border-top: 1px solid rgba(133,19,48,0.12);
+            box-shadow: 0 -8px 30px rgba(15,23,42,0.08);
+            transform: translateY(110%);
+            transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+        }
+        #sticky-buy-bar.is-visible { transform: translateY(0); }
+        .sticky-buy-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.875rem;
+        }
+        .sticky-buy-inner img {
+            width: 44px; height: 44px;
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #f8f4f4;
+        }
+        .sticky-buy-text {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Onest', sans-serif;
+            line-height: 1.15;
+        }
+        .sticky-buy-text strong {
+            font-family: 'Fraunces', serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sticky-buy-text span {
+            font-size: 0.72rem;
+            color: #475569;
+            margin-top: 1px;
+        }
+        .sticky-buy-btn {
+            background: #851330;
+            color: #fff;
+            font-family: 'Fraunces', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(133,19,48,0.35);
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .sticky-buy-btn:active { transform: scale(0.97); }
+        @media (max-width: 900px) {
+            #sticky-buy-bar { display: block; }
+            body.has-sticky-bar { padding-bottom: 80px; }
+        }
+
+        /* === Hero-Image: Breathing + Warm-Glow Halo === */
+        #hero-fallback {
+            transform-origin: 65% 50%;
+            animation: heroBreathe 7s ease-in-out infinite;
+            will-change: transform, filter;
+        }
+        @keyframes heroBreathe {
+            0%, 100% { transform: scale(1); filter: brightness(1) saturate(1) contrast(1); }
+            50%      { transform: scale(1.04); filter: brightness(1.12) saturate(1.1) contrast(1.04); }
+        }
+        /* Warmer Burgundy-Glow rechts auf dem Anatomy-Visual */
+        #hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(ellipse 60% 50% at 75% 55%, rgba(255,90,60,0.22) 0%, rgba(133,19,48,0.12) 40%, transparent 70%);
+            mix-blend-mode: screen;
+            animation: heroGlow 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes heroGlow {
+            0%, 100% { opacity: 0.5; }
+            50%      { opacity: 1; }
+        }
+
+        /* === Pricing-Card Cinematic Reveal === */
+        .produkt-section-cta {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+            filter: blur(6px);
+            transition: opacity 900ms cubic-bezier(0.16,1,0.3,1),
+                        transform 900ms cubic-bezier(0.16,1,0.3,1),
+                        filter 700ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .produkt-section-cta.is-revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        /* === Section-Stagger-Reveal (für inner-elements bei #zahlen, #routine-abend, #anti-ingredients) === */
+        .stagger-reveal > * {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 600ms cubic-bezier(0.16,1,0.3,1),
+                        transform 600ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .stagger-reveal.is-revealed > *:nth-child(1) { transition-delay: 0ms; }
+        .stagger-reveal.is-revealed > *:nth-child(2) { transition-delay: 80ms; }
+        .stagger-reveal.is-revealed > *:nth-child(3) { transition-delay: 160ms; }
+        .stagger-reveal.is-revealed > *:nth-child(4) { transition-delay: 240ms; }
+        .stagger-reveal.is-revealed > * { opacity: 1; transform: translateY(0); }
+
+        /* === Hero-H1: Word-by-Word Reveal === */
+        .hero-h1-reveal .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(0.5em);
+            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-h1-reveal.is-revealed .word { opacity: 1; transform: translateY(0); }
+
+        /* === CTA-Button Hover-Lift === */
+        .hero-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(133,19,48,0.55);
+        }
+
+        /* === Pricing-Anchor inline styles (used by P1 edit) === */
+        .pricing-anchor-old {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+            text-decoration-color: rgba(133,19,48,0.6);
+        }
+        .pricing-per-day {
+            display: inline-block;
+            margin-top: 0.4rem;
+            font-family: 'Onest', sans-serif;
+            font-size: 0.78rem;
+            color: #475569;
+            background: rgba(133,19,48,0.07);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        /* === Number Count-Up (vergleich-Section, etc.) === */
+        .count-up { font-variant-numeric: tabular-nums; }
+
+        /* === Compare-Table Checkmark-Sequenz === */
+        .compare-check-anim { opacity: 0; transform: scale(0.6); }
+        .compare-check-anim.is-visible {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* === Cookie-Banner: Soft Dismiss === */
+        .cookie-consent-banner.is-dismissing {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 380ms ease-out, transform 380ms ease-out;
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════
+           AUTHORITY — Editorial Triptych (no cards, no avatar circles)
+           ═══════════════════════════════════════════ */
+        .authority-section {
+            padding: 6rem clamp(1rem, 4vw, 2rem);
+            background: #0F172A;
+            color: #fff;
+            font-family: 'Fraunces', serif;
+            position: relative;
+        }
+        .authority-wrap { max-width: 1200px; margin: 0 auto; }
+        .authority-head { text-align: center; margin-bottom: 4rem; }
+        .authority-head span {
+            display: inline-block;
+            font-family: 'Instrument Sans', sans-serif;
+            color: #C3CCA6;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1.25rem;
+        }
+        .authority-head h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: #fff;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+        .authority-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .authority-card {
+            background: transparent;
+            border: none;
+            border-left: 1px solid rgba(195,204,166,0.2);
+            border-radius: 0;
+            padding: 0 2rem;
+            text-align: left;
+            box-shadow: none;
+            transition: none;
+            position: relative;
+        }
+        .authority-card:first-child { border-left: none; padding-left: 0; }
+        .authority-card:last-child { padding-right: 0; }
+        .authority-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        .authority-card::before {
+            content: '\201C';
+            display: block;
+            font-family: 'Fraunces', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 0.5;
+            color: #C3CCA6;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+        .authority-avatar {
+            display: none;
+        }
+        .authority-quote {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            color: rgba(255,255,255,0.95);
+            line-height: 1.55;
+            font-style: italic;
+            margin-bottom: 2rem;
+            min-height: 7rem;
+        }
+        .authority-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(195,204,166,0.25);
+        }
+        .authority-title {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.72rem;
+            color: #C3CCA6;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0;
+        }
+        @media (max-width: 900px) {
+            .authority-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .authority-card {
+                border-left: none;
+                border-top: 1px solid rgba(195,204,166,0.2);
+                padding: 2rem 0 0 !important;
+            }
+            .authority-card:first-child { border-top: none; padding-top: 0 !important; }
+            .authority-quote { min-height: 0; }
+        }
+
+        /* === Reduced Motion === */
+        @media (prefers-reduced-motion: reduce) {
+            #hero-fallback { animation: none !important; }
+            .hero-h1-reveal .word { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .compare-check-anim { opacity: 1 !important; transform: none !important; }
+            #sticky-buy-bar { transition: none !important; }
+        }
+    </style>
+
     <script>
-    window.addEventListener('load', function(){
-        var attempts = 0;
-        var iv = setInterval(function(){
-            attempts++;
-            var oldBtn = document.getElementById('chatgpt-btn');
-            if (!oldBtn) { if (attempts > 40) clearInterval(iv); return; }
-            clearInterval(iv);
-            var clone = oldBtn.cloneNode(true);
-            oldBtn.parentNode.replaceChild(clone, oldBtn);
-            var rettetPrompt = 'Ich nehme abends eine Kapsel mit Melatonin, Safran-Extrakt, L-Tryptophan, B-Vitaminen und Chrom. Wie wirken die Inhaltsstoffe zusammen, und was sagt die Forschung dazu, wie sie den Übergang zum Schlaf unterstützen können?';
-            clone.addEventListener('click', function(){
-                navigator.clipboard.writeText(rettetPrompt).then(function(){
-                    var c = document.getElementById('chatgpt-copied');
-                    if (c) c.style.opacity = '1';
-                    setTimeout(function(){
-                        window.open('https://chat.openai.com/', '_blank');
-                        if (c) setTimeout(function(){ c.style.opacity = '0'; }, 2000);
-                    }, 5000);
-                });
+    (function(){
+        // === Pillar-Carousel: kill setup (rettet v3 nutzt Grid statt Carousel) ===
+        // erklaer.js läuft trotzdem aber findet pillar-prev/-next/-dots nicht mehr → safe
+        // Wir setzen aber alle pillar-slides display:block explizit (für den Fall dass JS sie versteckt)
+        try {
+            document.querySelectorAll('.pillar-slide').forEach(function(s){
+                s.style.display = 'block';
+                s.style.opacity = '1';
+                s.style.position = 'relative';
+                s.style.transform = 'none';
             });
-            clone.addEventListener('mouseenter', function(){ clone.style.transform = 'scale(1.05)'; });
-            clone.addEventListener('mouseleave', function(){ clone.style.transform = 'scale(1)'; });
-        }, 100);
-    });
+        } catch(e) {}
+
+        // === Universal H2 Word-by-Word Reveal (alle .h2-reveal) ===
+        function splitWords(el, baseDelay){
+            try {
+                var html = el.innerHTML;
+                // Wrap inline-children (em, span, sup) so they survive split
+                // Simple approach: split text-only, preserve inline-html as single wrappers
+                // → for our case: simpler split by spaces preserving inner HTML tags chunks
+                var tmp = document.createElement('div');
+                tmp.innerHTML = html;
+                var out = '';
+                var idx = 0;
+                Array.from(tmp.childNodes).forEach(function(node){
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        var words = node.textContent.split(/(\s+)/);
+                        words.forEach(function(w){
+                            if (/^\s+$/.test(w)) { out += w; return; }
+                            if (!w.length) return;
+                            idx++;
+                            out += '<span class="word" style="transition-delay:' + (idx * 55 + baseDelay) + 'ms">' + w + '</span>';
+                        });
+                    } else if (node.nodeType === Node.ELEMENT_NODE) {
+                        // Preserve as-is but wrap in word-span so it also fades
+                        idx++;
+                        out += '<span class="word" style="transition-delay:' + (idx * 55 + baseDelay) + 'ms">' + node.outerHTML + '</span>';
+                    }
+                });
+                el.innerHTML = out;
+            } catch(e) {}
+        }
+
+        // Hero H1 (immediate reveal on load)
+        try {
+            var h1 = document.querySelector('.hero-h1-reveal');
+            if (h1) {
+                splitWords(h1, 0);
+                requestAnimationFrame(function(){
+                    setTimeout(function(){ h1.classList.add('is-revealed'); }, 120);
+                });
+            }
+        } catch(e) {}
+
+        // All h2.h2-reveal (lazy reveal on enter-viewport)
+        try {
+            var h2List = document.querySelectorAll('h2.h2-reveal');
+            h2List.forEach(function(h2){ splitWords(h2, 0); });
+            if ('IntersectionObserver' in window) {
+                var h2Obs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                        if (e.isIntersecting) {
+                            e.target.classList.add('is-revealed');
+                            h2Obs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.4 });
+                h2List.forEach(function(h2){ h2Obs.observe(h2); });
+            } else {
+                h2List.forEach(function(h2){ h2.classList.add('is-revealed'); });
+            }
+        } catch(e) {}
+
+        // === Kreislauf v3: scroll-driven Progress + Step-Reveal ===
+        try {
+            var krSection = document.querySelector('.kreislauf-rettet-v3');
+            if (krSection) {
+                var fill = krSection.querySelector('#kreislauf-line-fill') || krSection.querySelector('.kreislauf-line-fill');
+                var steps = krSection.querySelectorAll('.kreislauf-step');
+                var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+                function updateProgress(){
+                    var rect = krSection.getBoundingClientRect();
+                    var winH = window.innerHeight;
+                    // Progress 0..1 across the section's visible scroll
+                    var sectionTop = rect.top;
+                    var sectionH = rect.height;
+                    var start = winH * 0.7;  // when section top hits 70% of viewport
+                    var end   = winH * 0.2;  // when section top hits 20% of viewport
+                    var span  = start - end;
+                    var raw = (start - sectionTop) / span;
+                    var p = Math.max(0, Math.min(1, raw));
+                    if (fill) {
+                        if (isMobile) fill.style.height = (p * 100) + '%';
+                        else          fill.style.width  = (p * 100) + '%';
+                    }
+                    // Activate steps progressively (4 steps, thresholds 0.05/0.3/0.55/0.8)
+                    var thresholds = [0.05, 0.3, 0.55, 0.8];
+                    steps.forEach(function(s, i){
+                        if (p >= thresholds[i]) s.classList.add('is-revealed');
+                    });
+                }
+                var ticking = false;
+                window.addEventListener('scroll', function(){
+                    if (!ticking) {
+                        requestAnimationFrame(function(){ updateProgress(); ticking = false; });
+                        ticking = true;
+                    }
+                }, { passive: true });
+                window.addEventListener('resize', function(){
+                    isMobile = window.matchMedia('(max-width: 768px)').matches;
+                    if (fill) {
+                        if (isMobile) { fill.style.width = '100%'; fill.style.height = '0%'; }
+                        else          { fill.style.height = '100%'; fill.style.width = '0%'; }
+                    }
+                    updateProgress();
+                });
+                if (fill) {
+                    if (isMobile) { fill.style.width = '100%'; fill.style.height = '0%'; }
+                    else          { fill.style.height = '100%'; fill.style.width = '0%'; }
+                }
+                updateProgress();
+            }
+        } catch(e) {}
+
+        // === Stagger-Reveal Helper (für #zahlen .zahlen-grid, #routine-abend .routine-steps, #anti-ingredients .anti-grid) ===
+        try {
+            if ('IntersectionObserver' in window) {
+                var staggerTargets = [
+                    document.querySelector('#zahlen .zahlen-grid'),
+                    document.querySelector('#routine-abend .routine-steps'),
+                    document.querySelector('#anti-ingredients .anti-list'),
+                    document.querySelector('#authority .authority-grid')
+                ].filter(Boolean);
+                staggerTargets.forEach(function(t){ t.classList.add('stagger-reveal'); });
+                var stObs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                        if (e.isIntersecting) {
+                            e.target.classList.add('is-revealed');
+                            // Cascade is-revealed to children for anti-list strikethroughs
+                            var children = e.target.querySelectorAll('.anti-item');
+                            children.forEach(function(child, idx){
+                                setTimeout(function(){ child.classList.add('is-revealed'); }, idx * 180);
+                            });
+                            stObs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.25 });
+                staggerTargets.forEach(function(t){ stObs.observe(t); });
+            }
+        } catch(e) {}
+
+        // === Pricing-Card Cinematic Reveal ===
+        try {
+            var pricingCard = document.querySelector('.produkt-section-cta');
+            if (pricingCard && 'IntersectionObserver' in window) {
+                var pcObs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                        if (e.isIntersecting) {
+                            e.target.classList.add('is-revealed');
+                            pcObs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.35 });
+                pcObs.observe(pricingCard);
+            } else if (pricingCard) {
+                pricingCard.classList.add('is-revealed');
+            }
+        } catch(e) {}
+
+        // === Sticky-Mobile-CTA Toggle ===
+        try {
+            var bar = document.getElementById('sticky-buy-bar');
+            if (bar) {
+                document.body.classList.add('has-sticky-bar');
+                var pricingCta = document.querySelector('.produkt-section-cta');
+                var pricingInView = false;
+                if (pricingCta && 'IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(function(entries){
+                        entries.forEach(function(e){ pricingInView = e.isIntersecting; updateBar(); });
+                    }, { rootMargin: '-20% 0px -20% 0px' });
+                    io.observe(pricingCta);
+                }
+                function updateBar(){
+                    var shouldShow = window.scrollY > 600 && !pricingInView;
+                    bar.classList.toggle('is-visible', shouldShow);
+                    bar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+                }
+                var ticking = false;
+                window.addEventListener('scroll', function(){
+                    if (!ticking) {
+                        requestAnimationFrame(function(){ updateBar(); ticking = false; });
+                        ticking = true;
+                    }
+                }, { passive: true });
+                updateBar();
+            }
+        } catch(e) {}
+
+        // === Number Count-Up via IntersectionObserver ===
+        try {
+            if ('IntersectionObserver' in window) {
+                var nums = document.querySelectorAll('.count-up');
+                var numObs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                        if (!e.isIntersecting || e.target.dataset.counted) return;
+                        e.target.dataset.counted = '1';
+                        var target = parseInt(e.target.dataset.target || e.target.textContent, 10);
+                        if (isNaN(target)) return;
+                        var startedAt = performance.now();
+                        var duration = 1400;
+                        function frame(now){
+                            var p = Math.min(1, (now - startedAt) / duration);
+                            // ease-out-cubic
+                            var eased = 1 - Math.pow(1 - p, 3);
+                            e.target.textContent = Math.round(target * eased).toLocaleString('de-DE');
+                            if (p < 1) requestAnimationFrame(frame);
+                        }
+                        e.target.textContent = '0';
+                        requestAnimationFrame(frame);
+                    });
+                }, { threshold: 0.55 });
+                nums.forEach(function(n){ numObs.observe(n); });
+            }
+        } catch(e) {}
+
+        // === Compare-Table Checkmark-Sequenz ===
+        try {
+            if ('IntersectionObserver' in window) {
+                var groups = document.querySelectorAll('[data-checkmark-group]');
+                var grpObs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                        if (!e.isIntersecting || e.target.dataset.checkAnimated) return;
+                        e.target.dataset.checkAnimated = '1';
+                        var items = e.target.querySelectorAll('.compare-check-anim');
+                        items.forEach(function(item, i){
+                            setTimeout(function(){ item.classList.add('is-visible'); }, i * 90);
+                        });
+                    });
+                }, { threshold: 0.4 });
+                groups.forEach(function(g){ grpObs.observe(g); });
+            }
+        } catch(e) {}
+
+        // === Cookie-Banner Soft Dismiss ===
+        try {
+            ['cookie-accept', 'cookie-reject'].forEach(function(id){
+                var btn = document.getElementById(id);
+                if (!btn) return;
+                btn.addEventListener('click', function(){
+                    var banner = document.querySelector('.cookie-consent-banner');
+                    if (banner) banner.classList.add('is-dismissing');
+                }, { capture: true });
+            });
+        } catch(e) {}
+    })();
     </script>
 </body>
 </html>
