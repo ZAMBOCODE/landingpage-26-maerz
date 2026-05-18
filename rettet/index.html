@@ -3431,5 +3431,66 @@
         } catch(e) {}
     })();
     </script>
+
+    <!-- Anti-AI-Slop micro-animations (Premium-Pattern §2.2 Big-Number + §2.7 Scroll-Reveal) -->
+    <style>
+        .compare-check-anim { opacity: 0; transform: scale(0.6); transition: opacity 280ms cubic-bezier(0.34, 1.56, 0.64, 1), transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .compare-check-anim.is-in { opacity: 1; transform: scale(1); }
+        .count-up { font-variant-numeric: tabular-nums; }
+        @media (prefers-reduced-motion: reduce) {
+            .compare-check-anim { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+    <script>
+    (function() {
+        if (typeof IntersectionObserver === 'undefined') return;
+
+        // Checkmark-Sequence beim Scroll-in (Compare-Table)
+        const compareGroups = document.querySelectorAll('[data-checkmark-group]');
+        compareGroups.forEach(group => {
+            const checks = group.querySelectorAll('.compare-check-anim');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    checks.forEach((c, i) => {
+                        setTimeout(() => c.classList.add('is-in'), 90 * i);
+                    });
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.25 });
+            observer.observe(group);
+        });
+
+        // Count-Up Numbers beim In-View (unterstuetzt Decimals via data-decimal)
+        const counters = document.querySelectorAll('.count-up');
+        counters.forEach(el => {
+            const raw = el.getAttribute('data-target') || el.textContent || '0';
+            const isDecimal = el.hasAttribute('data-decimal') || raw.includes('.') || raw.includes(',');
+            const target = parseFloat(raw.replace(',', '.'));
+            if (!target || Number.isNaN(target)) return;
+            const finalText = el.textContent || raw.replace('.', ',');
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const dur = 900;
+                    const start = performance.now();
+                    function tick(now) {
+                        const t = Math.min(1, (now - start) / dur);
+                        const eased = 1 - Math.pow(1 - t, 3);
+                        const cur = target * eased;
+                        el.textContent = isDecimal
+                            ? cur.toFixed(2).replace('.', ',')
+                            : Math.round(cur).toString();
+                        if (t < 1) requestAnimationFrame(tick);
+                        else el.textContent = finalText;
+                    }
+                    requestAnimationFrame(tick);
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.55 });
+            obs.observe(el);
+        });
+    })();
+    </script>
 </body>
 </html>
