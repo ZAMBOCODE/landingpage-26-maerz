@@ -2877,43 +2877,48 @@
             animation-delay: calc(var(--ray-i, 0) * 0.1s);
         }
 
-        /* Responsive: mobile fällt auf vertical stack zurück (kein sticky) */
+        /* Responsive: mobile keeps sticky-scroll (warm-audience parity), 2x2 grid */
         @media (max-width: 767px) {
-            .kr-wrapper { height: auto; }
+            .kr-wrapper { height: 300svh; }
             .kr-sticky {
-                position: static;
-                min-height: 0;
-                height: auto;
-                padding: 4rem 1rem;
+                min-height: 100svh;
+                height: 100svh;
+                padding: 0 1rem;
+                justify-content: center;
             }
+            .kr-head { margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+            .kr-h2 { font-size: clamp(1.55rem, 6.5vw, 2rem); }
+            .kr-eyebrow { font-size: 0.66rem; letter-spacing: 0.18em; }
+
+            /* Hide the connecting line/dot on mobile — too cramped for 2x2 */
             .kr-line-track, .kr-line-fill, .kr-progress-dot { display: none; }
+
+            .kr-track-wrap { margin-top: 0.5rem; padding: 0 0.25rem; }
             .kr-grid {
-                grid-template-columns: 1fr;
-                gap: 2.25rem;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem 1rem;
             }
-            .kr-step {
-                flex-direction: row;
-                text-align: left;
-                align-items: flex-start;
-                gap: 1.1rem;
-            }
+            .kr-step { padding: 0 0.1rem; }
             .kr-icon {
                 width: 56px; height: 56px;
-                flex-shrink: 0;
-                margin-bottom: 0;
+                margin-bottom: 0.75rem;
             }
             .kr-svg-icon { width: 24px; height: 24px; }
-            /* On mobile: all are visible and "active" */
-            .kr-step .kr-time  { color: #851330; }
-            .kr-step .kr-label { color: #851330; }
-            .kr-step .kr-desc  { color: #475569; max-width: 100%; }
-            .kr-step .kr-svg-icon { color: #851330; }
-            .kr-desc { margin-left: 0; }
+            .kr-time  { font-size: 1.1rem; }
+            .kr-label { font-size: 9px; letter-spacing: 0.18em; }
+            .kr-desc  { font-size: 0.78rem; max-width: 100%; margin-top: 0.4rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .kr-wrapper { height: auto; }
-            .kr-sticky  { position: static; min-height: 0; height: auto; }
+            .kr-sticky  { position: static; min-height: 0; height: auto; padding: 4rem 1rem; }
+            .kr-grid { grid-template-columns: 1fr; gap: 2.25rem; }
+            .kr-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 1.1rem; padding: 0; }
+            .kr-icon { width: 56px; height: 56px; margin-bottom: 0; flex-shrink: 0; }
+            .kr-svg-icon { width: 24px; height: 24px; }
+            /* Reduced-motion: make all steps look "active" statically */
+            .kr-step .kr-time, .kr-step .kr-label, .kr-step .kr-svg-icon { color: #851330; }
+            .kr-step .kr-desc { color: #475569; max-width: 100%; margin-left: 0; }
             .kr-step.active .kr-icon { animation: none !important; }
             .kr-step.active .kr-svg-moon,
             .kr-step.active .kr-svg-sunmoon .kr-sun-group,
@@ -4148,11 +4153,10 @@
         // 300vh wrapper, sticky inner. Scroll position drives which kr-step is .active.
         // Earlier steps get .done. Progress line fills between icons; dot tracks it.
         // stickyMap() adds a short dwell at each icon so the active state holds briefly
-        // before sliding to the next one.
+        // before sliding to the next one. Runs on mobile too (warm-audience parity).
         try {
             var krWrap = document.getElementById('kr-wrapper');
-            if (krWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-                       && window.matchMedia('(min-width: 768px)').matches) {
+            if (krWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 var krSteps     = krWrap.querySelectorAll('.kr-step');
                 var krLineFill  = document.getElementById('kr-line-fill');
                 var krDot       = document.getElementById('kr-progress-dot');
