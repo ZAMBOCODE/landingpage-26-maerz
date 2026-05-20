@@ -69,6 +69,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!-- JSON-LD Structured Data -->
+    <!-- TODO Sam: aggregateRating.reviewCount 2847 vs hero "127+ Bewertungen" inkonsistent - eine Quelle (Shopify-Reviews / Trustpilot) festlegen und beide Zahlen daran binden -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -1420,7 +1421,7 @@
     </style>
 
 </head>
-<body>
+<body data-lp-id="rettet">
     <!-- Loading Screen -->
     <div class="loading-screen" id="loading-screen">
         <video id="loading-video" muted playsinline preload="metadata">
@@ -1445,7 +1446,7 @@
     <!-- ═══ SECTION 0: HEADER ═══ -->
     <header class="site-header" id="site-header">
         <div class="header-inner">
-            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="header-logo"><img loading="lazy" src="LOGOREAL.svg" alt="zZzlim®" width="120" height="32" /></a>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="header-logo" data-track-lp="rettet" data-track-section="header" data-track-cta-type="secondary" data-track-position="above_fold" data-track-target="shop" data-track-label="header-logo"><img loading="lazy" src="LOGOREAL.svg" alt="zZzlim®" width="120" height="32" /></a>
             <nav class="header-nav">
                 <a href="#ursachen" data-nav data-i18n="nav.ursachen">Ursachen</a>
                 <a href="#wirkung" data-nav data-i18n="nav.wirkung">Wirkung</a>
@@ -1458,7 +1459,7 @@
                     <button class="lang-btn" data-lang="en"><span class="flag-icon"><svg viewBox="0 0 60 30" width="20" height="10" style="border-radius:2px;display:block"><rect fill="#012169" width="60" height="30"/><path d="M0,0L60,30M60,0L0,30" stroke="#FFF" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0V30M0,15H60" stroke="#FFF" stroke-width="10"/><path d="M30,0V30M0,15H60" stroke="#C8102E" stroke-width="6"/></svg></span></button>
                     <button class="lang-btn" data-lang="tr"><span class="flag-icon"><svg viewBox="0 0 30 20" width="20" height="13" style="border-radius:2px;display:block"><rect fill="#E30A17" width="30" height="20"/><circle cx="10" cy="10" r="6" fill="#FFF"/><circle cx="11.5" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#FFF" points="16,8 16.47,9.53 17.9,9.38 16.76,10.25 17.18,11.62 16,10.8 14.82,11.62 15.24,10.25 14.1,9.38 15.53,9.53"/></svg></span></button>
                 </div>
-                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="btn-shop">SHOP
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="btn-shop" data-track-lp="rettet" data-track-section="header" data-track-cta-type="secondary" data-track-position="above_fold" data-track-target="shop" data-track-label="header-shop">SHOP
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 </a>
                 <button id="menu-toggle" class="hamburger" aria-label="Menü öffnen" aria-expanded="false">
@@ -1494,7 +1495,7 @@
                 <a href="#faq-section" data-i18n="nav.faq">FAQ</a>
             </nav>
             <div class="mobile-menu-footer">
-                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="mobile-menu-cta">SHOP
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="mobile-menu-cta" data-track-lp="rettet" data-track-section="header" data-track-cta-type="secondary" data-track-position="above_fold" data-track-target="shop" data-track-label="mobile-menu-shop">SHOP
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 </a>
                 <div class="social-icons">
@@ -1557,15 +1558,18 @@
         <!-- Vertical vignette: dark top + dark bottom, mid stays clear for the visual -->
         <div class="hero-gradient" aria-hidden="true"></div>
 
-        <!-- LAYER 1: Headline + Sub – top center -->
+        <!-- LAYER 1: Tagline + Headline + Sub – top center -->
+        <!-- ORIG: <h1 class="hero-h1-reveal">Was meinen Tag rettet,<br>beginnt am Abend zuvor.</h1> -->
+        <!-- ORIG: <p class="hero-sub">Eine Kapsel zZzlim&reg;, ein leiserer Abend. Und ein Morgen, der nicht schon kaputt anf&auml;ngt.</p> -->
         <div class="hero-top">
-            <h1 class="hero-h1-reveal">Was meinen Tag rettet,<br>beginnt am Abend zuvor.</h1>
-            <p class="hero-sub">Eine Kapsel zZzlim&reg;, ein leiserer Abend. Und ein Morgen, der nicht schon kaputt anf&auml;ngt.</p>
+            <p class="hero-tagline">Was meinen Tag rettet, beginnt am Abend zuvor.</p>
+            <h1 class="hero-h1-reveal">Warum ein &bdquo;lauter&ldquo; Abend deinen n&auml;chsten Tag zerst&ouml;rt.</h1>
+            <p class="hero-sub">Du wachst ger&auml;dert auf. M&uuml;de, gereizt, Hals trocken, der hei&szlig;e Kaffee macht's nicht besser. Eine Kapsel zZzlim&reg; am Abend, damit der Morgen nicht schon kaputt anf&auml;ngt.</p>
         </div>
 
         <!-- LAYER 2: CTA + Rating – bottom center, vertically stacked -->
         <div class="hero-bottom">
-            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=hook_a_was_meinen_tag_rettet" data-cta="hero" class="hero-cta-btn cta-shine">
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=hook_a_was_meinen_tag_rettet" data-cta="hero" class="hero-cta-btn cta-shine" data-track-lp="rettet" data-track-section="hero" data-track-cta-type="primary" data-track-position="above_fold" data-track-target="shop" data-track-label="hero-primary-jetzt-ansehen">
               Jetzt ansehen
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -1577,6 +1581,7 @@
                     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
+                <!-- TODO Sam: Quelle prüfen - 4.9/5 · 127+ Bewertungen müsste an Shopify-Reviews oder Trustpilot gebunden sein -->
                 <span class="hero-rating-text">4.9 / 5 &middot; 127+ Bewertungen</span>
             </div>
         </div>
@@ -1605,7 +1610,8 @@
             <div class="kr-sticky">
                 <div class="kr-head">
                     <span class="kr-eyebrow">Warum dein Abend laut bleibt</span>
-                    <h2 id="kreislauf-h" class="kr-h2"><em>Wie ein lauter Abend deinen Morgen kapern kann</em></h2>
+                    <!-- ORIG: <h2 id="kreislauf-h" class="kr-h2"><em>Wie ein lauter Abend deinen Morgen kapern kann</em></h2> -->
+                    <h2 id="kreislauf-h" class="kr-h2"><em>Wie ein &bdquo;lauter&ldquo; Abend deinen Morgen zerst&ouml;ren kann</em></h2>
                 </div>
 
                 <div class="kr-track-wrap">
@@ -1646,7 +1652,8 @@
                             </div>
                             <p class="kr-time">Spätabends</p>
                             <p class="kr-label">Einschlaf-Schwelle zu hoch</p>
-                            <p class="kr-desc">Du wälzt dich, scrollst, wirst hellwach. Jede Stunde stiehlt aus deiner Reserve für morgen.</p>
+                            <!-- ORIG: <p class="kr-desc">Du wälzt dich, scrollst, wirst hellwach. Jede Stunde stiehlt aus deiner Reserve für morgen.</p> -->
+                            <p class="kr-desc">Sp&auml;tabends, du w&auml;lzt dich, bist am Handy, bleibst hellwach. Stiehlt dir wichtige Reserven f&uuml;r morgen.</p>
                         </div>
 
                         <!-- Step 3: Tiefschlaf — Sparkles (bounce + Sterne blinken) -->
@@ -1662,7 +1669,8 @@
                             </div>
                             <p class="kr-time">Tiefschlaf</p>
                             <p class="kr-label">Das Fenster wird verpasst</p>
-                            <p class="kr-desc">Die ersten zwei Stunden sind die wertvollsten. Ohne sie wachst du leer auf, nicht erholt.</p>
+                            <!-- ORIG: <p class="kr-desc">Die ersten zwei Stunden sind die wertvollsten. Ohne sie wachst du leer auf, nicht erholt.</p> -->
+                            <p class="kr-desc">Die ersten Stunden sind die wertvollsten. Ohne sie wachst du ger&auml;dert auf.</p>
                         </div>
 
                         <!-- Step 4: Nächster Morgen — Sun (rays stagger) -->
@@ -1682,7 +1690,8 @@
                             </div>
                             <p class="kr-time">Nächster Morgen</p>
                             <p class="kr-label">Der Morgen bezahlt</p>
-                            <p class="kr-desc">Müde, gereizt, Heißhunger. Der Tag fängt schon kaputt an. Genau das, was du nicht mehr willst.</p>
+                            <!-- ORIG: <p class="kr-desc">Müde, gereizt, Heißhunger. Der Tag fängt schon kaputt an. Genau das, was du nicht mehr willst.</p> -->
+                            <p class="kr-desc">M&uuml;de, gereizt, der hei&szlig;e Kaffee macht's nicht besser. Der Tag f&auml;ngt schon kaputt an.</p>
                         </div>
 
                     </div>
@@ -1796,11 +1805,13 @@
     </section>
 
 
+    <!-- TODO Sam (Briefing B.2): "Bewertungen-Block" nach unten - aktuell direkt nach Hero,
+         soll später erst nach Proof-Sektionen kommen. Hier markiert, nicht verschoben (Sam-Review). -->
     <!-- === Testimonials — Marquee mit Screenshot-Look (Phase-1 Platzhalter-Fotos via Unsplash) === -->
     <section id="testimonials-real" class="tm-section" aria-labelledby="tm-h">
+        <!-- ORIG H2: <h2 id="tm-h" class="h2-reveal">Was andere über ihre Abende sagen, seit zZzlim® Teil davon ist</h2>  (entfernt: zu kommerziell, klingt nach Werbe-Copy) -->
         <div class="tm-head" data-sr="1">
             <span class="tm-eyebrow">Kundenstimmen</span>
-            <h2 id="tm-h" class="h2-reveal">Was andere &uuml;ber ihre Abende sagen, seit zZzlim&reg; Teil davon ist</h2>
             <p class="tm-lead">Vier Frauen, dieselbe Geschichte: der Abend wurde leiser, der Morgen weniger kaputt.</p>
         </div>
 
@@ -1815,7 +1826,7 @@
                                 <div class="tm-name">Anna B.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <div class="tm-sub">47 J. &middot; Hamburg</div>
                             </div>
-                            <div class="tm-time">vor 3&nbsp;T.</div>
+                            <!-- ORIG: <div class="tm-time">vor 3 T.</div>  (entfernt per Briefing 2026-05-20) -->
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
@@ -1833,7 +1844,7 @@
                                 <div class="tm-name">Susanne R.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <div class="tm-sub">52 J. &middot; K&ouml;ln</div>
                             </div>
-                            <div class="tm-time">vor 6&nbsp;T.</div>
+                            <!-- ORIG: <div class="tm-time">vor 6 T.</div>  (entfernt per Briefing 2026-05-20) -->
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
@@ -1851,7 +1862,7 @@
                                 <div class="tm-name">Karin P.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <div class="tm-sub">49 J. &middot; Stuttgart</div>
                             </div>
-                            <div class="tm-time">vor 2&nbsp;Wo.</div>
+                            <!-- ORIG: <div class="tm-time">vor 2 Wo.</div>  (entfernt per Briefing 2026-05-20) -->
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
@@ -1869,7 +1880,7 @@
                                 <div class="tm-name">Petra W.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <div class="tm-sub">44 J. &middot; Berlin</div>
                             </div>
-                            <div class="tm-time">vor 9&nbsp;T.</div>
+                            <!-- ORIG: <div class="tm-time">vor 9 T.</div>  (entfernt per Briefing 2026-05-20) -->
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
@@ -1885,7 +1896,7 @@
         </div>
 
         <div class="tm-cta" data-sr="8">
-            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=mid_testimonials" data-cta="mid" class="tm-cta-btn">In Ruhe ausprobieren</a>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=mid_testimonials" data-cta="mid" class="tm-cta-btn" data-track-lp="rettet" data-track-section="testimonials" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="testimonials-mid-cta">In Ruhe ausprobieren</a>
             <p class="tm-cta-note">60 Tage Geld-zur&uuml;ck, ohne R&uuml;ckfragen</p>
         </div>
     </section>
@@ -1943,10 +1954,12 @@
                             <span style="font-family:'Fraunces',serif; font-size:0.9rem; color:#475569;">/ Monatskur (30&nbsp;Kapseln)</span>
                         </div>
                         <div style="text-align:center; margin-bottom:1rem;">
-                            <span class="pricing-per-day">1,66 € pro Abend &middot; 14 Inhaltsstoffe in einer Kapsel</span>
+                            <!-- ORIG: 1,66 € pro Abend · 14 Inhaltsstoffe in einer Kapsel -->
+                            <span class="pricing-per-day">Ab 1,17&nbsp;&euro; pro Abend &middot; 14 Inhaltsstoffe in <strong>EINER</strong> Kapsel</span>
                         </div>
-                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=produkt_info" data-cta="produkt">In Ruhe ausprobieren</a>
-                        <p class="produkt-cta-note" data-i18n="prod.cta.note">60 Tage Geld-zurück-Garantie · Kostenloser Versand · Jederzeit pausieren</p>
+                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=produkt_info" data-cta="produkt" data-track-lp="rettet" data-track-section="preis" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="preis-tile-cta">In Ruhe ausprobieren</a>
+                        <!-- ORIG: ...· Jederzeit pausieren (entfernt: macht hier semantisch keinen Sinn, gehört zum Abo) -->
+                        <p class="produkt-cta-note">60 Tage Geld-zur&uuml;ck-Garantie &middot; Kostenloser Versand</p>
                     </div>
                 </div>
             </div>
@@ -1958,22 +1971,25 @@
     <!-- === In-Zahlen: Big-Number-Block === -->
     <section id="zahlen" class="zahlen-section">
         <div class="zahlen-wrap">
+            <!-- ORIG H2: "Was wir versprechen, und worauf du dich verlässt." (zu floskelhaft, "verlässt" klingt formell) -->
             <div class="zahlen-head">
                 <span>In Zahlen</span>
-                <h2 class="h2-reveal">Was wir versprechen, und worauf du dich verlässt.</h2>
+                <h2 class="h2-reveal">Vier Zahlen, die unser Versprechen tragen.</h2>
             </div>
             <div class="zahlen-grid" data-checkmark-group>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="14">14</span></div>
-                    <div class="zahlen-label">Inhaltsstoffe<br>in einer Kapsel</div>
+                    <!-- ORIG: in einer Kapsel  →  EINER betont -->
+                    <div class="zahlen-label">Inhaltsstoffe<br>in <strong>EINER</strong> Kapsel</div>
                 </div>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="60">60</span></div>
                     <div class="zahlen-label">Tage<br>Geld-zur&uuml;ck-Garantie</div>
                 </div>
                 <div class="zahlen-card">
-                    <div class="zahlen-num"><span class="count-up" data-target="1.66" data-decimal>1,66</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
-                    <div class="zahlen-label">pro Abend<br>statt 3&times; Einzelpr&auml;parate</div>
+                    <!-- ORIG: data-target="1.66" + "statt 3× Einzelpräparate"  →  4er-Variante 1,17 € + "14 Einzelpräparate" -->
+                    <div class="zahlen-num"><span class="count-up" data-target="1.17" data-decimal>1,17</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
+                    <div class="zahlen-label">pro Abend<br>statt 14 Einzelpr&auml;parate</div>
                 </div>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="100">100</span><span class="zahlen-suffix">&nbsp;%</span></div>
@@ -1983,28 +1999,35 @@
         </div>
     </section>
 
+    <!-- TODO Sam (Briefing B.2): Diese Section nach unten verschieben → als letzter Proof,
+         ideal zwischen #vergleich und #faq-section. Aktuell zu früh im Flow. -->
     <!-- === Authority-Section: 3 Köpfe hinter der Formel === -->
     <section id="authority" class="authority-section">
         <div class="authority-wrap">
+            <!-- ORIG: <h2>Apotheker, Wissenschaft, Qualitätskontrolle. Nicht anonym.</h2> -->
+            <!-- Begründung Umbau: "Apotheker" = Krankheits-Assoziation, "Kontrolle" = negativ besetzt,
+                 "nicht anonym" = semantisch leer. Neue Linie: 3 Pillars (Wissenschaft + Qualität + Transparenz). -->
             <div class="authority-head" data-sr="1">
                 <span>Hinter der Formel</span>
-                <h2>Apotheker, Wissenschaft, Qualitätskontrolle. Nicht anonym.</h2>
+                <h2>Unsere Formel: <span class="authority-plus">Wissenschaft + Qualit&auml;t + Transparenz</span></h2>
             </div>
             <div class="authority-grid">
                 <div class="authority-card" data-sr="2">
                     <p class="authority-quote">&bdquo;Die Dosierungen orientieren sich an EFSA-Empfehlungen. Wir nutzen nur, was im EU-Wortlaut zugelassen ist.&ldquo;</p>
-                    <div class="authority-name">Dr. M. Krüger</div>
-                    <div class="authority-title">Apotheker, Formulierung</div>
+                    <div class="authority-name">Dr. M. Kr&uuml;ger</div>
+                    <!-- TODO Sam: Quelle prüfen, evtl. erfunden -->
+                    <div class="authority-title">Wissenschaft &middot; Formulierung</div>
                 </div>
                 <div class="authority-card" data-sr="3">
-                    <p class="authority-quote">&bdquo;Melatonin alleine reicht nicht. Es geht um die Co-Faktoren, die den Übergang stabilisieren.&ldquo;</p>
-                    <div class="authority-name">S. Bauer M.Sc.</div>
-                    <div class="authority-title">Ernährungswissenschaft</div>
+                    <p class="authority-quote">&bdquo;Jede Charge wird unabh&auml;ngig auf Reinheit und Mengen gepr&uuml;ft. Werte werden dokumentiert und sind einsehbar.&ldquo;</p>
+                    <div class="authority-name">M&eacute;rieux NutriSciences</div>
+                    <div class="authority-title">Qualit&auml;t &middot; externe Chargen-Pr&uuml;fung</div>
                 </div>
                 <div class="authority-card" data-sr="4">
-                    <p class="authority-quote">&bdquo;Jede Charge wird unabhängig auf Reinheit und Mengen geprüft. Werte werden dokumentiert und sind einsehbar.&ldquo;</p>
-                    <div class="authority-name">Mérieux NutriSciences</div>
-                    <div class="authority-title">Externe Chargen-Prüfung</div>
+                    <p class="authority-quote">&bdquo;Was im Wortlaut der EU-Verordnung steht, steht auch auf unserer Verpackung. Nichts dar&uuml;ber, nichts darunter.&ldquo;</p>
+                    <div class="authority-name">zZzlim&reg; International</div>
+                    <!-- TODO Sam: Quelle prüfen, evtl. erfunden -->
+                    <div class="authority-title">Transparenz &middot; HCVO-konforme Auslobung</div>
                 </div>
             </div>
             <p style="text-align:center; margin-top:3.5rem; font-family:'Instrument Sans',sans-serif; font-size:0.72rem; color:rgba(15,23,42,0.45); line-height:1.6; letter-spacing:0.06em; text-transform:uppercase;">Aussagen sind dokumentiert und nachprüfbar</p>
@@ -2012,11 +2035,13 @@
     </section>
 
     <!-- === Lifestyle: Dein 22-Uhr-Abend (3-Step Routine-Visualisierung) === -->
+    <!-- TODO Sam: Sektion doppelt mit Hero, entscheiden ob streichen oder nach oben ziehen -->
     <section id="routine-abend" class="routine-section">
         <div class="routine-wrap">
             <div class="routine-head">
                 <span>Dein neuer Abend &middot; ab 22:00</span>
-                <h2 class="h2-reveal">Drei Minuten, und der Abend bekommt eine Form.</h2>
+                <!-- ORIG: <h2 class="h2-reveal">Drei Minuten, und der Abend bekommt eine Form.</h2> -->
+                <h2 class="h2-reveal">Drei Minuten, und deine Routine startet.</h2>
                 <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
             </div>
             <ol class="routine-steps">
@@ -2040,6 +2065,8 @@
         </div>
     </section>
 
+    <!-- TODO Sam Review (Briefing B.2): "3 Säulen" + "Eine Kapsel"-Block evtl. direkt vor
+         "Hinter der Formel" platzieren (also gemeinsam mit #authority an die Stelle vor #faq-section). -->
     <section id="wirkung" class="wirkung-rettet-v3" style="background:#ffffff; padding:6rem clamp(1rem, 4vw, 2rem); font-family:'Fraunces',serif; position:relative;">
         <div style="max-width:1600px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
@@ -2157,7 +2184,8 @@
         <div class="anti-wrap">
             <div class="anti-head">
                 <span>Genauso wichtig</span>
-                <h2 class="h2-reveal">Was <em>nicht</em> drin ist, h&auml;tte sonst f&uuml;r dich gef&uuml;hlt entschieden.</h2>
+                <!-- ORIG: <h2 class="h2-reveal">Was <em>nicht</em> drin ist, h&auml;tte sonst f&uuml;r dich gef&uuml;hlt entschieden.</h2> -->
+                <h2 class="h2-reveal">Was wir <em>weggelassen</em> haben, ist genauso wichtig.</h2>
                 <p>Wir haben uns gegen Stoffe entschieden, die in vielen Schlaf-Pr&auml;paraten Standard sind. Bewusst.</p>
             </div>
             <ul class="anti-list">
@@ -2394,7 +2422,7 @@
             <div class="final-cta-text">
                 <h2 id="final-cta-h" class="h2-reveal">Bereit f&uuml;r einen leiseren Abend?</h2>
                 <p class="final-cta-lead">Eine Packung. Drei&szlig;ig Tage. Dein Risiko: null.</p>
-                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn">
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn" data-track-lp="rettet" data-track-section="cta" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="final-cta-bereit-leiserer-abend">
                     In Ruhe ausprobieren
                 </a>
                 <p class="final-cta-meta"><em>60 Tage Geld-zur&uuml;ck. Pause-Funktion. Eine Entscheidung ohne Stress.</em></p>
@@ -2557,7 +2585,7 @@
     <!-- Sticky Mobile CTA -->
     <div class="sticky-mobile-cta" id="sticky-mobile-cta">
         <span class="sticky-mobile-name" data-i18n="sticky.name">zZzlim® Night Complex</span>
-        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=sticky_mobile" data-cta="sticky" class="sticky-mobile-btn">Ausprobieren</a>
+        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=sticky_mobile" data-cta="sticky" class="sticky-mobile-btn" data-track-lp="rettet" data-track-section="hero" data-track-cta-type="sticky" data-track-position="above_fold" data-track-target="shop" data-track-label="sticky-mobile-ausprobieren">Ausprobieren</a>
     </div>
 
     <!-- Back to Top -->
@@ -2586,6 +2614,8 @@
 
     <script src="erklaer.js" defer></script>
     <script src="i18n.js" defer></script>
+    <!-- Briefing 2026-05-20 Sektion D: zentrales LP-Tracking (data-track-* + scroll-depth + kaufseite_redirect) -->
+    <script src="scripts/tracking.js" defer></script>
 
     <!-- Dev Section-Label Tracker -->
     <script>
@@ -4073,6 +4103,58 @@
             .hero-trust-pill { transition: none !important; opacity: 1 !important; transform: none !important; }
             .cta-shine::after { display: none; }
         }
+
+        /* === Briefing 2026-05-20: Hero-Tagline + Authority-Pillars + Universal Responsive === */
+        .hero-tagline {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+            font-weight: 500;
+            color: rgba(255,255,255,0.78);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 0 0 0.85rem;
+            text-shadow: 0 1px 12px rgba(15,23,42,0.45);
+            text-wrap: balance;
+        }
+        .authority-plus {
+            background: linear-gradient(120deg, #851330 0%, #b32a4c 50%, #851330 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-style: italic;
+            white-space: nowrap;
+        }
+        @media (max-width: 640px) {
+            .authority-plus { white-space: normal; display: inline-block; }
+        }
+
+        /* Universal Responsive-Rule (Briefing C.2):
+           Text-Container fixieren, font-size skaliert via clamp(), niemals Text untereinander staffeln. */
+        .hero-top, .kr-head, .tm-head, .authority-head, .anti-head,
+        .routine-head, .zahlen-head {
+            max-width: min(960px, 92vw);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-h1-reveal, .kr-h2, .h2-reveal, h1, h2 {
+            text-wrap: balance;
+        }
+        p.hero-sub, p.tm-lead, p.kr-desc, p.anti-reason, p.routine-step p {
+            text-wrap: pretty;
+        }
+
+        /* Hero Scroll-Pin (Briefing C.1): Hero bleibt beim Scrollen kurz gepinnt, dann weiter.
+           CSS-only via position:sticky am Hero-Inhalt + tallerem Spacer-Parent. Auf Mobile gleiche Logik. */
+        @supports (position: sticky) {
+            #hero { position: relative; }
+            #hero .hero-top {
+                position: sticky;
+                top: clamp(5rem, 9vh, 7.5rem);
+                /* fallback bleibt absolute aus dem urspruenglichen Layout, hier ueberschrieben */
+            }
+        }
+        /* Wenn die existierende absolute-Positionierung kollidiert: stickiness greift nicht.
+           Deshalb hier nur als progressive enhancement. Fine-tune in Folge-Iteration. */
     </style>
 
     <script>
