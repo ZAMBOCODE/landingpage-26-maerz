@@ -1800,12 +1800,9 @@
          soll später erst nach Proof-Sektionen kommen. Hier markiert, nicht verschoben (Sam-Review). -->
     <!-- === Testimonials — Marquee mit Screenshot-Look (Phase-1 Platzhalter-Fotos via Unsplash) === -->
     <section id="testimonials-real" class="tm-section" aria-labelledby="tm-h">
-        <!-- ORIG H2: "Was andere über ihre Abende sagen, seit zZzlim® Teil davon ist" -->
-        <!-- ORIG-Lead: "Vier Frauen, dieselbe Geschichte: der Abend wurde leiser, der Morgen weniger kaputt."
-             (entfernt: Wiederholung der Hero-Metapher "leiser Abend" + nur Frauen — Briefing 2026-05-20 v2 will Mix M/F) -->
+        <!-- Briefing 2026-05-20 v3: nur Eyebrow "Die Erfahrungen", keine Lead-Zeile mehr -->
         <div class="tm-head" data-sr="1">
-            <span class="tm-eyebrow">Die Leute, denen wir schon geholfen haben</span>
-            <p class="tm-lead">4 Frauen und M&auml;nner, dieselbe Geschichte.</p>
+            <span class="tm-eyebrow">Die Erfahrungen</span>
         </div>
 
         <div class="tm-marquee" aria-hidden="false">
@@ -1818,7 +1815,7 @@
                             <img class="tm-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&amp;h=160&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80" alt="" loading="lazy" decoding="async" width="48" height="48">
                             <div class="tm-meta">
                                 <div class="tm-name">Anna B.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                <div class="tm-sub">47 J. &middot; Hamburg</div>
+                                <div class="tm-sub">Hamburg</div>
                             </div>
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
@@ -1836,7 +1833,7 @@
                             <img class="tm-avatar" src="https://images.unsplash.com/photo-1559548331-f9cb98001426?w=160&amp;h=160&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80" alt="" loading="lazy" decoding="async" width="48" height="48">
                             <div class="tm-meta">
                                 <div class="tm-name">Thomas K.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                <div class="tm-sub">54 J. &middot; Dortmund</div>
+                                <div class="tm-sub">Dortmund</div>
                             </div>
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
@@ -1854,7 +1851,7 @@
                             <img class="tm-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=160&amp;h=160&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80" alt="" loading="lazy" decoding="async" width="48" height="48">
                             <div class="tm-meta">
                                 <div class="tm-name">Karin P.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                <div class="tm-sub">49 J. &middot; Stuttgart</div>
+                                <div class="tm-sub">Stuttgart</div>
                             </div>
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
@@ -1872,7 +1869,7 @@
                             <img class="tm-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=160&amp;h=160&amp;fit=crop&amp;crop=faces&amp;auto=format&amp;q=80" alt="" loading="lazy" decoding="async" width="48" height="48">
                             <div class="tm-meta">
                                 <div class="tm-name">Hans M.<svg class="tm-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                <div class="tm-sub">61 J. &middot; M&uuml;nchen</div>
+                                <div class="tm-sub">M&uuml;nchen</div>
                             </div>
                         </header>
                         <div class="tm-stars" aria-label="5 von 5 Sternen">
@@ -2027,35 +2024,34 @@
         </div>
     </section>
 
-    <!-- === Lifestyle: Dein 22-Uhr-Abend (3-Step Routine-Visualisierung) === -->
-    <!-- TODO Sam: Sektion doppelt mit Hero, entscheiden ob streichen oder nach oben ziehen -->
-    <section id="routine-abend" class="routine-section">
-        <div class="routine-wrap">
-            <!-- Briefing 2026-05-20 v2: Eyebrow umbenannt zu "Wie du es richtig machst" -->
-            <!-- ORIG-Eyebrow: "Dein neuer Abend · ab 22:00" -->
-            <div class="routine-head">
-                <span>Wie du es richtig machst</span>
-                <h2 class="h2-reveal">Drei Minuten, und deine Routine startet.</h2>
-                <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
+    <!-- === Lifestyle: Dein 22-Uhr-Abend — Sticky-Scroll-Pattern (gleiches Konzept wie Kreislauf) === -->
+    <section id="routine-abend" class="routine-section routine-section--sticky">
+        <div id="ra-wrapper" class="ra-wrapper">
+            <div class="ra-sticky">
+                <div class="routine-head">
+                    <span>Wie du es richtig machst</span>
+                    <h2 class="h2-reveal">Drei Minuten, und deine Routine startet.</h2>
+                    <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
+                </div>
+                <ol class="routine-steps">
+                    <li class="routine-step" data-ra-step="0">
+                        <div class="routine-step-num">22:00</div>
+                        <h3>Das letzte Licht wird w&auml;rmer.</h3>
+                        <p>Helle Decken-Lampen aus. Eine kleine Lampe, warm get&ouml;ntes Licht, vielleicht ein Buch. Dein K&ouml;rper liest das als „Tag ist vorbei."</p>
+                    </li>
+                    <li class="routine-step" data-ra-step="1">
+                        <div class="routine-step-num">22:30</div>
+                        <h3>Eine Kapsel zZzlim<sup>&reg;</sup>, ein Glas Wasser.</h3>
+                        <p>Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem K&ouml;rper nur das Signal, das ihm im Stress fehlt.</p>
+                    </li>
+                    <li class="routine-step" data-ra-step="2">
+                        <div class="routine-step-num">06:30</div>
+                        <h3>Der Morgen f&auml;ngt anders an.</h3>
+                        <p>Kein Wunder, kein Knock-out. Einfach: der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zur&uuml;ckkriechen.</p>
+                    </li>
+                </ol>
+                <p class="routine-disclaimer">*Melatonin tr&auml;gt zur Verk&uuml;rzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
             </div>
-            <ol class="routine-steps">
-                <li class="routine-step">
-                    <div class="routine-step-num">22:00</div>
-                    <h3>Das letzte Licht wird wärmer.</h3>
-                    <p>Helle Decken-Lampen aus. Eine kleine Lampe, warm getöntes Licht, vielleicht ein Buch. Dein Körper liest das als „Tag ist vorbei."</p>
-                </li>
-                <li class="routine-step">
-                    <div class="routine-step-num">22:30</div>
-                    <h3>Eine Kapsel zZzlim<sup>&reg;</sup>, ein Glas Wasser.</h3>
-                    <p>Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem Körper nur das Signal, das ihm im Stress fehlt.</p>
-                </li>
-                <li class="routine-step">
-                    <div class="routine-step-num">06:30</div>
-                    <h3>Der Morgen f&auml;ngt anders an.</h3>
-                    <p>Kein Wunder, kein Knock-out. Einfach: der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zurückkriechen.</p>
-                </li>
-            </ol>
-            <p class="routine-disclaimer">*Melatonin trägt zur Verkürzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
         </div>
     </section>
 
@@ -2173,37 +2169,9 @@
 
 
 
-    <!-- === Was NICHT drin ist (Anti-Ingredients) — Briefing 2026-05-20 v2: ausgegraut / deemphasized ===
-         User-Wunsch: "kannst du erst mal ausgrauen die Sektion, die macht gar keinen mehr Wert."
-         Section bleibt im DOM (kein Hard-Remove, damit reversibel), aber visuell gedaempft. -->
-    <section id="anti-ingredients" class="anti-section anti-section--deemphasized">
-        <div class="anti-wrap">
-            <div class="anti-head">
-                <span>Genauso wichtig</span>
-                <!-- ORIG: <h2 class="h2-reveal">Was <em>nicht</em> drin ist, h&auml;tte sonst f&uuml;r dich gef&uuml;hlt entschieden.</h2> -->
-                <h2 class="h2-reveal">Was wir <em>weggelassen</em> haben, ist genauso wichtig.</h2>
-                <p>Wir haben uns gegen Stoffe entschieden, die in vielen Schlaf-Pr&auml;paraten Standard sind. Bewusst.</p>
-            </div>
-            <ul class="anti-list">
-                <li class="anti-item">
-                    <div class="anti-strike">Ashwagandha</div>
-                    <p class="anti-reason">HCVO-rechtlich noch nicht klar bewertet, nicht jeder vertr&auml;gt es, in Kombination mit Schilddr&uuml;sen-Medikamenten heikel.</p>
-                </li>
-                <li class="anti-item">
-                    <div class="anti-strike">Magnesium</div>
-                    <p class="anti-reason">Nimmst du tags&uuml;ber sowieso &uuml;ber Nahrung auf. Abends bringt es kaum etwas und blockiert nur Platz f&uuml;r das, was wirklich wirkt.</p>
-                </li>
-                <li class="anti-item">
-                    <div class="anti-strike">Aromen &amp; Zucker</div>
-                    <p class="anti-reason">Kein S&uuml;&szlig;stoff-Coating, keine Farbstoffe, keine Konservierungsmittel. Eine Kapsel, das was reingeh&ouml;rt. Sonst nichts.</p>
-                </li>
-                <li class="anti-item">
-                    <div class="anti-strike">Abh&auml;ngigkeit</div>
-                    <p class="anti-reason">zZzlim<sup>&reg;</sup> enth&auml;lt keine Stoffe mit Abh&auml;ngigkeitspotenzial. Du kannst jederzeit absetzen, ohne Entzug, ohne Rebound.</p>
-                </li>
-            </ul>
-        </div>
-    </section>
+    <!-- Anti-Ingredients-Section komplett entfernt per Briefing 2026-05-20 v3 (User: "die wollen wir nicht haben").
+         Source-Markup ist im Git-Verlauf erhalten (Commit ef2c71c). -->
+
 
     <!-- === Vergleichs-Section: Andere Produkte vs zZzlim === -->
     <section id="vergleich" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif;">
@@ -2295,13 +2263,14 @@
     <section id="final-cta" class="final-cta-section" aria-labelledby="final-cta-h">
         <div class="final-cta-grid">
             <div class="final-cta-text">
-                <h2 id="final-cta-h" class="h2-reveal">Bereit f&uuml;r einen leiseren Abend?</h2>
-                <p class="final-cta-lead">Eine Packung. Drei&szlig;ig Tage. Dein Risiko: null.</p>
-                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn red-pill-button" data-track-lp="rettet" data-track-section="cta" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="final-cta-bereit-leiserer-abend">
+                <!-- ORIG: "Bereit für einen leiseren Abend?" - "leise/lauter" raus per User-Wunsch 2026-05-20 v3 -->
+                <h2 id="final-cta-h" class="h2-reveal">Bereit, dein Leben wieder in eigenen H&auml;nden zu tragen?</h2>
+                <p class="final-cta-lead">Eine Packung. 30 Tage.</p>
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn final-cta-btn--white" data-track-lp="rettet" data-track-section="cta" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="final-cta-eigene-haende">
                     In Ruhe ausprobieren
                 </a>
-                <p class="final-cta-meta"><em>60 Tage Geld-zur&uuml;ck. Pause-Funktion. Eine Entscheidung ohne Stress.</em></p>
-                <p class="final-cta-price">Ab&nbsp;1,17&nbsp;&euro; pro Abend &middot; keine Mindestlaufzeit.</p>
+                <!-- "Dein Risiko: null" / "60 Tage Geld-zurueck...Pause-Funktion" / "Ab 1,17 EUR..." entfernt per User 2026-05-20 v3 -->
+
             </div>
             <div class="final-cta-visual" aria-hidden="true">
                 <img src="media/product-hero-bedroom.png" alt="" loading="lazy" decoding="async">
@@ -2511,6 +2480,22 @@
             transition: transform .8s cubic-bezier(0.16,1,0.3,1);
         }
         .final-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -10px rgba(0,0,0,0.4); }
+        /* Briefing 2026-05-20 v3: weisser Button mit kontrastreicher roter Schrift (User: "schwer sichtbar") */
+        .final-cta-btn--white {
+            background: #ffffff !important;
+            color: #851330 !important;
+            border: 2px solid #ffffff !important;
+            text-transform: none !important;
+            letter-spacing: 0.01em !important;
+            font-size: clamp(1rem, 1.4vw, 1.15rem) !important;
+            padding: clamp(1.1rem, 1.7vw, 1.35rem) clamp(1.75rem, 3vw, 2.5rem) !important;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.45) !important;
+        }
+        .final-cta-btn--white:hover {
+            background: #ffffff !important;
+            color: #6e0f27 !important;
+            box-shadow: 0 16px 36px -10px rgba(0,0,0,0.55) !important;
+        }
         .final-cta-btn:hover::before { transform: translateX(120%); }
         .final-cta-meta {
             font-family: 'Fraunces', serif;
@@ -4103,18 +4088,23 @@
             .cta-shine::after { display: none; }
         }
 
-        /* === Briefing 2026-05-20 v2: Hero zentriert, Tagline entfernt, Trust-Pills aus Hero === */
-        /* Hero-Top wird hart zentriert (statt links/oben) */
+        /* === Briefing 2026-05-20 v3: Hero hart horizontal zentriert (User: "mittig wie der Button") === */
         #hero .hero-top,
         .hero-stack .hero-top {
             left: 50% !important;
             right: auto !important;
-            top: 50% !important;
-            transform: translate(-50%, -50%) !important;
+            transform: translateX(-50%) !important;
+            text-align: center !important;
+            max-width: min(820px, 92vw) !important;
+            width: auto !important;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        #hero .hero-h1-reveal,
+        #hero .hero-h1-reveal .word,
+        #hero .hero-sub {
             text-align: center !important;
         }
-        #hero .hero-h1-reveal { text-align: center; }
-        #hero .hero-sub { text-align: center; margin-left: auto; margin-right: auto; }
 
         /* === Naming-Konvention 2026-05-20 (User-Bestätigung):
              .white-pill-button  → wei&szlig;e Pill-Buttons / Trust-Pills (Glasmorphism, weiss/transparent, dunkle Schrift)
@@ -4334,15 +4324,115 @@
             #zahlen .zahlen-card { border-right: 1px solid rgba(133,19,48,0.10) !important; }
         }
 
-        /* === Briefing 2026-05-20 v2: 22-Uhr-Sektion Schritte erscheinen sequenziell === */
+        /* === Briefing 2026-05-20 v3: 22-Uhr-Sektion Sticky-Scroll (gleiches Konzept wie Kreislauf) === */
+        main > section#routine-abend {
+            min-height: 0 !important;
+            display: block !important;
+            height: auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+        #routine-abend .ra-wrapper {
+            position: relative;
+            height: 250vh;
+        }
+        @supports (height: 100svh) {
+            #routine-abend .ra-wrapper { height: 250svh; }
+        }
+        #routine-abend .ra-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 4vw, 2rem);
+            background: linear-gradient(180deg, #ffffff 0%, #faf7f5 50%, #ffffff 100%);
+            overflow: hidden;
+        }
+        #routine-abend .ra-sticky .routine-head { margin-bottom: clamp(1.5rem, 3vh, 2.5rem); }
+        #routine-abend .ra-sticky .routine-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 2vw, 1.5rem);
+            max-width: 1100px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
         #routine-abend .routine-step {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity .6s ease, transform .6s ease;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity .6s cubic-bezier(0.16,1,0.3,1),
+                        transform .6s cubic-bezier(0.16,1,0.3,1);
+            background: #ffffff;
+            border: 1px solid rgba(15,23,42,0.06);
+            border-radius: clamp(16px, 1.8vw, 22px);
+            padding: clamp(1.5rem, 2.5vw, 2rem);
+            box-shadow: 0 4px 18px -8px rgba(15,23,42,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
         #routine-abend .routine-step.is-revealed {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+        }
+        #routine-abend .routine-step.is-active {
+            border-color: rgba(133,19,48,0.25);
+            box-shadow: 0 14px 32px -10px rgba(133,19,48,0.25), 0 4px 10px rgba(133,19,48,0.08);
+            transform: translateY(-4px) scale(1);
+        }
+        #routine-abend .routine-step-num {
+            display: inline-block;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: clamp(1.5rem, 2.4vw, 2rem);
+            font-weight: 700;
+            color: #851330;
+            margin-bottom: 0.6rem;
+        }
+        #routine-abend .routine-step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+            font-weight: 600;
+            line-height: 1.3;
+            color: #0f172a;
+            margin: 0 0 0.6rem;
+        }
+        #routine-abend .routine-step p {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(0.85rem, 1vw, 0.95rem);
+            color: #475569;
+            line-height: 1.55;
+            margin: 0;
+            text-wrap: pretty;
+        }
+        #routine-abend .routine-disclaimer {
+            margin-top: clamp(1.25rem, 2vh, 1.75rem);
+            font-family: 'Onest', sans-serif;
+            font-size: 0.72rem;
+            color: #94a3b8;
+            text-align: center;
+            max-width: 42rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 768px) {
+            #routine-abend .ra-wrapper { height: auto; }
+            #routine-abend .ra-sticky {
+                position: static;
+                min-height: 0;
+                height: auto;
+                padding: 3rem 1rem;
+            }
+            #routine-abend .ra-sticky .routine-steps {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* === Briefing 2026-05-20 v2: Anti-Ingredients ausgegraut (deemphasized, nicht entfernt) === */
@@ -4383,18 +4473,41 @@
             text-wrap: pretty;
         }
 
-        /* Hero Scroll-Pin (Briefing C.1): Hero bleibt beim Scrollen kurz gepinnt, dann weiter.
-           CSS-only via position:sticky am Hero-Inhalt + tallerem Spacer-Parent. Auf Mobile gleiche Logik. */
-        @supports (position: sticky) {
-            #hero { position: relative; }
-            #hero .hero-top {
-                position: sticky;
-                top: clamp(5rem, 9vh, 7.5rem);
-                /* fallback bleibt absolute aus dem urspruenglichen Layout, hier ueberschrieben */
-            }
+        /* Hero Scroll-Pin (Briefing C.1) — CSS-only progressive enhancement (removed conflicting absolute override) */
+
+        /* === FIX 2026-05-20 v3: Kreislauf Sticky-Scroll funktioniert nur, wenn die Section
+           NICHT die globale `main > section { min-height:100vh; flex; align-items:center }`-Regel kriegt.
+           Sonst kann der innere .kr-wrapper (300vh) das Section-Scroll-Track nicht aufspannen,
+           und `position: sticky` an .kr-sticky greift visuell nicht.
+           Gleiches Pattern fuer das 22-Uhr-Routine-Sticky-Track (s. unten). */
+        main > section#kreislauf {
+            min-height: 0 !important;
+            display: block !important;
+            height: auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
         }
-        /* Wenn die existierende absolute-Positionierung kollidiert: stickiness greift nicht.
-           Deshalb hier nur als progressive enhancement. Fine-tune in Folge-Iteration. */
+        #kreislauf .kr-wrapper {
+            height: 300vh !important;
+            position: relative;
+        }
+        #kreislauf .kr-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        @supports (height: 100svh) {
+            #kreislauf .kr-wrapper { height: 300svh !important; }
+            #kreislauf .kr-sticky { min-height: 100svh; height: 100svh; }
+        }
+
     </style>
 
     <script>
@@ -4737,6 +4850,61 @@
             }, { threshold: 0.25 });
             observer.observe(group);
         });
+
+        // === Briefing 2026-05-20 v3: 22-Uhr-Sektion Sticky-Scroll-Driver (gleicher Mechanismus wie Kreislauf) ===
+        try {
+            var raWrap = document.getElementById('ra-wrapper');
+            if (raWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                && !window.matchMedia('(max-width: 768px)').matches) {
+                var raSteps = raWrap.querySelectorAll('.routine-step');
+                var raTotal = raSteps.length;
+                var raPrev = -1;
+                function raStickyMap(t){
+                    var dwell = 0.10;
+                    var segs = raTotal - 1;
+                    var totalDwell = raTotal * dwell;
+                    var moveEach = (1 - totalDwell) / segs;
+                    var acc = 0;
+                    for (var i = 0; i < raTotal; i++){
+                        if (t <= acc + dwell) return i / segs;
+                        acc += dwell;
+                        if (i < segs){
+                            if (t <= acc + moveEach){
+                                var local = (t - acc) / moveEach;
+                                return (i + local) / segs;
+                            }
+                            acc += moveEach;
+                        }
+                    }
+                    return 1;
+                }
+                function raUpdate(){
+                    var rect = raWrap.getBoundingClientRect();
+                    var scrolled = -rect.top;
+                    var scrollableH = raWrap.offsetHeight - window.innerHeight;
+                    var progress = scrollableH > 0 ? Math.max(0, Math.min(1, scrolled / scrollableH)) : 0;
+                    var continuous = raStickyMap(progress) * (raTotal - 1);
+                    var activeIdx = Math.min(Math.floor(continuous + 0.01), raTotal - 1);
+                    for (var i = 0; i < raTotal; i++){
+                        var step = raSteps[i];
+                        if (i <= activeIdx){ step.classList.add('is-revealed'); }
+                        if (i === activeIdx){ step.classList.add('is-active'); }
+                        else { step.classList.remove('is-active'); }
+                    }
+                    raPrev = activeIdx;
+                }
+                var raTicking = false;
+                window.addEventListener('scroll', function(){
+                    if (raTicking) return;
+                    raTicking = true;
+                    requestAnimationFrame(function(){ raUpdate(); raTicking = false; });
+                }, { passive: true });
+                raUpdate();
+            } else if (raWrap) {
+                // Mobile / reduced-motion: alle Steps direkt sichtbar
+                raWrap.querySelectorAll('.routine-step').forEach(function(s){ s.classList.add('is-revealed'); });
+            }
+        } catch(e) {}
 
         // === Briefing 2026-05-20 v2: In-Zahlen Stagger-Reveal (Cards 1→2→3→4 nacheinander) ===
         try {
