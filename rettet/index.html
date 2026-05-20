@@ -4159,58 +4159,138 @@
         .red-pill-button:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(133,19,48,0.5); }
         /* Bestehende Hero/Final-CTA-Buttons sind funktional .red-pill-button — Klasse kann zusaetzlich ergaenzt werden. */
 
-        /* === Briefing 2026-05-20 v2: Kreislauf vertikal statt 4-Spalten (warm-audience-Pattern) === */
+        /* === Briefing 2026-05-20 v3 (User-Ref-Screenshot „Die 3 Säulen"-Look):
+             Kreislauf wieder horizontal 4-col, mit white-pill-Icon-Containern + burgundy-Active-State.
+             Sticky-Scroll bleibt (300vh wrapper) — Section 3 erreichbar erst wenn alle 4 Steps durchlaufen. */
         #kreislauf .kr-grid {
-            grid-template-columns: 1fr !important;
-            gap: clamp(2.5rem, 6vh, 4rem) !important;
-            max-width: 640px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+            max-width: 1180px;
             margin: 0 auto;
-            position: relative;
-            padding-left: clamp(3rem, 7vw, 5rem);
-        }
-        /* Horizontale Linie + Progress-Dot ausblenden (waren fuer 4-col-Layout) */
-        #kreislauf .kr-line-track,
-        #kreislauf .kr-line-fill,
-        #kreislauf .kr-progress-dot { display: none !important; }
-        /* Neue vertikale Timeline-Linie */
-        #kreislauf .kr-grid::before {
-            content: '';
-            position: absolute;
-            left: clamp(1.25rem, 3vw, 2rem);
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, rgba(133,19,48,0.12) 0%, rgba(133,19,48,0.45) 50%, rgba(133,19,48,0.12) 100%);
         }
         #kreislauf .kr-step {
-            flex-direction: row;
-            align-items: flex-start;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 clamp(0.5rem, 1.2vw, 1rem);
             position: relative;
-            gap: clamp(1rem, 2.5vw, 1.5rem);
-            padding: 0;
         }
-        /* Icon links auf der Timeline, Text rechts */
-        #kreislauf .kr-step .kr-icon {
-            flex: 0 0 auto;
-            position: absolute;
-            left: calc(clamp(1.25rem, 3vw, 2rem) - clamp(1.5rem, 3vw, 2rem));
-            top: 0;
-            width: clamp(3rem, 6vw, 4rem);
-            height: clamp(3rem, 6vw, 4rem);
-            transition: transform .4s ease;
+        /* Icon-Container im 3-Säulen-Stil: weisse rounded-Box, soft shadow */
+        #kreislauf .kr-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(72px, 7vw, 96px);
+            height: clamp(72px, 7vw, 96px);
+            background: #ffffff;
+            border-radius: clamp(16px, 1.8vw, 22px);
+            box-shadow: 0 6px 24px -8px rgba(15,23,42,0.18), 0 2px 6px rgba(15,23,42,0.06);
+            transition: transform .45s cubic-bezier(0.16,1,0.3,1),
+                        background .45s ease,
+                        box-shadow .45s ease;
+            z-index: 5;
+            position: relative;
         }
+        #kreislauf .kr-icon .kr-svg-icon {
+            width: 50%;
+            height: 50%;
+            color: #475569;
+            transition: color .35s ease;
+        }
+        /* Active: bg burgundy, icon white, scale up */
         #kreislauf .kr-step.active .kr-icon {
-            transform: scale(1.18);
+            background: #851330;
+            transform: scale(1.18) translateY(-2px);
+            box-shadow: 0 14px 32px -10px rgba(133,19,48,0.55), 0 4px 10px rgba(133,19,48,0.18);
         }
-        #kreislauf .kr-step .kr-time,
-        #kreislauf .kr-step .kr-label,
-        #kreislauf .kr-step .kr-desc {
-            text-align: left;
-            margin-left: 0;
+        #kreislauf .kr-step.active .kr-icon .kr-svg-icon { color: #ffffff; }
+        /* Done (passed): icon container etwas gedaempfter, kein Hover-Effekt */
+        #kreislauf .kr-step.done .kr-icon {
+            background: #ffffff;
+            box-shadow: 0 3px 12px -6px rgba(15,23,42,0.1);
         }
+        #kreislauf .kr-step.done .kr-icon .kr-svg-icon { color: rgba(133,19,48,0.45); }
+
+        /* Text-Block unter Icon: Zeit (italic burgundy), Label (uppercase tracked), Desc */
+        #kreislauf .kr-time {
+            margin-top: clamp(1rem, 2vh, 1.5rem);
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: clamp(1.25rem, 2vw, 1.6rem);
+            color: rgba(133,19,48,0.35);
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            transition: color .35s ease;
+        }
+        #kreislauf .kr-step.active .kr-time { color: #851330; }
+        #kreislauf .kr-step.done .kr-time { color: rgba(133,19,48,0.3); }
+        #kreislauf .kr-label {
+            margin-top: 0.45rem;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(133,19,48,0.4);
+            transition: color .35s ease;
+        }
+        #kreislauf .kr-step.active .kr-label { color: #851330; }
+        #kreislauf .kr-step.done .kr-label { color: rgba(133,19,48,0.35); }
+        #kreislauf .kr-desc {
+            margin-top: clamp(0.75rem, 1.5vh, 1rem);
+            font-family: 'Fraunces', serif;
+            font-size: clamp(0.85rem, 1vw, 0.95rem);
+            color: #94a3b8;
+            line-height: 1.55;
+            max-width: 22ch;
+            text-wrap: balance;
+            transition: color .35s ease;
+        }
+        #kreislauf .kr-step.active .kr-desc { color: #475569; }
+        #kreislauf .kr-step.done .kr-desc { color: #cbd5e1; }
+
+        /* Horizontal Progress-Line — auf Hoehe der Icon-Mitte */
+        #kreislauf .kr-track-wrap { padding: 0 clamp(2rem, 5vw, 5rem); }
+        #kreislauf .kr-line-track,
+        #kreislauf .kr-line-fill {
+            position: absolute;
+            top: clamp(36px, 3.5vw, 48px);
+            height: 2px;
+            border-radius: 999px;
+        }
+        #kreislauf .kr-line-track {
+            left: 12.5%;
+            right: 12.5%;
+            background: rgba(133,19,48,0.12);
+        }
+        #kreislauf .kr-line-fill {
+            left: 12.5%;
+            width: 0%;
+            background: #851330;
+        }
+        #kreislauf .kr-progress-dot {
+            position: absolute;
+            top: clamp(36px, 3.5vw, 48px);
+            left: 12.5%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #851330;
+            box-shadow: 0 0 0 4px rgba(133,19,48,0.12);
+            z-index: 4;
+        }
+
+        /* Mobile: 2x2 Grid */
         @media (max-width: 720px) {
-            #kreislauf .kr-grid { padding-left: clamp(2.5rem, 14vw, 4rem); }
+            #kreislauf .kr-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem 1rem;
+            }
+            #kreislauf .kr-line-track,
+            #kreislauf .kr-line-fill,
+            #kreislauf .kr-progress-dot { display: none; }
         }
 
         /* === Briefing 2026-05-20 v2: In-Zahlen Container-Style + Stagger-Animation === */
