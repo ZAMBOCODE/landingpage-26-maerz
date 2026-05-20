@@ -927,9 +927,12 @@
 
         /* ─── Tablet + Mobile: single-column layouts ─── */
         @media (max-width: 1366px) {
-            /* Prevent ANY horizontal overflow */
-            html, body { overflow-x: hidden !important; max-width: 100vw; }
-            section { max-width: 100vw; overflow-x: hidden; }
+            /* v7-FIX 2026-05-20: overflow-x:hidden killt position:sticky.
+               Stattdessen `clip` (modern) bzw. `visible` (Fallback) - verhindert horizontalen
+               Scroll ohne Sticky-Killing. WICHTIG: section bekommt KEIN overflow-x mehr -
+               sonst kann kein Kind-Element sticky sein. */
+            html, body { overflow-x: clip !important; max-width: 100vw; }
+            section { max-width: 100vw; /* overflow-x: bewusst NICHT gesetzt, war Sticky-Killer */ }
 
             /* Symptom tiles: stacked, one at a time */
             #symptom-grid {
