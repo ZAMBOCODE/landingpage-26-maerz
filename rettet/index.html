@@ -4642,26 +4642,39 @@
             }
             #hero .hero-rating-row { font-size: 0.8rem; }
 
-            /* ─── KREISLAUF: Sticky-Scroll AUS, horizontal-snap mit 4x100vw Steps ─── */
+            /* ─── KREISLAUF: SCROLL-HIJACK (vertikales Scrollen -> horizontale Translation) ───
+               User-Wunsch: beim Runterscrollen sollen die 4 Steps automatisch durchlaufen,
+               kein manuelles Swipen. Sticky-Wrapper haelt Section gepinnt waehrend JS den
+               inneren Flex-Container per translateX bewegt. */
             #kreislauf .kr-wrapper {
-                height: auto !important;
-                min-height: 0 !important;
+                height: 360svh !important;     /* ~4 viewports of scroll fuer 4 Steps */
+                min-height: 360svh !important;
+                position: relative !important;
             }
             #kreislauf .kr-sticky {
-                position: static !important;
-                height: auto !important;
+                position: -webkit-sticky !important;
+                position: sticky !important;
+                top: 0 !important;
+                height: 100svh !important;
                 min-height: 100svh !important;
+                overflow: hidden !important;
                 padding: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
                 justify-content: flex-start !important;
-                gap: clamp(1.5rem, 3vh, 2.25rem);
+                align-items: stretch !important;
             }
             #kreislauf .kr-head {
-                padding: clamp(3rem, 6vh, 4.5rem) 1.25rem clamp(1rem, 2vh, 1.5rem);
+                padding: clamp(2.5rem, 5vh, 4rem) 1.25rem clamp(0.85rem, 2vh, 1.5rem);
+                flex-shrink: 0;
             }
             #kreislauf .kr-track-wrap {
                 padding: 0 !important;
                 max-width: 100% !important;
                 width: 100%;
+                flex: 1 1 auto;
+                position: relative;
+                overflow: hidden;
             }
             #kreislauf .kr-line-track,
             #kreislauf .kr-line-fill,
@@ -4670,29 +4683,27 @@
                 display: flex !important;
                 flex-direction: row !important;
                 grid-template-columns: none !important;
-                overflow-x: auto !important;
-                overflow-y: hidden;
-                scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
+                overflow: visible !important;
+                scroll-snap-type: none !important;
                 gap: 0 !important;
-                width: 100%;
-                padding: 0 0 1rem;
-                scrollbar-width: none;
+                width: 400vw !important;       /* 4 Steps * 100vw */
+                height: 100% !important;
+                padding: 0;
+                will-change: transform;
+                transform: translateX(0);
+                transition: transform 60ms linear;
             }
-            #kreislauf .kr-grid::-webkit-scrollbar { display: none; }
             #kreislauf .kr-step {
                 flex: 0 0 100vw !important;
-                scroll-snap-align: center;
-                scroll-snap-stop: always;
-                padding: 1rem 2rem 2rem !important;
+                width: 100vw !important;
+                padding: 1.5rem 2rem 2rem !important;
                 box-sizing: border-box;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
                 justify-content: center;
                 text-align: center;
-                min-height: 55vh;
+                height: 100%;
             }
             /* Auf Mobile: alle Steps "aktiv-Look" (User sieht eh nur 1 zur Zeit) */
             #kreislauf .kr-step .kr-icon {
@@ -4729,26 +4740,52 @@
                 margin-bottom: 0.5rem;
             }
 
-            /* ─── AUTHORITY (Hinter der Formel): horizontal-snap, 1 Quote/Viewport ─── */
+            /* ─── AUTHORITY: SCROLL-HIJACK (gleiches Pattern wie Kreislauf, 3 Quotes) ─── */
+            main > section#authority {
+                min-height: 0 !important;
+                height: 280svh !important;     /* 3 Quotes * ~90vh of vertical scroll */
+                padding: 0 !important;
+                display: block !important;
+                position: relative !important;
+                align-items: stretch !important;
+            }
+            #authority .authority-wrap {
+                position: -webkit-sticky !important;
+                position: sticky !important;
+                top: 0 !important;
+                height: 100svh !important;
+                min-height: 100svh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                padding: clamp(2.5rem, 5vh, 4rem) 0 0 !important;
+                max-width: 100% !important;
+            }
+            #authority .authority-head {
+                padding: 0 1.25rem;
+                margin-bottom: clamp(1rem, 2.5vh, 1.5rem);
+                flex-shrink: 0;
+            }
             #authority .authority-grid {
                 display: flex !important;
                 flex-direction: row !important;
                 grid-template-columns: none !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
+                overflow: visible !important;
+                scroll-snap-type: none !important;
                 gap: 0 !important;
-                width: 100%;
-                padding: 0 0 1rem;
-                scrollbar-width: none;
+                width: 300vw !important;       /* 3 Quotes * 100vw */
+                height: 100% !important;
+                padding: 0;
+                will-change: transform;
+                transform: translateX(0);
+                transition: transform 60ms linear;
+                flex: 1 1 auto;
             }
-            #authority .authority-grid::-webkit-scrollbar { display: none; }
             #authority .authority-card {
                 flex: 0 0 100vw !important;
-                scroll-snap-align: center;
-                scroll-snap-stop: always;
-                padding: 1.5rem 2rem !important;
+                width: 100vw !important;
+                padding: clamp(1.5rem, 4vh, 2.5rem) clamp(1.5rem, 6vw, 2.5rem) !important;
                 border-left: none !important;
                 border-top: none !important;
                 box-sizing: border-box;
@@ -4756,40 +4793,94 @@
                 flex-direction: column !important;
                 justify-content: center;
                 text-align: left;
-                min-height: 50vh;
+                height: 100%;
             }
             #authority .authority-card:hover { transform: none !important; }
-            #authority .authority-head { padding: 0 1.25rem; margin-bottom: 1.5rem; }
-            #authority .authority-mobile-dots {
-                display: flex;
-                justify-content: center;
-                gap: 8px;
-                margin: 0.5rem auto 2rem;
-            }
-            #authority .authority-mobile-dots span {
-                width: 8px; height: 8px; border-radius: 50%;
-                background: rgba(133,19,48,0.2);
-                transition: background .2s, transform .2s;
-            }
-            #authority .authority-mobile-dots span.is-active {
-                background: #851330; transform: scale(1.3);
-            }
 
-            /* ─── TESTIMONIALS: Peek-Mode (center card + Andeutung links/rechts) ─── */
-            #testimonials-real .tm-marquee {
-                /* Mask groesser, damit Center-Card voll lesbar bleibt */
-                mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
-                -webkit-mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+            /* ─── TESTIMONIALS: SCROLL-HIJACK (gleiches Pattern, 4 Cards) ─── */
+            main > section#testimonials-real {
+                min-height: 0 !important;
+                height: 360svh !important;     /* 4 Cards × ~90vh of vertical scroll */
+                padding: 0 !important;
+                display: block !important;
+                position: relative !important;
             }
+            #testimonials-real > .tm-inner-sticky,
+            #testimonials-real::after { content: none; }
+            /* Wir machen das Section-Inhalt-Wrapper via wrapping-trick: das erste Child .tm-head
+               und alle weiteren werden in einen sticky inner gepackt via display:contents-Trick.
+               Stattdessen einfacher: tm-marquee bekommt sticky, tm-head + tm-cta gehen mit drumherum. */
+            #testimonials-real .tm-head,
+            #testimonials-real .tm-marquee,
+            #testimonials-real .tm-cta {
+                position: relative;
+                z-index: 2;
+            }
+            /* tm-marquee wird sticky-container fuer das Scroll-Hijack-Layout */
+            #testimonials-real .tm-marquee {
+                position: -webkit-sticky !important;
+                position: sticky !important;
+                top: 0 !important;
+                height: 100svh !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                mask-image: none !important;
+                -webkit-mask-image: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+            /* tm-head + tm-cta absolut auf den ersten Viewport (Section-Top) gelegt */
+            #testimonials-real .tm-head {
+                position: absolute !important;
+                top: clamp(2.5rem, 5vh, 4rem) !important;
+                left: 0; right: 0;
+                z-index: 10;
+                padding: 0 1.25rem;
+                pointer-events: none;
+            }
+            #testimonials-real .tm-cta {
+                position: absolute !important;
+                bottom: clamp(2rem, 4vh, 3rem) !important;
+                left: 0; right: 0;
+                z-index: 10;
+                text-align: center;
+            }
+            #testimonials-real .tm-cta > * { pointer-events: auto; }
+            /* tm-track wird der Horizontal-Flex der per JS bewegt wird (animation aus) */
             #testimonials-real .tm-track {
-                animation-duration: 90s !important;  /* langsamer auf Mobile */
-                gap: 1rem !important;
+                animation: none !important;
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 0 !important;
+                width: 400vw !important;
+                will-change: transform;
+                transform: translateX(0);
+                transition: transform 60ms linear;
+                margin: 0 auto;
+                padding: 0;
+            }
+            #testimonials-real .tm-row,
+            #testimonials-real .tm-row--ltr {
+                overflow: visible !important;
+                padding: 0 !important;
+                width: 100%;
             }
             #testimonials-real .tm-card {
-                flex: 0 0 78vw !important;
-                padding: 1.5rem !important;
+                flex: 0 0 100vw !important;
+                width: 100vw !important;
+                max-width: 100vw !important;
+                padding: clamp(1.25rem, 4vw, 2rem) clamp(2rem, 7vw, 3rem) !important;
+                margin: 0 !important;
+                box-sizing: border-box;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
             }
-            #testimonials-real .tm-quote { font-size: 0.95rem !important; }
+            #testimonials-real .tm-quote { font-size: 1.05rem !important; line-height: 1.5; }
             #testimonials-real .tm-h2 { font-size: clamp(1.8rem, 7.5vw, 2.4rem) !important; }
 
             /* ─── 22-UHR: Uhrzeit UEBER der Card, kein ueberlappender Dot, keine Linie ─── */
@@ -4971,10 +5062,38 @@
             }
         } catch(e) {}
 
-        // === Kreislauf — Sticky-Scroll cycler (Desktop). Mobile bekommt horizontal-snap stattdessen. ===
+        // === Briefing 2026-05-20 v7: Mobile Scroll-Hijack fuer Kreislauf + Authority + Testimonials ===
+        // Vertikales Scrollen wird in horizontale translateX des inneren Flex-Containers umgesetzt.
+        // Section ist N×100svh hoch (sticky inner), inner Grid ist N×100vw breit.
+        // User scrollt runter -> Steps wandern horizontal durch -> erst danach geht's zur naechsten Section.
+        function makeScrollHijack(wrapperEl, innerEl, totalItems) {
+            if (!wrapperEl || !innerEl || totalItems < 2) return;
+            var maxVW = (totalItems - 1) * 100; // Verschiebung in vw
+            var ticking = false;
+            function update() {
+                var rect = wrapperEl.getBoundingClientRect();
+                var scrolled = -rect.top;
+                var scrollableH = wrapperEl.offsetHeight - window.innerHeight;
+                var progress = scrollableH > 0 ? Math.max(0, Math.min(1, scrolled / scrollableH)) : 0;
+                var translateVW = progress * maxVW;
+                innerEl.style.transform = 'translateX(-' + translateVW + 'vw)';
+                ticking = false;
+            }
+            function onScroll() {
+                if (!ticking) { ticking = true; requestAnimationFrame(update); }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            update();
+        }
+
+        // === Kreislauf — Desktop Sticky-Driver. Mobile bekommt Scroll-Hijack. ===
         try {
             var krWrap = document.getElementById('kr-wrapper');
             var isMobileVP = window.matchMedia('(max-width: 767px)').matches;
+            if (krWrap && isMobileVP) {
+                makeScrollHijack(krWrap, krWrap.querySelector('.kr-grid'), 4);
+            }
             if (krWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isMobileVP) {
                 var krSteps     = krWrap.querySelectorAll('.kr-step');
                 var krLineFill  = document.getElementById('kr-line-fill');
@@ -5059,13 +5178,32 @@
             }
         } catch(e) {}
 
-        // === Testimonials Marquee: clone track for seamless infinite loop ===
+        // === Testimonials Marquee: clone track for seamless infinite loop (Desktop only) ===
+        // Mobile: KEIN Clonen, weil Scroll-Hijack die 4 Original-Cards braucht (kein Marquee).
         try {
-            document.querySelectorAll('.tm-track').forEach(function(track){
-                if (track.dataset.cloned === '1') return;
-                track.insertAdjacentHTML('beforeend', track.innerHTML);
-                track.dataset.cloned = '1';
-            });
+            if (!isMobileVP) {
+                document.querySelectorAll('.tm-track').forEach(function(track){
+                    if (track.dataset.cloned === '1') return;
+                    track.insertAdjacentHTML('beforeend', track.innerHTML);
+                    track.dataset.cloned = '1';
+                });
+            }
+        } catch(e) {}
+
+        // === Mobile Scroll-Hijack: Authority + Testimonials ===
+        try {
+            if (isMobileVP) {
+                var authoritySection = document.getElementById('authority');
+                var authorityGrid    = authoritySection ? authoritySection.querySelector('.authority-grid') : null;
+                if (authoritySection && authorityGrid) {
+                    makeScrollHijack(authoritySection, authorityGrid, 3);
+                }
+                var tmSection = document.getElementById('testimonials-real');
+                var tmTrack   = tmSection ? tmSection.querySelector('.tm-track') : null;
+                if (tmSection && tmTrack) {
+                    makeScrollHijack(tmSection, tmTrack, 4);
+                }
+            }
         } catch(e) {}
 
         // === Stagger-Reveal Helper (für #zahlen .zahlen-grid, #routine-abend .routine-steps, #anti-ingredients .anti-grid) ===
