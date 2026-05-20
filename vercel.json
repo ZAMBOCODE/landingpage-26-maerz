@@ -1,3 +1,10 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "rettet.zzzlim.de" }],
+      "destination": "/rettet/:path*"
+    }
+  ]
 }
