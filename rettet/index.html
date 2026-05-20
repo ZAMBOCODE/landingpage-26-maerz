@@ -1552,8 +1552,9 @@
     <!-- === SECTION 1: Hero — rettet.zzzlim.de === -->
     <section id="hero" class="hero-stack">
         <picture>
-            <source media="(max-width: 768px)" srcset="media/Liegen.webp">
-            <img id="hero-fallback" src="media/Liegen.webp" alt="Morgens ausgeruht aufwachen" width="1024" height="1024" fetchpriority="high" decoding="async" class="hero-bg-img">
+            <!-- Briefing 2026-05-20: neue Hero-Backgrounds (vom User in /rettet/ abgelegt) -->
+            <source media="(max-width: 768px)" srcset="rettet/backgroundmobile.png">
+            <img id="hero-fallback" src="rettet/backgroundfullscreen.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" class="hero-bg-img">
         </picture>
         <!-- Vertical vignette: dark top + dark bottom, mid stays clear for the visual -->
         <div class="hero-gradient" aria-hidden="true"></div>
@@ -3626,6 +3627,9 @@
             object-position: center center;
             z-index: 0;
         }
+        /* Briefing 2026-05-20 v3: Gradient deutlich abgeschwaecht, damit der neue
+           rettet-Background (backgroundfullscreen.png / backgroundmobile.png) durchscheint.
+           Sanfter Top-Down-Vignette nur fuer Headline-Lesbarkeit. */
         .hero-stack .hero-gradient {
             position: absolute;
             inset: 0;
@@ -3633,11 +3637,11 @@
             pointer-events: none;
             background:
                 linear-gradient(180deg,
-                    rgba(15,23,42,0.78) 0%,
-                    rgba(15,23,42,0.38) 22%,
-                    rgba(15,23,42,0.10) 45%,
-                    rgba(15,23,42,0.32) 70%,
-                    rgba(15,23,42,0.82) 100%);
+                    rgba(15,23,42,0.32) 0%,
+                    rgba(15,23,42,0.12) 28%,
+                    rgba(15,23,42,0.00) 50%,
+                    rgba(15,23,42,0.08) 78%,
+                    rgba(15,23,42,0.28) 100%);
         }
         .hero-top {
             position: absolute;
