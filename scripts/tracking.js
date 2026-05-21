@@ -41,9 +41,11 @@
   if (window.__zzzlimTracking) return;
 
   // ───────── Config ─────────
+  // GA4-Strategie (User-Decision 2026-05-21): jede LP hat eigene GA4-Property.
+  // Property-ID wird im HTML-Head pro LP gesetzt (rettet: G-5T4DK6TSPE).
+  // Dashboard filtert pro Property; Cross-LP-Reports laufen ueber lp_id-Parameter.
   var CFG = {
     endpoint: '/api/track',
-    ga4MainId: 'G-WXJPZZN6N4',          // optional secondary GA4 (main brand)
     pixelId:  '2028396997989291',
     sessionTtlMin: 30,
     cookieDays: 90,

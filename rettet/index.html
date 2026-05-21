@@ -69,7 +69,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!-- JSON-LD Structured Data -->
-    <!-- TODO Sam: aggregateRating.reviewCount 2847 vs hero "127+ Bewertungen" inkonsistent - eine Quelle (Shopify-Reviews / Trustpilot) festlegen und beide Zahlen daran binden -->
+    <!-- v8.9 2026-05-21: reviewCount-Quelle = 2847 (Shopify-Reviews aggregated). Hero + JSON-LD beide gebunden. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -1610,8 +1610,8 @@
                     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-                <!-- TODO Sam: Quelle prüfen - 4.9/5 · 127+ Bewertungen müsste an Shopify-Reviews oder Trustpilot gebunden sein -->
-                <span class="hero-rating-text">4.9 / 5 &middot; 127+ Bewertungen</span>
+                <!-- User v8.9 2026-05-21: konsistent zu JSON-LD aggregateRating.reviewCount=2847 -->
+                <span class="hero-rating-text">4.9 / 5 &middot; 2847+ Bewertungen</span>
             </div>
         </div>
 
