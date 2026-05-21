@@ -4624,14 +4624,28 @@
                 justify-content: space-between !important;
                 align-items: center !important;
             }
-            #hero .hero-top { display: block !important; }
+            #hero .hero-top {
+                display: block !important;
+                position: static !important;
+                top: auto !important;
+                left: auto !important;
+                transform: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                padding: 0 1.25rem !important;
+            }
             #hero .hero-h1-reveal {
-                font-size: clamp(2.3rem, 9.5vw, 3.4rem) !important;
-                line-height: 1.02 !important;
-                letter-spacing: -0.025em !important;
+                font-size: clamp(3rem, 13vw, 4.5rem) !important;
+                line-height: 1 !important;
+                letter-spacing: -0.03em !important;
+                text-align: center !important;
+                margin: 0 auto 1rem !important;
             }
             #hero .hero-sub {
-                font-size: clamp(1rem, 4.2vw, 1.2rem) !important;
+                font-size: clamp(1.05rem, 4.4vw, 1.3rem) !important;
+                text-align: center !important;
+                margin: 0 auto !important;
             }
             #hero .hero-rating-row { display: none !important; }
             #hero .hero-bottom {
