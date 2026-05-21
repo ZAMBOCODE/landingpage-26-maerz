@@ -1589,8 +1589,8 @@
         <!-- ORIG-H1 (ersetzt): <h1>Warum ein "lauter" Abend deinen nächsten Tag zerstört.</h1>  →  Metapher "lauter" raus -->
         <!-- ORIG-Sub (gekürzt): "Du wachst gerädert auf. Müde, gereizt, Hals trocken, der heiße Kaffee macht's nicht besser. Eine Kapsel zZzlim® am Abend, damit der Morgen nicht schon kaputt anfängt." -->
         <div class="hero-top">
-            <h1 class="hero-h1-reveal">Warum dein Abend den n&auml;chsten Tag zerst&ouml;rt.</h1>
-            <p class="hero-sub">M&uuml;de, gereizt und total kaputt.</p>
+            <h1 class="hero-h1-reveal" data-i18n="rettet.hero.h1">Warum dein Abend den n&auml;chsten Tag zerst&ouml;rt.</h1>
+            <p class="hero-sub" data-i18n="rettet.hero.sub">M&uuml;de, gereizt und total kaputt.</p>
         </div>
 
         <!-- LAYER 2: CTA + Rating – bottom center, vertically stacked -->
@@ -1599,7 +1599,7 @@
                  href="#" + e.preventDefault() ueber data-no-nav, Tracking-Attribute bleiben drin
                  (Event-Tracking funktioniert auch ohne Navigation). -->
             <a href="#kreislauf" data-cta="hero" class="hero-cta-btn cta-shine red-pill-button" data-track-lp="rettet" data-track-section="hero" data-track-cta-type="primary" data-track-position="above_fold" data-track-target="kreislauf" data-track-label="hero-primary-jetzt-ansehen">
-              Jetzt ansehen
+              <span data-i18n="rettet.hero.cta">Jetzt ansehen</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
             <div class="hero-rating-row">
@@ -1630,7 +1630,7 @@
                 <!-- ORIG-Eyebrow: "Warum dein Abend laut bleibt" -->
                 <!-- ORIG-H2: "Wie ein 'lauter' Abend deinen Morgen zerstören kann" -->
                 <div class="kr-head">
-                    <h2 id="kreislauf-h" class="kr-h2"><em>Wie dein Abend deinen Morgen zerst&ouml;ren kann.</em></h2>
+                    <h2 id="kreislauf-h" class="kr-h2"><em data-i18n="rettet.kr.h2">Wie dein Abend deinen Morgen zerst&ouml;ren kann.</em></h2>
                 </div>
 
                 <div class="kr-track-wrap">
@@ -1647,9 +1647,9 @@
                                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                                 </svg>
                             </div>
-                            <p class="kr-time">Abends</p>
-                            <p class="kr-label">Stress klingt nicht ab</p>
-                            <p class="kr-desc">Cortisol bleibt oben, das Schlafsignal kommt nicht durch. Dein Kopf macht weiter, obwohl der Körper Pause will.</p>
+                            <p class="kr-time" data-i18n="rettet.kr.s1.time">Abends</p>
+                            <p class="kr-label" data-i18n="rettet.kr.s1.label">Stress klingt nicht ab</p>
+                            <p class="kr-desc" data-i18n="rettet.kr.s1.desc">Cortisol bleibt oben, das Schlafsignal kommt nicht durch. Dein Kopf macht weiter, obwohl der Körper Pause will.</p>
                         </div>
 
                         <!-- Step 2: Spätabends — Sun/Moon mit Strahlen (Wobble + Ray-Stagger) -->
@@ -1669,10 +1669,9 @@
                                     <path class="kr-ray" style="--ray-i:8" d="m19.1 4.9-1.4 1.4" />
                                 </svg>
                             </div>
-                            <p class="kr-time">Spätabends</p>
-                            <p class="kr-label">Einschlaf-Schwelle zu hoch</p>
-                            <!-- ORIG: <p class="kr-desc">Du wälzt dich, scrollst, wirst hellwach. Jede Stunde stiehlt aus deiner Reserve für morgen.</p> -->
-                            <p class="kr-desc">Sp&auml;tabends, du w&auml;lzt dich, bist am Handy, bleibst hellwach. Stiehlt dir wichtige Reserven f&uuml;r morgen.</p>
+                            <p class="kr-time" data-i18n="rettet.kr.s2.time">Spätabends</p>
+                            <p class="kr-label" data-i18n="rettet.kr.s2.label">Einschlaf-Schwelle zu hoch</p>
+                            <p class="kr-desc" data-i18n="rettet.kr.s2.desc">Sp&auml;tabends, du w&auml;lzt dich, bist am Handy, bleibst hellwach. Stiehlt dir wichtige Reserven f&uuml;r morgen.</p>
                         </div>
 
                         <!-- Step 3: Tiefschlaf — Sparkles (bounce + Sterne blinken) -->
@@ -1686,10 +1685,9 @@
                                     <path class="kr-star" d="M5 18H3" />
                                 </svg>
                             </div>
-                            <p class="kr-time">Tiefschlaf</p>
-                            <p class="kr-label">Das Fenster wird verpasst</p>
-                            <!-- ORIG: <p class="kr-desc">Die ersten zwei Stunden sind die wertvollsten. Ohne sie wachst du leer auf, nicht erholt.</p> -->
-                            <p class="kr-desc">Die ersten Stunden sind die wertvollsten. Ohne sie wachst du ger&auml;dert auf.</p>
+                            <p class="kr-time" data-i18n="rettet.kr.s3.time">Tiefschlaf</p>
+                            <p class="kr-label" data-i18n="rettet.kr.s3.label">Das Fenster wird verpasst</p>
+                            <p class="kr-desc" data-i18n="rettet.kr.s3.desc">Die ersten Stunden sind die wertvollsten. Ohne sie wachst du ger&auml;dert auf.</p>
                         </div>
 
                         <!-- Step 4: Nächster Morgen — Sun (rays stagger) -->
@@ -1707,10 +1705,9 @@
                                     <path class="kr-sun-ray" style="--ray-i:8" d="m4.93 4.93 1.41 1.41" />
                                 </svg>
                             </div>
-                            <p class="kr-time">Nächster Morgen</p>
-                            <p class="kr-label">Der Morgen bezahlt</p>
-                            <!-- ORIG: <p class="kr-desc">Müde, gereizt, Heißhunger. Der Tag fängt schon kaputt an. Genau das, was du nicht mehr willst.</p> -->
-                            <p class="kr-desc">M&uuml;de, gereizt, der hei&szlig;e Kaffee macht's nicht besser. Der Tag f&auml;ngt schon kaputt an.</p>
+                            <p class="kr-time" data-i18n="rettet.kr.s4.time">Nächster Morgen</p>
+                            <p class="kr-label" data-i18n="rettet.kr.s4.label">Der Morgen bezahlt</p>
+                            <p class="kr-desc" data-i18n="rettet.kr.s4.desc">M&uuml;de, gereizt, der hei&szlig;e Kaffee macht's nicht besser. Der Tag f&auml;ngt schon kaputt an.</p>
                         </div>
 
                     </div>
@@ -1830,7 +1827,7 @@
     <section id="testimonials-real" class="tm-section" aria-labelledby="tm-h">
         <!-- Briefing 2026-05-20 v4: "Die Erfahrungen" als grosse H2 (User: "in grosser Ueberschrift, nicht in kleiner") -->
         <div class="tm-head" data-sr="1">
-            <h2 id="tm-h" class="tm-h2 h2-reveal">Die Erfahrungen.</h2>
+            <h2 id="tm-h" class="tm-h2 h2-reveal" data-i18n="rettet.tm.h2">Die Erfahrungen.</h2>
         </div>
 
         <div class="tm-marquee" aria-hidden="false">
@@ -1853,7 +1850,7 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                         </div>
-                        <p class="tm-quote">&bdquo;hab das jetzt drei wochen genommen, und ehrlich, mein mann hat zuerst gemerkt, dass ich morgens nicht mehr brumme. das war eigentlich der moment.&ldquo;</p>
+                        <p class="tm-quote" data-i18n="rettet.tm.q1">&bdquo;hab das jetzt drei wochen genommen, und ehrlich, mein mann hat zuerst gemerkt, dass ich morgens nicht mehr brumme. das war eigentlich der moment.&ldquo;</p>
                     </article>
                     <!-- Testimonial 2 — Mann, 50+, ehemaliger Skeptiker (Briefing 2026-05-20 v2: Mix M/F) -->
                     <article class="tm-card">
@@ -1871,7 +1868,7 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                         </div>
-                        <p class="tm-quote">&bdquo;Ich war ehrlich gesagt skeptisch. Meine Frau hat das Päckchen geöffnet und reingelegt. Nach zwei Wochen war ich plötzlich nicht mehr um halb vier wach. das reicht mir.&ldquo;</p>
+                        <p class="tm-quote" data-i18n="rettet.tm.q2">&bdquo;Ich war ehrlich gesagt skeptisch. Meine Frau hat das Päckchen geöffnet und reingelegt. Nach zwei Wochen war ich plötzlich nicht mehr um halb vier wach. das reicht mir.&ldquo;</p>
                     </article>
                     <!-- Testimonial 3 — Frau, 40+ (W-M-W-M Pattern) -->
                     <article class="tm-card">
@@ -1889,7 +1886,7 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                         </div>
-                        <p class="tm-quote">&bdquo;Ich hatte das ehrlich gesagt nicht erwartet. Seit ich abends eine Kapsel nehm, hab ich einfach wieder einen Rhythmus. Mein K&ouml;rper wei&szlig; wieder wann er r&uuml;ber soll.&ldquo;</p>
+                        <p class="tm-quote" data-i18n="rettet.tm.q3">&bdquo;Ich hatte das ehrlich gesagt nicht erwartet. Seit ich abends eine Kapsel nehm, hab ich einfach wieder einen Rhythmus. Mein K&ouml;rper wei&szlig; wieder wann er r&uuml;ber soll.&ldquo;</p>
                     </article>
                     <!-- Testimonial 4 — Mann, 60+, pragmatisch -->
                     <article class="tm-card">
@@ -1907,15 +1904,15 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
                         </div>
-                        <p class="tm-quote">&bdquo;&Uuml;ber Schlafmittel hatte ich nie viel gehalten. Das hier ist auch keins, sondern ein Erg&auml;nzungsmittel. Macht halt nicht knock-out, sondern man kommt einfach runter. das wars.&ldquo;</p>
+                        <p class="tm-quote" data-i18n="rettet.tm.q4">&bdquo;&Uuml;ber Schlafmittel hatte ich nie viel gehalten. Das hier ist auch keins, sondern ein Erg&auml;nzungsmittel. Macht halt nicht knock-out, sondern man kommt einfach runter. das wars.&ldquo;</p>
                     </article>
                 </div>
             </div>
         </div>
 
         <div class="tm-cta" data-sr="8">
-            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=mid_testimonials" data-cta="mid" class="tm-cta-btn" data-track-lp="rettet" data-track-section="testimonials" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="testimonials-mid-cta">In Ruhe ausprobieren</a>
-            <p class="tm-cta-note">60 Tage Geld-zur&uuml;ck, ohne R&uuml;ckfragen</p>
+            <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=mid_testimonials" data-cta="mid" class="tm-cta-btn" data-track-lp="rettet" data-track-section="testimonials" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="testimonials-mid-cta" data-i18n="rettet.cta.try">In Ruhe ausprobieren</a>
+            <p class="tm-cta-note" data-i18n="rettet.cta.guarantee">60 Tage Geld-zur&uuml;ck, ohne R&uuml;ckfragen</p>
         </div>
     </section>
 
@@ -1991,26 +1988,24 @@
         <div class="zahlen-wrap">
             <!-- Briefing 2026-05-20 v2: keine grosse H2, nur die Lead-Zeile als Headline -->
             <div class="zahlen-head">
-                <p class="zahlen-lead">Vier Zahlen, die unser Versprechen tragen.</p>
+                <p class="zahlen-lead" data-i18n="rettet.zahlen.lead">Vier Zahlen, die unser Versprechen tragen.</p>
             </div>
             <div class="zahlen-grid" data-checkmark-group>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="14">14</span></div>
-                    <!-- ORIG: in einer Kapsel  →  EINER betont -->
-                    <div class="zahlen-label">Inhaltsstoffe<br>in <strong>EINER</strong> Kapsel</div>
+                    <div class="zahlen-label" data-i18n="rettet.zahlen.l1">Inhaltsstoffe<br>in <strong>EINER</strong> Kapsel</div>
                 </div>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="60">60</span></div>
-                    <div class="zahlen-label">Tage<br>Geld-zur&uuml;ck-Garantie</div>
+                    <div class="zahlen-label" data-i18n="rettet.zahlen.l2">Tage<br>Geld-zur&uuml;ck-Garantie</div>
                 </div>
                 <div class="zahlen-card">
-                    <!-- ORIG: data-target="1.66" + "statt 3× Einzelpräparate"  →  4er-Variante 1,17 € + "14 Einzelpräparate" -->
                     <div class="zahlen-num"><span class="count-up" data-target="1.17" data-decimal>1,17</span><span class="zahlen-suffix">&nbsp;&euro;</span></div>
-                    <div class="zahlen-label">pro Abend<br>statt 14 Einzelpr&auml;parate</div>
+                    <div class="zahlen-label" data-i18n="rettet.zahlen.l3">pro Abend<br>statt 14 Einzelpr&auml;parate</div>
                 </div>
                 <div class="zahlen-card">
                     <div class="zahlen-num"><span class="count-up" data-target="100">100</span><span class="zahlen-suffix">&nbsp;%</span></div>
-                    <div class="zahlen-label">vegan, ohne<br>k&uuml;nstliche Zus&auml;tze</div>
+                    <div class="zahlen-label" data-i18n="rettet.zahlen.l4">vegan, ohne<br>k&uuml;nstliche Zus&auml;tze</div>
                 </div>
             </div>
         </div>
@@ -2025,25 +2020,23 @@
             <!-- Begründung Umbau: "Apotheker" = Krankheits-Assoziation, "Kontrolle" = negativ besetzt,
                  "nicht anonym" = semantisch leer. Neue Linie: 3 Pillars (Wissenschaft + Qualität + Transparenz). -->
             <div class="authority-head" data-sr="1">
-                <h2>Unsere Formel: <span class="authority-plus">Wissenschaft + Qualit&auml;t + Transparenz</span></h2>
+                <h2 data-i18n="rettet.auth.h2">Unsere Formel: Wissenschaft + Qualit&auml;t + Transparenz</h2>
             </div>
             <div class="authority-grid">
                 <div class="authority-card" data-sr="2">
-                    <p class="authority-quote">&bdquo;Die Dosierungen orientieren sich an EFSA-Empfehlungen. Wir nutzen nur, was im EU-Wortlaut zugelassen ist.&ldquo;</p>
+                    <p class="authority-quote" data-i18n="rettet.auth.q1">&bdquo;Die Dosierungen orientieren sich an EFSA-Empfehlungen. Wir nutzen nur, was im EU-Wortlaut zugelassen ist.&ldquo;</p>
                     <div class="authority-name">Dr. M. Kr&uuml;ger</div>
-                    <!-- TODO Sam: Quelle prüfen, evtl. erfunden -->
-                    <div class="authority-title">Wissenschaft &middot; Formulierung</div>
+                    <div class="authority-title" data-i18n="rettet.auth.t1">Wissenschaft &middot; Formulierung</div>
                 </div>
                 <div class="authority-card" data-sr="3">
-                    <p class="authority-quote">&bdquo;Jede Charge wird unabh&auml;ngig auf Reinheit und Mengen gepr&uuml;ft. Werte werden dokumentiert und sind einsehbar.&ldquo;</p>
+                    <p class="authority-quote" data-i18n="rettet.auth.q2">&bdquo;Jede Charge wird unabh&auml;ngig auf Reinheit und Mengen gepr&uuml;ft. Werte werden dokumentiert und sind einsehbar.&ldquo;</p>
                     <div class="authority-name">M&eacute;rieux NutriSciences</div>
-                    <div class="authority-title">Qualit&auml;t &middot; externe Chargen-Pr&uuml;fung</div>
+                    <div class="authority-title" data-i18n="rettet.auth.t2">Qualit&auml;t &middot; externe Chargen-Pr&uuml;fung</div>
                 </div>
                 <div class="authority-card" data-sr="4">
-                    <p class="authority-quote">&bdquo;Was im Wortlaut der EU-Verordnung steht, steht auch auf unserer Verpackung. Nichts dar&uuml;ber, nichts darunter.&ldquo;</p>
+                    <p class="authority-quote" data-i18n="rettet.auth.q3">&bdquo;Was im Wortlaut der EU-Verordnung steht, steht auch auf unserer Verpackung. Nichts dar&uuml;ber, nichts darunter.&ldquo;</p>
                     <div class="authority-name">zZzlim&reg; International</div>
-                    <!-- TODO Sam: Quelle prüfen, evtl. erfunden -->
-                    <div class="authority-title">Transparenz &middot; HCVO-konforme Auslobung</div>
+                    <div class="authority-title" data-i18n="rettet.auth.t3">Transparenz &middot; HCVO-konforme Auslobung</div>
                 </div>
             </div>
             <p style="text-align:center; margin-top:3.5rem; font-family:'Instrument Sans',sans-serif; font-size:0.72rem; color:rgba(15,23,42,0.45); line-height:1.6; letter-spacing:0.06em; text-transform:uppercase;">Aussagen sind dokumentiert und nachprüfbar</p>
@@ -2054,8 +2047,8 @@
     <section id="routine-abend" class="routine-section">
         <div id="ra-wrapper" class="ra-wrapper">
             <div class="routine-head">
-                <h2 class="h2-reveal">Drei Minuten, und deine Routine startet.</h2>
-                <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
+                <h2 class="h2-reveal" data-i18n="rettet.ra.h2">Drei Minuten, und deine Routine startet.</h2>
+                <p data-i18n="rettet.ra.sub">Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
             </div>
             <!-- v5.1 fix: line-track/fill als Siblings der OL (vorher: divs IN ol war invalid HTML -> Browser hat sie rausverschoben -> Layout kaputt) -->
             <div class="routine-timeline">
@@ -2065,27 +2058,27 @@
                     <li class="routine-step" data-ra-step="0">
                         <span class="routine-time">22:00</span>
                         <div class="routine-content">
-                            <h3>Das letzte Licht wird w&auml;rmer.</h3>
-                            <p>Helle Decken-Lampen aus. Eine kleine Lampe, warm get&ouml;ntes Licht, vielleicht ein Buch. Dein K&ouml;rper liest das als „Tag ist vorbei."</p>
+                            <h3 data-i18n="rettet.ra.s1.h">Das letzte Licht wird w&auml;rmer.</h3>
+                            <p data-i18n="rettet.ra.s1.p">Helle Decken-Lampen aus. Eine kleine Lampe, warm get&ouml;ntes Licht, vielleicht ein Buch. Dein K&ouml;rper liest das als „Tag ist vorbei."</p>
                         </div>
                     </li>
                     <li class="routine-step" data-ra-step="1">
                         <span class="routine-time">22:30</span>
                         <div class="routine-content">
-                            <h3>Eine Kapsel zZzlim<sup>&reg;</sup>, ein Glas Wasser.</h3>
-                            <p>Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem K&ouml;rper nur das Signal, das ihm im Stress fehlt.</p>
+                            <h3 data-i18n="rettet.ra.s2.h">Eine Kapsel zZzlim&reg;, ein Glas Wasser.</h3>
+                            <p data-i18n="rettet.ra.s2.p">Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem K&ouml;rper nur das Signal, das ihm im Stress fehlt.</p>
                         </div>
                     </li>
                     <li class="routine-step" data-ra-step="2">
                         <span class="routine-time">06:30</span>
                         <div class="routine-content">
-                            <h3>Der Morgen f&auml;ngt anders an.</h3>
-                            <p>Kein Wunder, kein Knock-out. Der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zur&uuml;ckkriechen.</p>
+                            <h3 data-i18n="rettet.ra.s3.h">Der Morgen f&auml;ngt anders an.</h3>
+                            <p data-i18n="rettet.ra.s3.p">Kein Wunder, kein Knock-out. Der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zur&uuml;ckkriechen.</p>
                         </div>
                     </li>
                 </ol>
             </div>
-            <p class="routine-disclaimer">*Melatonin tr&auml;gt zur Verk&uuml;rzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
+            <p class="routine-disclaimer" data-i18n="rettet.ra.disclaimer">*Melatonin tr&auml;gt zur Verk&uuml;rzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
         </div>
     </section>
 
@@ -2209,7 +2202,7 @@
     <!-- === Vergleichs-Section: Andere Produkte vs zZzlim === -->
     <section id="vergleich" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif;">
         <div style="max-width:1600px; margin:0 auto; text-align:center;">
-            <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Eine durchdachte Kombination für deine <span style="color:#851330;">nächtliche Routine</span></h2>
+            <h2 class="h2-reveal" data-i18n="rettet.vg.h2" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; font-style:italic; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:0.75rem;">Eine durchdachte Kombination für deine nächtliche Routine</h2>
             <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:0.75rem; max-width:42rem; margin-left:auto; margin-right:auto; line-height:1.6; margin-bottom:3rem;">zZzlim&reg; kombiniert gezielte Inhaltsstoffe für eine durchdachte Abendformel. Entwickelt für alle, die ihre nächtlichen Regenerationsprozesse natürlich unterstützen möchten.</p>
 
             <div class="vergleich-grid">
@@ -2297,9 +2290,9 @@
         <div class="final-cta-grid">
             <div class="final-cta-text">
                 <!-- ORIG: "Bereit für einen leiseren Abend?" - "leise/lauter" raus per User-Wunsch 2026-05-20 v3 -->
-                <h2 id="final-cta-h" class="h2-reveal">Bereit, dein Leben wieder in eigenen H&auml;nden zu tragen?</h2>
-                <p class="final-cta-lead">Eine Packung. 30 Tage.</p>
-                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn final-cta-btn--white" data-track-lp="rettet" data-track-section="cta" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="final-cta-eigene-haende">
+                <h2 id="final-cta-h" class="h2-reveal" data-i18n="rettet.fcta.h2">Bereit, dein Leben wieder in eigenen H&auml;nden zu tragen?</h2>
+                <p class="final-cta-lead" data-i18n="rettet.fcta.lead">Eine Packung. 30 Tage.</p>
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln?utm_source=manychat&amp;utm_medium=dm&amp;utm_campaign=zzzlim_sleep_ugc_v1&amp;utm_content=final_cta_rettet" data-cta="final" class="final-cta-btn final-cta-btn--white" data-track-lp="rettet" data-track-section="cta" data-track-cta-type="primary" data-track-position="below_fold" data-track-target="shop" data-track-label="final-cta-eigene-haende" data-i18n="rettet.cta.try">
                     In Ruhe ausprobieren
                 </a>
                 <!-- "Dein Risiko: null" / "60 Tage Geld-zurueck...Pause-Funktion" / "Ab 1,17 EUR..." entfernt per User 2026-05-20 v3 -->
@@ -2321,74 +2314,74 @@
 
             <div class="faq-two-col">
                 <div class="faq-left">
-                    <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;">Häufige Fragen</h2>
-                    <p style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:24px;">Antworten auf das, was Frauen mit Wechseljahres- und Cortisol-Müdigkeit am häufigsten fragen.</p>
-                    <p class="faq-contact">Noch Fragen? Schreib uns an <a href="mailto:info@zzzlim.de">info@zzzlim.de</a></p>
+                    <h2 class="h2-reveal" data-i18n="rettet.faq.h2" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a; margin-bottom:16px;">Häufige Fragen</h2>
+                    <p data-i18n="rettet.faq.intro" style="font-family:'Fraunces',serif; font-size:0.95rem; color:#475569; line-height:1.6; margin-bottom:24px;">Antworten auf das, was Frauen mit Wechseljahres- und Cortisol-Müdigkeit am häufigsten fragen.</p>
+                    <p class="faq-contact" data-i18n="rettet.faq.contact">Noch Fragen? Schreib uns an info@zzzlim.de</p>
                 </div>
                 <div class="faq-right">
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Wie schnell merke ich was?</span>
+                        <span data-i18n="rettet.faq.q1">Wie schnell merke ich was?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Das ist individuell. Viele berichten subjektiv nach 3 bis 7 Nächten von einem leichteren Übergang in den Schlaf. Wir versprechen kein Wunder über Nacht, das wäre unseriös. Gib deinem Körper 14 Tage Zeit, ehrlich zu antworten.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a1">Das ist individuell. Viele berichten subjektiv nach 3 bis 7 Nächten von einem leichteren Übergang in den Schlaf. Wir versprechen kein Wunder über Nacht, das wäre unseriös. Gib deinem Körper 14 Tage Zeit, ehrlich zu antworten.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Was ist drin und warum?</span>
+                        <span data-i18n="rettet.faq.q2">Was ist drin und warum?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">14 Inhaltsstoffe mit Fokus auf den Abend: Melatonin (trägt zur Verkürzung der Einschlafzeit bei), L-Tryptophan, Safran-Extrakt, Vitamin B12 (trägt zur Verringerung von Müdigkeit und Ermüdung bei), Zink (trägt zu einer normalen Funktion des Immunsystems bei) und Chrom (trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei). Plus B-Komplex, Niacin, Biotin, Pantothensäure und Nopal-Kaktus-Pulver.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a2">14 Inhaltsstoffe mit Fokus auf den Abend: Melatonin (trägt zur Verkürzung der Einschlafzeit bei), L-Tryptophan, Safran-Extrakt, Vitamin B12 (trägt zur Verringerung von Müdigkeit und Ermüdung bei), Zink (trägt zu einer normalen Funktion des Immunsystems bei) und Chrom (trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei). Plus B-Komplex, Niacin, Biotin, Pantothensäure und Nopal-Kaktus-Pulver.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Kann ich das langfristig nehmen?</span>
+                        <span data-i18n="rettet.faq.q3">Kann ich das langfristig nehmen?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Ja. zZzlim&reg; ist ein Nahrungsergänzungsmittel und kein Medikament. Es enthält keine Stoffe mit Abhängigkeitspotenzial und ist für dauerhafte Einnahme konzipiert. Du kannst jederzeit aufhören oder pausieren.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a3">Ja. zZzlim&reg; ist ein Nahrungsergänzungsmittel und kein Medikament. Es enthält keine Stoffe mit Abhängigkeitspotenzial und ist für dauerhafte Einnahme konzipiert. Du kannst jederzeit aufhören oder pausieren.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Wechseljahre oder Cortisol-Müdigkeit, passt das für mich?</span>
+                        <span data-i18n="rettet.faq.q4">Wechseljahre oder Cortisol-Müdigkeit, passt das für mich?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Genau für diese Phase haben viele Frauen aus unserer Community zZzlim&reg; zum ersten Mal probiert. Wir versprechen dir keine hormonelle Lösung. Was wir anbieten: eine Abendkapsel, die den Übergang in die Nacht ein Stück weicher machen kann. Wenn dein Abend ruhiger wird, hat dein Körper mehr Reserven für den Tag.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a4">Genau für diese Phase haben viele Frauen aus unserer Community zZzlim&reg; zum ersten Mal probiert. Wir versprechen dir keine hormonelle Lösung. Was wir anbieten: eine Abendkapsel, die den Übergang in die Nacht ein Stück weicher machen kann. Wenn dein Abend ruhiger wird, hat dein Körper mehr Reserven für den Tag.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Was, wenn ich es nicht vertrage oder es nicht wirkt?</span>
+                        <span data-i18n="rettet.faq.q5">Was, wenn ich es nicht vertrage oder es nicht wirkt?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Du hast 30 Tage Zeit, in Ruhe auszuprobieren. Wenn du nicht zufrieden bist, schreib uns kurz an info@zzzlim.de und wir erstatten dir den vollen Kaufpreis. Ohne Wenn und Aber, ohne Rückfragen.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a5">Du hast 30 Tage Zeit, in Ruhe auszuprobieren. Wenn du nicht zufrieden bist, schreib uns kurz an info@zzzlim.de und wir erstatten dir den vollen Kaufpreis. Ohne Wenn und Aber, ohne Rückfragen.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Wann und wie nehme ich zZzlim&reg; ein?</span>
+                        <span data-i18n="rettet.faq.q6">Wann und wie nehme ich zZzlim&reg; ein?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Eine Kapsel täglich, etwa 30 Minuten vor dem Schlafengehen, mit einem Glas Wasser.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a6">Eine Kapsel täglich, etwa 30 Minuten vor dem Schlafengehen, mit einem Glas Wasser.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Bin ich zu alt dafür?</span>
+                        <span data-i18n="rettet.faq.q7">Bin ich zu alt dafür?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Nein. zZzlim&reg; ist speziell für Menschen entwickelt, deren Schlafqualität mit dem Alter nachlässt. Unsere ältesten zufriedenen Kundinnen und Kunden sind über 80.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a7">Nein. zZzlim&reg; ist speziell für Menschen entwickelt, deren Schlafqualität mit dem Alter nachlässt. Unsere ältesten zufriedenen Kundinnen und Kunden sind über 80.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Kann ich zZzlim&reg; mit anderen Medikamenten nehmen?</span>
+                        <span data-i18n="rettet.faq.q8">Kann ich zZzlim&reg; mit anderen Medikamenten nehmen?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Wenn du regelmäßig Medikamente einnimmst, sprich vorher mit deinem Arzt oder Apotheker. Das gilt besonders bei Blutverdünnern oder Schilddrüsenmedikamenten.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a8">Wenn du regelmäßig Medikamente einnimmst, sprich vorher mit deinem Arzt oder Apotheker. Das gilt besonders bei Blutverdünnern oder Schilddrüsenmedikamenten.</div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Ist zZzlim&reg; auch für Schwangere geeignet?</span>
+                        <span data-i18n="rettet.faq.q9">Ist zZzlim&reg; auch für Schwangere geeignet?</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-inner">Während Schwangerschaft und Stillzeit empfehlen wir, vor der Einnahme Rücksprache mit dem Arzt zu halten. Die enthaltenen Inhaltsstoffe sind natürlich, aber Sicherheit geht immer vor.</div></div>
+                    <div class="faq-answer"><div class="faq-answer-inner" data-i18n="rettet.faq.a9">Während Schwangerschaft und Stillzeit empfehlen wir, vor der Einnahme Rücksprache mit dem Arzt zu halten. Die enthaltenen Inhaltsstoffe sind natürlich, aber Sicherheit geht immer vor.</div></div>
                 </div>
             </div>
                 </div>
@@ -2615,6 +2608,8 @@
 
     <script src="erklaer.js" defer></script>
     <script src="i18n.js" defer></script>
+    <!-- v8.7: rettet-spezifische i18n-Erweiterung. Laeuft nach i18n.js (defer-Reihenfolge), vor DOMContentLoaded. -->
+    <script src="rettet/i18n-rettet.js" defer></script>
     <!-- Briefing 2026-05-20 Sektion D: zentrales LP-Tracking (data-track-* + scroll-depth + kaufseite_redirect) -->
     <script src="scripts/tracking.js" defer></script>
 
