@@ -4615,13 +4615,13 @@
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 767px) {
 
-            /* ─── HERO: H1+Sub vertikal zentriert in der Sektion, CTA absolut unten (v8.3) ─── */
+            /* ─── HERO: H1+Sub im oberen Drittel, CTA absolut unten (v8.4) ─── */
             #hero, .hero-stack {
                 min-height: 100svh !important;
-                padding-top: 0 !important;
+                padding-top: 28svh !important;     /* ~15% ueber der Mitte */
                 padding-bottom: 0 !important;
-                gap: 0 !important;
-                justify-content: center !important;
+                gap: clamp(0.75rem, 2vh, 1.25rem) !important;
+                justify-content: flex-start !important;
                 align-items: center !important;
                 position: relative !important;
             }
@@ -4637,7 +4637,6 @@
                 padding: 0 1.25rem !important;
             }
             #hero .hero-h1-reveal {
-                /* v8.3: +20% ueber v8.1 (3rem -> 3.6rem, 13vw -> 15.6vw, 4.5rem -> 5.4rem) */
                 font-size: clamp(3.6rem, 15.6vw, 5.4rem) !important;
                 line-height: 1 !important;
                 letter-spacing: -0.03em !important;
@@ -4645,7 +4644,9 @@
                 margin: 0 auto 1rem !important;
             }
             #hero .hero-sub {
-                font-size: clamp(1.05rem, 4.4vw, 1.3rem) !important;
+                /* v8.4: Sub-Text deutlich groesser (User: "wieso ist der text so klein") */
+                font-size: clamp(1.2rem, 5vw, 1.55rem) !important;
+                line-height: 1.45 !important;
                 text-align: center !important;
                 margin: 0 auto !important;
             }
@@ -4660,10 +4661,7 @@
                 justify-content: center !important;
                 margin: 0 !important;
             }
-            #hero .hero-cta-btn {
-                padding: 16px 36px !important;
-                font-size: 1rem !important;
-            }
+            /* v8.4: CTA-Button-Override RAUS (User: "macht den rueckgaengig"), faellt zurueck auf Default-Mobile */
 
             /* ─── KREISLAUF: SCROLL-HIJACK (vertikales Scrollen -> horizontale Translation) ───
                User-Wunsch: beim Runterscrollen sollen die 4 Steps automatisch durchlaufen,
