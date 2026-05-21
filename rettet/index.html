@@ -4615,16 +4615,24 @@
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 767px) {
 
-            /* ─── HERO: nur CTA unten zentriert, Headline+Sub+Rating ausgeblendet (User v8) ─── */
+            /* ─── HERO: H1+Sub oben, CTA unten zentriert, Rating-Pill aus (User v8.1) ─── */
             #hero, .hero-stack {
                 min-height: 100svh !important;
-                padding-top: 0 !important;
+                padding-top: clamp(4.5rem, 10vh, 6.5rem) !important;
                 padding-bottom: clamp(3rem, 9vh, 5rem) !important;
-                gap: 0 !important;
-                justify-content: flex-end !important;
+                gap: clamp(1rem, 2.5vh, 1.75rem) !important;
+                justify-content: space-between !important;
                 align-items: center !important;
             }
-            #hero .hero-top { display: none !important; }
+            #hero .hero-top { display: block !important; }
+            #hero .hero-h1-reveal {
+                font-size: clamp(2.3rem, 9.5vw, 3.4rem) !important;
+                line-height: 1.02 !important;
+                letter-spacing: -0.025em !important;
+            }
+            #hero .hero-sub {
+                font-size: clamp(1rem, 4.2vw, 1.2rem) !important;
+            }
             #hero .hero-rating-row { display: none !important; }
             #hero .hero-bottom {
                 position: static !important;
@@ -5385,6 +5393,18 @@
             }, { threshold: 0.25 });
             observer.observe(group);
         });
+
+        // === v8: bei Refresh immer oben starten (Hero), nie irgendwo mitten in der Seite ===
+        try {
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            // Hash am Page-Load ignorieren: <base href="../"> + Browser-Scroll-Restore haben unsaubere Edge-Cases
+            if (!location.hash) {
+                window.scrollTo(0, 0);
+            }
+            window.addEventListener('pageshow', function(ev){
+                if (ev.persisted && !location.hash) window.scrollTo(0, 0);
+            });
+        } catch(e) {}
 
         // === Briefing 2026-05-20 v5: Hero-Buttons mit data-no-nav abfangen (kein Redirect) ===
         try {
