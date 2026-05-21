@@ -8,3 +8,5 @@ Thumbs.db
 dist/
 *.log
 .claude/
+# Project-scoped Skills muessen mit (whitelist via -f beim ersten add).
+# Aktuell unter Versionskontrolle: .claude/skills/lp-tracking-client/
