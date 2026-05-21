@@ -1623,11 +1623,6 @@
             </div>
         </div>
 
-        <!-- v8.5: Scroll-Indikator unten mittig, scrollt zur naechsten Sektion -->
-        <a href="#kreislauf" class="hero-scroll-indicator" aria-label="Nach unten scrollen">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </a>
-
         <!-- LAYER 3: Trust-Pills (.white-pill-button) entfernt aus Hero per Briefing 2026-05-20 v2
              (User-Wunsch: Hero soll mysterioes bleiben, kein Produkt-Reveal, weniger Elemente).
              Original-Markup ist im Git-Verlauf (Commit a6449dd → 62d695f) erhalten und kann
@@ -2592,6 +2587,11 @@
         <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
 
+    <!-- v8.6: Persistenter Scroll-Indikator als Body-Level-Overlay (immer sichtbar, z above all) -->
+    <button id="page-scroll-indicator" class="page-scroll-indicator" aria-label="Nach unten scrollen" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+
     <!-- Scroll Indicator (hidden) -->
     <div class="scroll-indicator" id="scroll-indicator" style="display:none;">
         <span class="scroll-indicator-text" data-i18n="scroll">SCROLL</span>
@@ -3475,31 +3475,43 @@
         .stagger-reveal.is-revealed > *:nth-child(4) { transition-delay: 240ms; }
         .stagger-reveal.is-revealed > * { opacity: 1; transform: translateY(0); }
 
-        /* === v8.5: Hero Scroll-Indikator (unten mittig, pulse) === */
-        .hero-scroll-indicator {
-            position: absolute;
+        /* === v8.6: Page-Scroll-Indikator (persistent, fixed overlay, immer sichtbar) === */
+        .page-scroll-indicator {
+            position: fixed;
             left: 50%;
-            bottom: 1.1rem;
+            bottom: clamp(0.85rem, 2.5vh, 1.4rem);
             transform: translateX(-50%);
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.75);
-            opacity: 0.85;
-            animation: hero-scroll-bounce 1.8s ease-in-out infinite;
-            z-index: 6;
-            text-decoration: none;
+            color: #fff;
+            background: rgba(15,23,42,0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 999px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.22);
+            cursor: pointer;
+            padding: 0;
+            z-index: 9999;
+            animation: page-scroll-bounce 1.8s ease-in-out infinite;
+            transition: opacity .25s ease, transform .25s ease;
         }
-        .hero-scroll-indicator svg { width: 24px; height: 24px; }
-        .hero-scroll-indicator:hover { color: #fff; opacity: 1; }
-        @keyframes hero-scroll-bounce {
+        .page-scroll-indicator svg { width: 22px; height: 22px; }
+        .page-scroll-indicator:hover { background: rgba(15,23,42,0.78); }
+        .page-scroll-indicator.is-near-end {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 12px);
+        }
+        @keyframes page-scroll-bounce {
             0%, 100% { transform: translate(-50%, 0); }
             50%      { transform: translate(-50%, 6px); }
         }
         @media (prefers-reduced-motion: reduce) {
-            .hero-scroll-indicator { animation: none; }
+            .page-scroll-indicator { animation: none; }
         }
 
         /* === Hero-H1: Word-by-Word Reveal === */
@@ -5447,6 +5459,29 @@
             }, { threshold: 0.25 });
             observer.observe(group);
         });
+
+        // === v8.6: Page-Scroll-Indikator — scrollt 1 Viewport runter, hidet sich am Seitenende ===
+        try {
+            var psi = document.getElementById('page-scroll-indicator');
+            if (psi) {
+                psi.addEventListener('click', function(ev){
+                    ev.preventDefault();
+                    window.scrollBy({ top: window.innerHeight * 0.92, behavior: 'smooth' });
+                });
+                var psiTick = false;
+                function psiUpdate() {
+                    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    var nearEnd = (window.scrollY >= maxScroll - 120);
+                    psi.classList.toggle('is-near-end', nearEnd);
+                    psiTick = false;
+                }
+                window.addEventListener('scroll', function(){
+                    if (!psiTick) { psiTick = true; requestAnimationFrame(psiUpdate); }
+                }, { passive: true });
+                window.addEventListener('resize', psiUpdate);
+                psiUpdate();
+            }
+        } catch(e) {}
 
         // === v8: bei Refresh immer oben starten (Hero), nie irgendwo mitten in der Seite ===
         try {
