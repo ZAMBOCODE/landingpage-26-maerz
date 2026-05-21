@@ -1535,7 +1535,9 @@
 
     <!-- === DEV-ONLY Section-Label-Badge (sticky top-left) — entfernen mit ?prod=1 in URL === -->
     <style>
-        .dev-section-badge {
+        /* v8: dev-section-badge permanent aus (User-Wunsch) */
+        .dev-section-badge { display: none !important; }
+        .dev-section-badge--orig {
             position: fixed;
             top: 76px;
             left: 12px;
@@ -1629,7 +1631,6 @@
                 <!-- ORIG-Eyebrow: "Warum dein Abend laut bleibt" -->
                 <!-- ORIG-H2: "Wie ein 'lauter' Abend deinen Morgen zerstören kann" -->
                 <div class="kr-head">
-                    <span class="kr-eyebrow">Womit dein Abend Stress ist.</span>
                     <h2 id="kreislauf-h" class="kr-h2"><em>Wie dein Abend deinen Morgen zerst&ouml;ren kann.</em></h2>
                 </div>
 
@@ -1991,7 +1992,6 @@
         <div class="zahlen-wrap">
             <!-- Briefing 2026-05-20 v2: keine grosse H2, nur die Lead-Zeile als Headline -->
             <div class="zahlen-head">
-                <span>In Zahlen</span>
                 <p class="zahlen-lead">Vier Zahlen, die unser Versprechen tragen.</p>
             </div>
             <div class="zahlen-grid" data-checkmark-group>
@@ -2026,7 +2026,6 @@
             <!-- Begründung Umbau: "Apotheker" = Krankheits-Assoziation, "Kontrolle" = negativ besetzt,
                  "nicht anonym" = semantisch leer. Neue Linie: 3 Pillars (Wissenschaft + Qualität + Transparenz). -->
             <div class="authority-head" data-sr="1">
-                <span>Hinter der Formel</span>
                 <h2>Unsere Formel: <span class="authority-plus">Wissenschaft + Qualit&auml;t + Transparenz</span></h2>
             </div>
             <div class="authority-grid">
@@ -2056,7 +2055,6 @@
     <section id="routine-abend" class="routine-section">
         <div id="ra-wrapper" class="ra-wrapper">
             <div class="routine-head">
-                <span>Wie du es richtig machst</span>
                 <h2 class="h2-reveal">Drei Minuten, und deine Routine startet.</h2>
                 <p>Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
             </div>
@@ -2098,7 +2096,6 @@
         <div style="max-width:1600px; margin:0 auto; position:relative; width:100%;">
             <!-- Header -->
             <div style="text-align:center; margin-bottom:2.5rem;" class="wirkung-header">
-                <span class="wirkung-pill" style="display:inline-block; font-family:'Fraunces',serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#851330; margin-bottom:1rem;" data-i18n="wirk.pill">Das Prinzip hinter zZzlim&reg;</span>
                 <h2 class="h2-reveal" style="font-family:'Fraunces',serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; line-height:1.1; letter-spacing:-0.02em; color:#0f172a;" data-i18n="wirk.title">Die 3 Säulen von zZzlim&reg;</h2>
                 <p style="font-family:'Fraunces',serif; font-size:clamp(0.875rem,1.5vw,1rem); color:#475569; margin-top:1rem; max-width:38rem; margin-left:auto; margin-right:auto; line-height:1.6;" data-i18n="wirk.subtitle">Ein aufeinander abgestimmter Komplex, der deinen Körper nachts in drei Phasen unterstützt.</p>
             </div>
@@ -2309,8 +2306,8 @@
                 <!-- "Dein Risiko: null" / "60 Tage Geld-zurueck...Pause-Funktion" / "Ab 1,17 EUR..." entfernt per User 2026-05-20 v3 -->
 
             </div>
+            <!-- v8: 5MB Hero-Bild raus (zu langsam), reines Burgundy-Panel mit subtilem Gradient -->
             <div class="final-cta-visual" aria-hidden="true">
-                <img src="media/product-hero-bedroom.png" alt="" loading="lazy" decoding="async">
                 <div class="final-cta-overlay"></div>
             </div>
         </div>
@@ -2552,23 +2549,16 @@
         .final-cta-visual {
             position: relative;
             overflow: hidden;
-            background: #2a0a16;
-        }
-        .final-cta-visual img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 35%;
-            filter: saturate(0.85) brightness(0.85);
+            /* v8: ohne Hero-Bild — Burgundy-Gradient als Panel-Hintergrund */
+            background:
+                radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.06), transparent 60%),
+                linear-gradient(135deg, #6d0e25 0%, #851330 45%, #4a0717 100%);
         }
         .final-cta-overlay {
             position: absolute;
             inset: 0;
             background:
-                linear-gradient(to right, #851330 0%, rgba(133,19,48,0.45) 22%, transparent 60%),
-                linear-gradient(to bottom, transparent 60%, rgba(20,5,10,0.45) 100%);
+                linear-gradient(to right, transparent 0%, rgba(20,5,10,0.18) 100%);
             pointer-events: none;
         }
         @media (max-width: 820px) {
@@ -2576,16 +2566,9 @@
                 grid-template-columns: 1fr;
                 min-height: 0;
             }
-            .final-cta-visual {
-                height: clamp(180px, 38vh, 260px);
-                order: 2;
-            }
+            /* v8: kein Hero-Bild mehr, daher Visual-Panel auf Mobile komplett aus */
+            .final-cta-visual { display: none !important; }
             .final-cta-text { order: 1; }
-            .final-cta-overlay {
-                background:
-                    linear-gradient(to top, #851330 0%, rgba(133,19,48,0.4) 30%, transparent 70%),
-                    linear-gradient(to bottom, rgba(20,5,10,0.25) 0%, transparent 50%);
-            }
         }
     </style>
 
@@ -4017,14 +4000,8 @@
             border-bottom: 1px solid rgba(15,23,42,0.06);
             margin-bottom: 0.85rem;
         }
-        .tm-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #FDF2F0;
-            flex-shrink: 0;
-        }
+        /* User v8: keine Bilder von Personen in den Testimonials */
+        .tm-avatar { display: none !important; }
         .tm-meta { flex: 1; min-width: 0; }
         .tm-name {
             display: flex;
@@ -4638,22 +4615,31 @@
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 767px) {
 
-            /* ─── HERO: groessere H1, 100svh-Fix, weniger Padding ─── */
+            /* ─── HERO: nur CTA unten zentriert, Headline+Sub+Rating ausgeblendet (User v8) ─── */
             #hero, .hero-stack {
                 min-height: 100svh !important;
-                padding-top: clamp(4.5rem, 10vh, 6.5rem) !important;
-                padding-bottom: clamp(1.5rem, 4vh, 2.5rem) !important;
-                gap: clamp(1rem, 2.5vh, 1.75rem) !important;
+                padding-top: 0 !important;
+                padding-bottom: clamp(3rem, 9vh, 5rem) !important;
+                gap: 0 !important;
+                justify-content: flex-end !important;
+                align-items: center !important;
             }
-            #hero .hero-h1-reveal {
-                font-size: clamp(2.3rem, 9.5vw, 3.4rem) !important;
-                line-height: 1.02 !important;
-                letter-spacing: -0.025em !important;
+            #hero .hero-top { display: none !important; }
+            #hero .hero-rating-row { display: none !important; }
+            #hero .hero-bottom {
+                position: static !important;
+                transform: none !important;
+                left: auto !important;
+                bottom: auto !important;
+                width: auto !important;
+                display: flex !important;
+                justify-content: center !important;
+                margin: 0 auto !important;
             }
-            #hero .hero-sub {
-                font-size: clamp(1rem, 4.2vw, 1.2rem) !important;
+            #hero .hero-cta-btn {
+                padding: 16px 36px !important;
+                font-size: 1rem !important;
             }
-            #hero .hero-rating-row { font-size: 0.8rem; }
 
             /* ─── KREISLAUF: SCROLL-HIJACK (vertikales Scrollen -> horizontale Translation) ───
                User-Wunsch: beim Runterscrollen sollen die 4 Steps automatisch durchlaufen,
@@ -4811,9 +4797,14 @@
             #authority .authority-card:hover { transform: none !important; }
 
             /* ─── TESTIMONIALS: SCROLL-HIJACK (gleiches Pattern, 4 Cards) ─── */
+            /* User-Feedback v8: sticky war kaputt (overflow:hidden auf .tm-section war Killer),
+               zu viel Whitespace, zu langsam. Fix: overflow:visible, kuerzer (280svh statt 360svh). */
+            #testimonials-real, .tm-section {
+                overflow: visible !important;
+            }
             main > section#testimonials-real {
                 min-height: 0 !important;
-                height: 360svh !important;     /* 4 Cards × ~90vh of vertical scroll */
+                height: 280svh !important;     /* 4 Cards x ~70vh vertical scroll (war 360svh = zu langsam) */
                 padding: 0 !important;
                 display: block !important;
                 position: relative !important;
@@ -4920,6 +4911,15 @@
             #routine-abend .routine-step::before { display: none !important; }
             #routine-abend .routine-line-track,
             #routine-abend .routine-line-fill { display: none !important; }
+            /* User v8: Sternchen-Disclaimer mittig zentriert, kein left-bleed */
+            #routine-abend .routine-disclaimer {
+                text-align: center !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                max-width: 100% !important;
+            }
 
             /* ─── PRODUKT-INFO: Dose mittig zentriert ─── */
             #produkt-info .produkt-image,
