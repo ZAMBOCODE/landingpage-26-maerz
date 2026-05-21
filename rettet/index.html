@@ -1917,6 +1917,46 @@
     </section>
 
 
+    <!-- v8.8: Routine-Section ("3 Minuten") VOR Produkt-Info verschoben -
+         erklaert dem User den Einsatz BEVOR das Produkt vorgestellt wird. -->
+    <!-- === Lifestyle: Dein 22-Uhr-Abend — vertikaler Zeitstrahl mit Uhrzeit-Spalte LINKS + animierter Progress-Linie === -->
+    <section id="routine-abend" class="routine-section">
+        <div id="ra-wrapper" class="ra-wrapper">
+            <div class="routine-head">
+                <h2 class="h2-reveal" data-i18n="rettet.ra.h2">Drei Minuten, und deine Routine startet.</h2>
+                <p data-i18n="rettet.ra.sub">Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
+            </div>
+            <div class="routine-timeline">
+                <div class="routine-line-track" aria-hidden="true"></div>
+                <div id="routine-line-fill" class="routine-line-fill" aria-hidden="true"></div>
+                <ol class="routine-steps">
+                    <li class="routine-step" data-ra-step="0">
+                        <span class="routine-time">22:00</span>
+                        <div class="routine-content">
+                            <h3 data-i18n="rettet.ra.s1.h">Das letzte Licht wird w&auml;rmer.</h3>
+                            <p data-i18n="rettet.ra.s1.p">Helle Decken-Lampen aus. Eine kleine Lampe, warm get&ouml;ntes Licht, vielleicht ein Buch. Dein K&ouml;rper liest das als „Tag ist vorbei."</p>
+                        </div>
+                    </li>
+                    <li class="routine-step" data-ra-step="1">
+                        <span class="routine-time">22:30</span>
+                        <div class="routine-content">
+                            <h3 data-i18n="rettet.ra.s2.h">Eine Kapsel zZzlim&reg;, ein Glas Wasser.</h3>
+                            <p data-i18n="rettet.ra.s2.p">Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem K&ouml;rper nur das Signal, das ihm im Stress fehlt.</p>
+                        </div>
+                    </li>
+                    <li class="routine-step" data-ra-step="2">
+                        <span class="routine-time">06:30</span>
+                        <div class="routine-content">
+                            <h3 data-i18n="rettet.ra.s3.h">Der Morgen f&auml;ngt anders an.</h3>
+                            <p data-i18n="rettet.ra.s3.p">Kein Wunder, kein Knock-out. Der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zur&uuml;ckkriechen.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <p class="routine-disclaimer" data-i18n="rettet.ra.disclaimer">*Melatonin tr&auml;gt zur Verk&uuml;rzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
+        </div>
+    </section>
+
     <section id="produkt-info" style="padding:5rem clamp(1rem, 4vw, 2rem); background:#ffffff; font-family:'Fraunces',serif; overflow:hidden; min-height:100vh; min-height:100dvh; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; -webkit-justify-content:center; justify-content:center;">
         <div style="max-width:1600px; margin:0 auto; width:100%;">
             <div style="text-align:center; margin-bottom:0.75rem;">
@@ -2043,44 +2083,7 @@
         </div>
     </section>
 
-    <!-- === Lifestyle: Dein 22-Uhr-Abend — vertikaler Zeitstrahl mit Uhrzeit-Spalte LINKS + animierter Progress-Linie === -->
-    <section id="routine-abend" class="routine-section">
-        <div id="ra-wrapper" class="ra-wrapper">
-            <div class="routine-head">
-                <h2 class="h2-reveal" data-i18n="rettet.ra.h2">Drei Minuten, und deine Routine startet.</h2>
-                <p data-i18n="rettet.ra.sub">Keine Methode, keine 30-Schritte-App. Eine kleine Verschiebung in den Stunden vor dem Schlafen.</p>
-            </div>
-            <!-- v5.1 fix: line-track/fill als Siblings der OL (vorher: divs IN ol war invalid HTML -> Browser hat sie rausverschoben -> Layout kaputt) -->
-            <div class="routine-timeline">
-                <div class="routine-line-track" aria-hidden="true"></div>
-                <div id="routine-line-fill" class="routine-line-fill" aria-hidden="true"></div>
-                <ol class="routine-steps">
-                    <li class="routine-step" data-ra-step="0">
-                        <span class="routine-time">22:00</span>
-                        <div class="routine-content">
-                            <h3 data-i18n="rettet.ra.s1.h">Das letzte Licht wird w&auml;rmer.</h3>
-                            <p data-i18n="rettet.ra.s1.p">Helle Decken-Lampen aus. Eine kleine Lampe, warm get&ouml;ntes Licht, vielleicht ein Buch. Dein K&ouml;rper liest das als „Tag ist vorbei."</p>
-                        </div>
-                    </li>
-                    <li class="routine-step" data-ra-step="1">
-                        <span class="routine-time">22:30</span>
-                        <div class="routine-content">
-                            <h3 data-i18n="rettet.ra.s2.h">Eine Kapsel zZzlim&reg;, ein Glas Wasser.</h3>
-                            <p data-i18n="rettet.ra.s2.p">Melatonin braucht ca. 30 Minuten, um die Einschlafschwelle abzusenken.* Du musst nichts tun. Du gibst deinem K&ouml;rper nur das Signal, das ihm im Stress fehlt.</p>
-                        </div>
-                    </li>
-                    <li class="routine-step" data-ra-step="2">
-                        <span class="routine-time">06:30</span>
-                        <div class="routine-content">
-                            <h3 data-i18n="rettet.ra.s3.h">Der Morgen f&auml;ngt anders an.</h3>
-                            <p data-i18n="rettet.ra.s3.p">Kein Wunder, kein Knock-out. Der Wecker klingelt, und du musst nicht erst eine Stunde lang ins Leben zur&uuml;ckkriechen.</p>
-                        </div>
-                    </li>
-                </ol>
-            </div>
-            <p class="routine-disclaimer" data-i18n="rettet.ra.disclaimer">*Melatonin tr&auml;gt zur Verk&uuml;rzung der Einschlafzeit bei (EU-Verordnung 432/2012). Wirkung tritt ein bei einer Aufnahme von 1&nbsp;mg kurz vor dem Schlafengehen.</p>
-        </div>
-    </section>
+    <!-- v8.8: routine-abend wurde nach oben (vor #produkt-info) verschoben. -->
 
     <!-- TODO Sam Review (Briefing B.2): "3 Säulen" + "Eine Kapsel"-Block evtl. direkt vor
          "Hinter der Formel" platzieren (also gemeinsam mit #authority an die Stelle vor #faq-section). -->
