@@ -2,9 +2,14 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "rettet.zzzlim.de" }],
-      "destination": "/rettet/:path*"
+      "destination": "/rettet/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "rettet.zzzlim.de" }],
+      "destination": "/rettet/$1"
     }
   ]
 }
