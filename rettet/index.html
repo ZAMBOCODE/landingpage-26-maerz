@@ -4615,14 +4615,15 @@
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 767px) {
 
-            /* ─── HERO: H1+Sub oben, CTA unten zentriert, Rating-Pill aus (User v8.1) ─── */
+            /* ─── HERO: H1+Sub vertikal zentriert in der Sektion, CTA absolut unten (v8.3) ─── */
             #hero, .hero-stack {
                 min-height: 100svh !important;
-                padding-top: clamp(4.5rem, 10vh, 6.5rem) !important;
-                padding-bottom: clamp(3rem, 9vh, 5rem) !important;
-                gap: clamp(1rem, 2.5vh, 1.75rem) !important;
-                justify-content: space-between !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                gap: 0 !important;
+                justify-content: center !important;
                 align-items: center !important;
+                position: relative !important;
             }
             #hero .hero-top {
                 display: block !important;
@@ -4636,7 +4637,8 @@
                 padding: 0 1.25rem !important;
             }
             #hero .hero-h1-reveal {
-                font-size: clamp(3rem, 13vw, 4.5rem) !important;
+                /* v8.3: +20% ueber v8.1 (3rem -> 3.6rem, 13vw -> 15.6vw, 4.5rem -> 5.4rem) */
+                font-size: clamp(3.6rem, 15.6vw, 5.4rem) !important;
                 line-height: 1 !important;
                 letter-spacing: -0.03em !important;
                 text-align: center !important;
@@ -4649,14 +4651,14 @@
             }
             #hero .hero-rating-row { display: none !important; }
             #hero .hero-bottom {
-                position: static !important;
-                transform: none !important;
-                left: auto !important;
-                bottom: auto !important;
+                position: absolute !important;
+                left: 50% !important;
+                bottom: clamp(2rem, 6vh, 3.5rem) !important;
+                transform: translateX(-50%) !important;
                 width: auto !important;
                 display: flex !important;
                 justify-content: center !important;
-                margin: 0 auto !important;
+                margin: 0 !important;
             }
             #hero .hero-cta-btn {
                 padding: 16px 36px !important;
