@@ -1,3 +1,9 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/track",
+      "destination": "https://zzzlim-dashboard.vercel.app/api/track"
+    }
+  ]
 }

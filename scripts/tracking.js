@@ -93,15 +93,27 @@
 
   // ───────── LP context ─────────
   function inferLpId(){
-    var b = document.body; if (b && b.dataset.lp) return b.dataset.lp;
-    var h = location.hostname.split('.')[0];
-    if (h === 'rettet' || h === 'zucker' || h === 'k2') return h;
+    var b = document.body;
+    // Beide Attribute akzeptieren — data-lp (canonical) + data-lp-id (legacy)
+    if (b) {
+      if (b.dataset.lp)   return b.dataset.lp;
+      if (b.dataset.lpId) return b.dataset.lpId;
+    }
+    // Hostname-Fallback: erstes Sub-Domain-Segment (mude.zzzlim.de -> 'mude').
+    // Ohne Whitelist, damit neue LPs ohne SDK-Edit auskommen.
+    var parts = location.hostname.split('.');
+    if (parts.length >= 3 && parts[0] && parts[0] !== 'www') return parts[0];
     return 'unknown';
   }
-  var LP = {
-    id: inferLpId(),
-    variant: (document.body && document.body.dataset.lpVariant) || (parseQuery().lp_variant) || 'default'
-  };
+  function inferLpVariant(){
+    var b = document.body;
+    if (b) {
+      if (b.dataset.lpVariant)   return b.dataset.lpVariant;
+      if (b.dataset.lpIdVariant) return b.dataset.lpIdVariant;
+    }
+    return parseQuery().lp_variant || 'default';
+  }
+  var LP = { id: inferLpId(), variant: inferLpVariant() };
 
   // ───────── Identity (session + client) ─────────
   function getOrInitClientId(){
@@ -472,8 +484,42 @@
     });
   }
 
-  // 12. web_vitals via CDN
+  // 13. consent_banner — view + accept + reject + ignore (page-hide ohne Wahl)
+  function initConsentTracking(){
+    var banner = document.getElementById('cookie-consent');
+    if (!banner || sessionStorage.getItem('zz_consent_view_fired') === '1') {
+      // Banner-View nur 1x pro Session — danach nur noch Accept/Reject-Klicks tracken
+    } else {
+      // Erst wenn Banner wirklich sichtbar wird (style.display != 'none')
+      var checkVisible = function(){
+        if (banner.offsetParent !== null && getComputedStyle(banner).display !== 'none') {
+          sessionStorage.setItem('zz_consent_view_fired', '1');
+          emit('consent_banner_view', { current: consentLevel() || 'none' });
+          return true;
+        }
+        return false;
+      };
+      if (!checkVisible()) {
+        // Banner-Erscheinung mit setTimeout-Delay (erklaer.js Pattern)
+        var mo = new MutationObserver(function(){ if (checkVisible()) mo.disconnect(); });
+        mo.observe(banner, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+    }
+    var accept = document.getElementById('cookie-accept');
+    var reject = document.getElementById('cookie-reject');
+    if (accept) accept.addEventListener('click', function(){ emit('consent_accept', {}); }, { capture: true });
+    if (reject) reject.addEventListener('click', function(){ emit('consent_reject', {}); }, { capture: true });
+    // Ignored = User verlaesst Seite ohne aktive Wahl
+    window.addEventListener('pagehide', function(){
+      if (consentLevel() == null && sessionStorage.getItem('zz_consent_view_fired') === '1') {
+        emit('consent_ignored', {});
+      }
+    });
+  }
+
+  // 12. web_vitals via CDN — bei consent=rejected nicht laden (DSGVO-strict)
   function initWebVitals(){
+    if (consentLevel() === 'rejected') return;
     if (window.__zzzlimWebVitalsLoaded) return;
     window.__zzzlimWebVitalsLoaded = true;
     var s = document.createElement('script');
@@ -507,6 +553,7 @@
     initFaqTracking();
     initExitIntent();
     initCopyTracking();
+    initConsentTracking();
     initWebVitals();
 
     // Re-enrich after any late-rendered DOM (mobile menu, modal CTAs)
