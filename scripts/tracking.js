@@ -203,11 +203,16 @@
     props = props || {};
     var consent = consentLevel();
     var anonymous = consent !== 'accepted';
+    // session_id auch ohne Consent senden: er ist eine rotierende Zufalls-ID (30min TTL),
+    // identifiziert die Person NICHT cross-site und traegt keine UTM/client_id. Damit zaehlt
+    // der Funnel anonyme technische Sessions (Sektionen/Scroll), was der Cookie-Banner
+    // ausdruecklich erlaubt ("Anonyme technische Statistik ist immer aktiv"). client_id,
+    // UTM und Attribution bleiben hart hinter Consent.
     var base = {
       event: event,
       lp_id: LP.id,
       lp_variant: LP.variant,
-      session_id: anonymous ? null : SESSION_ID,
+      session_id: SESSION_ID,
       client_id:  anonymous ? null : CLIENT_ID,
       utm:        anonymous ? null : (ATTRIB.last || ATTRIB.first || null),
       attrib:     anonymous ? null : { first: ATTRIB.first, last: ATTRIB.last, clickIds: ATTRIB.clickIds },
