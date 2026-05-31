@@ -11,9 +11,12 @@
    3.  section_view         — IO threshold 0.5, once per section id
    4.  section_dwell        — seconds in viewport on exit
    5.  video_*              — play / progress 25/50/75 / complete
-   6.  lp_click             — every [data-cta] / data-track-* click
+   6.  lp_click             — Klick auf [data-cta]/CTA (+ x/y/selector/label/tag)
+   6b. element_click        — JEDER andere Klick auf a/button/role=button (+ x/y/...)
    7.  kaufseite_redirect   — outbound to zzzlim.de (own beacon, sendBeacon)
    8.  cta_hover_dwell      — hover >1.2s without click on [data-cta]
+   8b. dead_click           — Klick auf cursor:pointer-Element ohne echtes Ziel (+ x/y)
+   8c. rage_click           — >=3 schnelle Klicks im 40px-Radius <1s (+ x/y/count)
    9.  faq_open             — <details> + accessible accordion .faq-item buttons
    10. exit_intent          — mouseleave Richtung Top-Tab, once per session
    11. copy_event           — selectionchange + copy
@@ -388,16 +391,78 @@
     });
   }
 
-  // 6. lp_click — every [data-cta] / [data-track-cta-type]
-  // 7. kaufseite_redirect — outbound to zzzlim.de
-  // 8. cta_hover_dwell — hover >1.2s no click
+  // 6.  lp_click          — JEDER Klick auf a/button/CTA (nicht nur [data-cta])
+  // 7.  kaufseite_redirect — outbound to zzzlim.de
+  // 8.  cta_hover_dwell    — hover >1.2s no click
+  // 8b. dead_click         — Klick auf scheinbar klickbares Element (cursor:pointer)
+  //                          das keinen echten Link/Button trifft (Clarity-Style)
+  // 8c. rage_click         — >=3 schnelle Klicks dicht beieinander (Frust-Signal)
+  // Koordinaten (x/y/viewport) haengen an jedem Klick-Event -> Klick-Heatmap moeglich.
+  var INTERACTIVE_SEL = 'a, button, [role="button"], [data-cta], [data-track-cta-type], input, select, textarea, label, summary, details, [onclick], [tabindex]';
+
   function initClickTracking(){
     var hoverTimers = new WeakMap();
     var clicked = new WeakSet();
+    var recentClicks = [];  // {t,x,y} fuer Rage-Detection
+    var rageFiredAt = 0;
+
+    function coordsOf(ev){
+      return {
+        x: Math.round(ev.clientX || 0),
+        y: Math.round(ev.clientY || 0),
+        page_x: ev.pageX != null ? Math.round(ev.pageX) : null,
+        page_y: ev.pageY != null ? Math.round(ev.pageY) : null,
+        vw: window.innerWidth,
+        vh: window.innerHeight
+      };
+    }
+    function labelOf(el){
+      if (!el || !el.getAttribute) return null;
+      var t = (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ');
+      return t ? t.slice(0, 80) : null;
+    }
+    function selectorOf(el){
+      if (!el || !el.tagName) return null;
+      var s = el.tagName.toLowerCase();
+      if (el.id) return (s + '#' + el.id).slice(0, 80);
+      if (el.className && typeof el.className === 'string') {
+        var c = el.className.trim().split(/\s+/).slice(0, 2).join('.');
+        if (c) s += '.' + c;
+      }
+      return s.slice(0, 80);
+    }
+    function looksClickable(el){
+      try { return window.getComputedStyle(el).cursor === 'pointer'; } catch(e){ return false; }
+    }
 
     document.addEventListener('click', function(ev){
-      var el = ev.target && ev.target.closest && ev.target.closest('a[data-cta], button[data-cta], a[data-track-cta-type], button[data-track-cta-type]');
-      if (!el) return;
+      var c = coordsOf(ev);
+
+      // --- Rage-Detection: >=3 Klicks in <1s im 40px-Radius ---
+      var now = nowMs();
+      recentClicks = recentClicks.filter(function(p){ return now - p.t < 1000; });
+      recentClicks.push({ t: now, x: c.x, y: c.y });
+      var near = recentClicks.filter(function(p){ return Math.abs(p.x - c.x) < 40 && Math.abs(p.y - c.y) < 40; });
+      if (near.length >= 3 && now - rageFiredAt > 1500) {
+        rageFiredAt = now;
+        emit('rage_click', { x: c.x, y: c.y, vw: c.vw, vh: c.vh, count: near.length, selector: selectorOf(ev.target) });
+      }
+
+      // --- Naechstes interaktives Ziel ---
+      var interactive = ev.target && ev.target.closest && ev.target.closest(INTERACTIVE_SEL);
+
+      if (!interactive) {
+        // Nur als dead_click werten, wenn das Element klickbar AUSSIEHT (cursor:pointer),
+        // aber nichts ausloest -> sonst zu viel Rauschen durch Klicks auf Text/Whitespace.
+        if (looksClickable(ev.target)) {
+          emit('dead_click', { x: c.x, y: c.y, vw: c.vw, vh: c.vh, selector: selectorOf(ev.target), label: labelOf(ev.target) });
+        }
+        return;
+      }
+
+      // CTA hat Vorrang (fuer Section/Position/Conversion-Logik), sonst generischer Button/Link
+      var cta = interactive.closest('[data-cta], [data-track-cta-type]');
+      var el = cta || interactive;
       clicked.add(el);
       var ds = el.dataset || {};
       var href = el.getAttribute && el.getAttribute('href') || null;
@@ -414,10 +479,17 @@
         section: ds.trackSection || null,
         position: ds.trackPosition || null,
         target: ds.trackTarget || null,
-        label: ds.trackLabel || null,
-        href: href
+        label: ds.trackLabel || labelOf(el),
+        href: href,
+        tag: (el.tagName || '').toLowerCase(),
+        is_cta: !!cta,
+        selector: selectorOf(el),
+        x: c.x, y: c.y, vw: c.vw, vh: c.vh
       };
-      emit('lp_click', payload);
+      // CTA-Klicks bleiben 'lp_click' (Funnel-CTA-Stufe, Top-CTAs, cta_clicks-Rollup
+      // im Handler haengen daran). JEDER andere Button/Link -> 'element_click', damit
+      // die CTA-Metriken sauber bleiben, du aber trotzdem alle Klicks siehst.
+      emit(cta ? 'lp_click' : 'element_click', payload);
       if (isOutboundShop) {
         emit('kaufseite_redirect', payload);
         pixelEvent('InitiateCheckout', { content_ids:['zzzlim-monatskur-30'], value: 49.95, currency:'EUR' });
