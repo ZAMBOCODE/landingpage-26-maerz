@@ -74,7 +74,10 @@ LP-HTML       scripts/tracking.js   Vercel-Edge   Supabase   PrepPilot-UI
 - **Outbound-Enrichment**: utm + clickIds + lp_id MUSS an Links zu *.zzzlim.de angehaengt werden, sonst bricht Shopify-Attribution. MutationObserver fuer dynamisch nachgerenderte Links nutzen.
 - **eventID-Spiegelung**: Meta-Pixel-Event + /api/track muss IMMER mit identischer `pixel_event_id` (UUID) gehen, sonst keine CAPI-Deduplication.
 - **Keine eigene client_id wenn _ga existiert**: GA4-Linker ist auf *.zzzlim.de konfiguriert, eigene UUID ist Fallback.
-- **lp_id aus `<body data-lp="">` lesen**, NICHT hardcoden — das gleiche Skript laeuft auf allen LPs.
+- **lp_id aus `data-lp` lesen**, NICHT hardcoden — das gleiche Skript laeuft auf allen LPs. SDK liest `data-lp` auf `<html>` ODER `<body>`, sonst Hostname-Fallback (k2.zzzlim.de -> 'k2').
+- **JEDE LP-HTML muss `scripts/tracking.js` einbinden** — auch die Root-`index.html` (= k2.zzzlim.de), nicht nur Unterordner. Stand 2026-06-01 hatte die Root-Seite KEIN Tracking -> alle k2-Besucher unsichtbar. Fix: `<script src="scripts/tracking.js" defer>` vor `</body>`.
+- **Dashboard-Repo NIE mit `vercel deploy --prebuilt` deployen.** Der lokale `bun run build` (vite+nitro) baut die `api/`-Vercel-Functions NICHT mit -> `/api/track` faellt aus -> ALLE LP-Beacons 404 (LP-`vercel.json` rewrited dorthin). Immer normaler Cloud-Deploy (`vercel deploy --prod`).
+- **Nach jedem Deploy Smoke-Test:** `node scripts/tracking-smoke-test.mjs` (prueft Seite/Script/voll-SDK/api-track/Beacon je LP). Neue LP: `--domains=neu.zzzlim.de` mitgeben.
 
 ## Workflows
 
@@ -90,7 +93,12 @@ LP-HTML       scripts/tracking.js   Vercel-Edge   Supabase   PrepPilot-UI
 4. Im Vercel-Dashboard Domain `neuerslug.zzzlim.de` zum Projekt + DNS-CNAME setzen
 5. Push -> Vercel auto-deploy
 6. Mit `?debug=1` testen: Console muss `[zzz] lp_view ...` mit `lp_id: "NEUERSLUG"` zeigen
-7. PrepPilot-Skill briefen: `KNOWN_LPS`-Array in `lp-funnel-panel.tsx` ergaenzen
+7. `node scripts/tracking-smoke-test.mjs --domains=neuerslug.zzzlim.de` -> muss gruen sein
+8. Dashboard: NICHTS noetig. Die LP erscheint automatisch im LP-Funnel-Dropdown,
+   sobald der erste Besucher sie oeffnet (Zero-Config via `getKnownLps` =
+   DISTINCT lp_id aus lp_events). Der alte Schritt "KNOWN_LPS-Array ergaenzen"
+   ist OBSOLET. Optional in `lp-known.ts` HOST_HINTS einen huebschen Host
+   eintragen, sonst wird `<lpId>.zzzlim.de` abgeleitet.
 
 ### 2. Event-Typ aendern (z.B. neuer `pricing_toggle`)
 
@@ -157,6 +165,7 @@ NEUE LP wird oft erst spaeter mit Tracking versehen. Beim Final-Polish-Schritt:
 - [ ] Video-Elemente sind echte `<video>` (nicht YouTube-iframe, sonst kein Event)
 - [ ] Sticky-Mobile-CTA hat `data-cta="sticky"`
 - [ ] Outbound-Links zu zzzlim.de werden NICHT manuell utm-getaggt (SDK macht es automatisch)
+- [ ] **Final-Gate: `node scripts/tracking-smoke-test.mjs --domains=DIESE-LP` ist gruen** (Seite/Script/SDK/api-track/Beacon alle ok)
 
 ## Cross-Refs
 
