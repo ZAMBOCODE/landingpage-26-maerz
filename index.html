@@ -2360,5 +2360,9 @@
 
     <script src="erklaer.js" defer></script>
     <script src="i18n.js" defer></script>
+    <!-- LP-Tracking SDK: anonyme Technik-Statistik immer aktiv (DSGVO-ok),
+         lp_id via Hostname-Fallback (k2.zzzlim.de -> 'k2'). Sendet an /api/track
+         (rewrite -> zzzlim-dashboard). Shared mit allen LPs in diesem Repo. -->
+    <script src="scripts/tracking.js" defer></script>
 </body>
 </html>
