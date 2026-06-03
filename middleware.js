@@ -10,6 +10,7 @@ export const config = {
 const HOST_TO_PREFIX = {
   'rettet.zzzlim.de': '/rettet',
   'energie.zzzlim.de': '/energie',
+  'check.zzzlim.de': '/check',
 };
 
 const ASSET_EXTENSION = /\.[a-z0-9]{2,5}(\?.*)?$/i;

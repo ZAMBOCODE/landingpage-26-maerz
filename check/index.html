@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="../" />
+    <title>zZzlim® | Finde heraus, ob zZzlim zu dir passt</title>
+
+    <!-- Analytics (loaded after consent) -->
+    <script type="text/javascript">
+    function loadClarity(){
+        if(window.clarityLoaded)return;window.clarityLoaded=true;
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "w1xi6m0p2u");
+    }
+    function loadGA4(){
+        if(window.ga4Loaded)return;window.ga4Loaded=true;
+        var s=document.createElement('script');
+        s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-5T4DK6TSPE';
+        document.head.appendChild(s);
+        window.dataLayer=window.dataLayer||[];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag=gtag;
+        gtag('js',new Date());
+        gtag('config','G-5T4DK6TSPE',{
+            linker:{domains:['zzzlim.de','k2.zzzlim.de','rettet.zzzlim.de','zucker.zzzlim.de','check.zzzlim.de']}
+        });
+    }
+    function loadFBPixel(){
+        if(window.fbPixelLoaded)return;window.fbPixelLoaded=true;
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+        (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init','2028396997989291');
+        fbq('track','PageView');
+    }
+    if(localStorage.getItem('cookie-consent')==='accepted'){
+        loadClarity();
+        loadGA4();
+        loadFBPixel();
+    }
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2028396997989291&ev=PageView&noscript=1"/></noscript>
+
+    <meta name="description" content="Finde in 60 Sekunden heraus, ob zZzlim zu deinem Abend passt. Ein kurzer, ehrlicher Eignungs-Check. Mit Melatonin, B-Vitaminen und Safran. In Ruhe ausprobieren, 60 Tage Geld-zurück." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://check.zzzlim.de/" />
+    <link rel="alternate" hreflang="de" href="https://check.zzzlim.de/" />
+    <link rel="alternate" hreflang="x-default" href="https://check.zzzlim.de/" />
+    <link rel="icon" type="image/svg+xml" href="LOGOREAL.svg" />
+    <meta property="og:title" content="zZzlim® | Finde heraus, ob zZzlim zu dir passt" />
+    <meta property="og:description" content="Ein kurzer, ehrlicher Check: Passt zZzlim zu deinem Abend? In 60 Sekunden, ohne Druck." />
+    <meta property="og:image" content="/ProductPicZZLIM.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://check.zzzlim.de/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="zZzlim® | Finde heraus, ob zZzlim zu dir passt" />
+    <meta name="twitter:image" content="/ProductPicZZLIM.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="erklaer.css" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "zZzlim® Night Complex",
+      "description": "Natürlicher Mikronährstoff-Komplex mit 14 Inhaltsstoffen für die nächtliche Routine. Melatonin, B-Vitamine, Safran, Nopal-Kaktus.",
+      "brand": { "@type": "Brand", "name": "zZzlim®" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln",
+        "priceCurrency": "EUR",
+        "price": "49.95",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2026-12-31"
+      },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "2847" }
+    }
+    </script>
+
+    <style>
+        /* ─── check.zzzlim.de · LP-spezifisch ─── */
+
+        /* Hero */
+        .check-hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 6rem 1.5rem 4rem;
+            background:
+              radial-gradient(120% 80% at 50% -10%, rgba(134,19,48,0.06), transparent 60%),
+              var(--bg-light);
+            position: relative;
+        }
+        .check-eyebrow {
+            font-family: 'Fraunces', serif; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.14em;
+            font-size: 0.7rem; color: var(--primary); opacity: 0.75; margin-bottom: 1.25rem;
+        }
+        .check-hero h1 {
+            font-family: 'Fraunces', serif; font-weight: 700;
+            font-size: clamp(2.1rem, 6vw, 4rem); line-height: 1.06; letter-spacing: -0.02em;
+            color: var(--text-dark); max-width: 18ch; margin: 0 auto;
+        }
+        .check-hero h1 .it { font-style: italic; color: var(--primary); }
+        .check-hero p.lead {
+            font-family: 'Fraunces', serif; font-size: clamp(1.05rem, 2vw, 1.3rem);
+            color: var(--text-body); line-height: 1.6; max-width: 36rem; margin: 1.5rem auto 0;
+        }
+        .check-hero-meta {
+            display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 1.75rem;
+        }
+        .check-hero-meta span {
+            font-family: 'Onest', sans-serif; font-size: 0.75rem; font-weight: 600;
+            color: var(--text-body); background: rgba(134,19,48,0.07);
+            padding: 0.45rem 0.9rem; border-radius: 999px;
+        }
+        .check-hero .cta-glow { margin-top: 2.25rem; text-decoration: none; }
+
+        /* ─── Quiz ─── */
+        .quiz-section { padding: clamp(3rem,7vw,6rem) 1.5rem; background: #ffffff; }
+        .quiz-shell {
+            max-width: 44rem; margin: 0 auto;
+            background: var(--bg-light); border: 1px solid var(--border-light);
+            border-radius: var(--radius-2xl); padding: clamp(1.5rem, 4vw, 3rem);
+            box-shadow: var(--shadow-soft); position: relative; overflow: hidden;
+        }
+        .quiz-progress { height: 4px; border-radius: 999px; background: rgba(134,19,48,0.1); overflow: hidden; margin-bottom: 2rem; }
+        .quiz-progress-fill { height: 100%; width: 0%; background: var(--primary); border-radius: 999px; transition: width 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .quiz-step { display: none; animation: quizIn 0.45s ease both; }
+        .quiz-step.active { display: block; }
+        @keyframes quizIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+        .quiz-kicker { font-family:'Onest',sans-serif; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color: var(--primary); opacity:0.7; }
+        .quiz-q {
+            font-family: 'Fraunces', serif; font-weight: 700;
+            font-size: clamp(1.4rem, 3.5vw, 2rem); line-height: 1.18; color: var(--text-dark);
+            margin: 0.5rem 0 1.5rem;
+        }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .quiz-option {
+            display: flex; align-items: center; gap: 1rem; width: 100%; text-align: left;
+            padding: 1.1rem 1.25rem; border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg); background: #ffffff; cursor: pointer;
+            font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 500; color: var(--text-dark);
+            transition: border-color 0.25s, background 0.25s, transform 0.15s, box-shadow 0.25s;
+        }
+        .quiz-option:hover { border-color: rgba(134,19,48,0.4); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(134,19,48,0.08); }
+        .quiz-option .dot {
+            width: 22px; height: 22px; min-width: 22px; border-radius: 50%;
+            border: 2px solid rgba(134,19,48,0.4); transition: all 0.2s;
+        }
+        .quiz-option:hover .dot { border-color: var(--primary); background: var(--primary-light); }
+        .quiz-emoji { font-size: 1.3rem; }
+        .quiz-back {
+            margin-top: 1.5rem; font-family:'Onest',sans-serif; font-size: 0.85rem;
+            color: var(--text-muted); background: none; border: none; cursor: pointer; display:none;
+        }
+        .quiz-back:hover { color: var(--primary); }
+        .quiz-back.show { display: inline-flex; align-items:center; gap: 0.4rem; }
+
+        /* Result */
+        .quiz-result { display: none; text-align: center; animation: quizIn 0.5s ease both; }
+        .quiz-result.active { display: block; }
+        .result-badge {
+            width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 1.25rem;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--primary); color: #fff; box-shadow: 0 10px 30px rgba(134,19,48,0.3);
+            animation: badgePop 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .result-badge.soft { background: var(--warm-beige); color: var(--primary); box-shadow:none; }
+        @keyframes badgePop { from { transform: scale(0.4); opacity:0; } to { transform: scale(1); opacity:1; } }
+        .result-badge svg { width: 40px; height: 40px; }
+        .quiz-result h3 { font-family:'Fraunces',serif; font-weight:700; font-size: clamp(1.6rem,4vw,2.4rem); line-height:1.12; color: var(--text-dark); }
+        .quiz-result h3 .it { font-style: italic; color: var(--primary); }
+        .quiz-result p { font-family:'Fraunces',serif; font-size: 1.05rem; color: var(--text-body); line-height:1.6; max-width: 34rem; margin: 1rem auto 0; }
+        .result-price { font-family:'Fraunces',serif; font-weight:700; font-size:1.5rem; color:var(--text-dark); margin-top:1.5rem; }
+        .result-pernight { font-family:'Fraunces',serif; font-size:0.9rem; color:var(--primary); font-weight:600; }
+        .result-trust { font-family:'Onest',sans-serif; font-size:0.8rem; color: var(--text-muted); margin-top: 1rem; }
+
+        /* ─── Inhaltsstoffe / Radial ─── */
+        .ing-section { padding: clamp(3.5rem,8vw,7rem) 1.5rem; background: var(--bg-light); }
+        .ing-head { text-align: center; max-width: 40rem; margin: 0 auto 3.5rem; }
+        .ing-head h2 { font-family:'Fraunces',serif; font-weight:700; font-size: clamp(1.9rem,4.5vw,3rem); line-height:1.08; letter-spacing:-0.02em; color: var(--text-dark); }
+        .ing-head h2 .it { font-style: italic; color: var(--primary); }
+        .ing-head p { font-family:'Fraunces',serif; color: var(--text-body); margin-top: 0.85rem; font-size: 1.05rem; }
+        .ing-grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem,5vw,4rem); max-width: 1100px; margin: 0 auto; align-items: center; }
+        @media (min-width: 920px) { .ing-grid { grid-template-columns: 1fr 1fr; } }
+
+        .radial { position: relative; width: min(440px, 92vw); aspect-ratio: 1; margin: 0 auto; }
+        .radial-disc {
+            position: absolute; inset: 8%; border-radius: 50%; background: #ffffff;
+            box-shadow: 0 20px 60px rgba(134,19,48,0.10);
+        }
+        .radial-pill {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 64px; height: 132px; border-radius: 999px;
+            background: linear-gradient(180deg, #f6dfe6 0%, #e7a9bc 48%, #9d1b3c 50%, #7a0f2c 100%);
+            box-shadow: 0 12px 30px rgba(134,19,48,0.3), inset 0 2px 6px rgba(255,255,255,0.5);
+            z-index: 2;
+        }
+        .radial-node {
+            position: absolute; transform: translate(-50%,-50%);
+            font-family:'Fraunces',serif; font-weight:700; font-size: 0.82rem; color: var(--primary);
+            text-align: center; line-height: 1.1; width: 6.5rem;
+            opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .radial.in .radial-node { opacity: 1; }
+        .radial-node::after {
+            content:''; position:absolute; left:50%; top:50%;
+            width: 5px; height: 5px; background: var(--primary); border-radius:50%; transform: translate(-50%,-50%); opacity:0.5;
+        }
+        .radial-spokes { position:absolute; inset:0; z-index:1; pointer-events:none; }
+
+        .ing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 480px){ .ing-cards { grid-template-columns: 1fr; } }
+        .ing-card {
+            background: rgba(255,255,255,0.7); border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl); padding: 1.25rem 1.35rem; transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .ing-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(134,19,48,0.08); }
+        .ing-card h4 { font-family:'Fraunces',serif; font-weight:700; font-size: 1.05rem; color: var(--text-dark); margin-bottom: 0.4rem; }
+        .ing-card p { font-family:'Onest',sans-serif; font-size: 0.86rem; color: var(--text-body); line-height: 1.5; }
+        .ing-card sup { color: var(--primary); font-weight: 700; }
+
+        /* ─── ManyChat-Vorschau (animiert) ─── */
+        .chat-section { padding: clamp(3.5rem,8vw,7rem) 1.5rem; background: #ffffff; }
+        .chat-head { text-align: center; max-width: 38rem; margin: 0 auto 3rem; }
+        .chat-head h2 { font-family:'Fraunces',serif; font-weight:700; font-size: clamp(1.8rem,4.5vw,2.75rem); line-height:1.1; letter-spacing:-0.02em; color:var(--text-dark); }
+        .chat-head h2 .it { font-style: italic; color: var(--primary); }
+        .chat-head p { font-family:'Fraunces',serif; color: var(--text-body); margin-top: 0.75rem; }
+        .chat-phone {
+            max-width: 30rem; margin: 0 auto; background: var(--bg-light);
+            border: 1px solid var(--border-light); border-radius: 28px; padding: 1.25rem;
+            box-shadow: 0 30px 80px -30px rgba(134,19,48,0.35);
+        }
+        .chat-topbar { display:flex; align-items:center; gap:0.6rem; padding: 0.25rem 0.5rem 1rem; border-bottom: 1px solid var(--border-light); margin-bottom: 1rem; }
+        .chat-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:0.85rem; }
+        .chat-name { font-family:'Onest',sans-serif; font-weight:700; font-size:0.9rem; color: var(--text-dark); }
+        .chat-name span { display:block; font-weight:500; font-size:0.72rem; color: #4caf50; }
+        .chat-bubble {
+            background: #fff; border: 1px solid var(--border-light); border-radius: 16px 16px 16px 4px;
+            padding: 0.85rem 1rem; font-family:'Onest',sans-serif; font-size: 0.9rem; color: var(--text-dark);
+            line-height: 1.5; max-width: 90%; margin-bottom: 1rem;
+        }
+        .chat-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .chat-chip {
+            display:flex; align-items:center; justify-content:space-between; gap:0.5rem;
+            background: #fff; border: 1px solid rgba(134,19,48,0.25); color: var(--primary);
+            border-radius: 999px; padding: 0.7rem 1.1rem; font-family:'Onest',sans-serif;
+            font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; position: relative;
+        }
+        .chat-chip:hover, .chat-chip.pulse { background: var(--primary); color: #fff; transform: translateY(-1px); }
+        .chat-chip.pulse { animation: chipPulse 1.8s ease-in-out infinite; }
+        @keyframes chipPulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(134,19,48,0.4);} 50%{ box-shadow: 0 0 0 8px rgba(134,19,48,0);} }
+        .chat-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.45s ease, margin 0.3s ease, opacity 0.3s ease;
+            opacity: 0; margin: 0;
+        }
+        .chat-answer.open { max-height: 320px; opacity: 1; margin: 0.5rem 0 0.25rem; }
+        .chat-answer .chat-bubble { background: var(--primary-light); border-color: transparent; border-radius: 4px 16px 16px 16px; margin-bottom: 0; }
+        .chat-note { text-align:center; font-family:'Onest',sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-top: 1.25rem; }
+
+        /* ─── Garantie ─── */
+        .guarantee-section { padding: clamp(3rem,7vw,5.5rem) 1.5rem; background: var(--warm-beige); }
+        .guarantee-wrap {
+            max-width: 46rem; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem;
+            background: rgba(255,255,255,0.65); border: 1px solid var(--border-light);
+            border-radius: var(--radius-2xl); padding: clamp(1.5rem,4vw,2.5rem);
+        }
+        .guarantee-wrap .gi { width: 60px; height: 60px; min-width:60px; border-radius:50%; background: var(--primary); display:flex; align-items:center; justify-content:center; }
+        .guarantee-wrap .gi svg { width: 1.6rem; height: 1.6rem; color:#fff; }
+        .guarantee-wrap h3 { font-family:'Fraunces',serif; font-weight:700; font-size: 1.25rem; color: var(--text-dark); }
+        .guarantee-wrap p { font-family:'Fraunces',serif; font-size: 0.95rem; color: var(--text-body); line-height:1.6; margin-top: 0.35rem; }
+
+        /* ─── Footer ─── */
+        .site-footer { background: #211115; color: rgba(255,255,255,0.7); padding: 3rem 1.5rem; }
+        .footer-inner { max-width: 70rem; margin: 0 auto; }
+        .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.1); }
+        .footer-logo img { height: 1.9rem; }
+        .social-icons { display:flex; gap: 1.1rem; }
+        .social-icons a { color: rgba(255,255,255,0.55); transition: color 0.2s; }
+        .social-icons a:hover { color: #fff; }
+        .social-icons svg { width: 1.25rem; height: 1.25rem; }
+        .footer-bottom { padding-top: 1.75rem; font-family:'Onest',sans-serif; font-size: 0.8rem; }
+        .footer-legal { display:flex; flex-wrap:wrap; gap: 0.6rem; align-items:center; margin-bottom: 0.75rem; }
+        .footer-legal a { color: rgba(255,255,255,0.7); transition: color 0.2s; }
+        .footer-legal a:hover { color: #fff; }
+        .footer-legal-sep { opacity: 0.4; }
+        .footer-disclaimer { opacity: 0.55; margin-top: 0.35rem; font-size: 0.74rem; }
+
+        .hcvo-note { max-width: 46rem; margin: 2rem auto 0; text-align:center; font-family:'Onest',sans-serif; font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+    </style>
+</head>
+<body data-lp="check" data-lp-variant="default">
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#hero" class="header-logo"><img src="LOGOREAL.svg" alt="zZzlim®" height="32" width="120" /></a>
+            <div class="header-actions">
+                <a class="btn-shop" href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
+                   data-cta="header" data-track-section="header" data-track-position="header" data-track-target="shop" data-track-label="Shop · Header">
+                   zZzlim sichern
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="check-hero" id="hero">
+        <div class="check-eyebrow">60-Sekunden-Check · ehrlich, ohne Druck</div>
+        <h1>Finde heraus, ob <span class="it">zZzlim</span> zu deinem Abend passt.</h1>
+        <p class="lead">Ein paar kurze Fragen zu deinen Nächten. Am Ende sagen wir dir ehrlich, ob zZzlim das Richtige für dich ist, und für wen es das nicht ist.</p>
+        <div class="check-hero-meta">
+            <span>● 6 Fragen</span>
+            <span>● keine Anmeldung</span>
+            <span>● 60 Tage Geld-zurück</span>
+        </div>
+        <a href="#quiz" class="cta-glow" data-cta="hero" data-track-section="hero" data-track-position="above_fold" data-track-target="quiz" data-track-label="Check starten · Hero">
+            Check starten
+        </a>
+    </section>
+
+    <!-- Quiz -->
+    <section class="quiz-section" id="quiz">
+        <div class="quiz-shell">
+            <div class="quiz-progress"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+
+            <!-- Step 1 -->
+            <div class="quiz-step active" data-step="1">
+                <div class="quiz-kicker">Frage 1 von 6</div>
+                <h2 class="quiz-q">Wie ist es, wenn du abends ins Bett gehst?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-next="2"><span class="quiz-emoji">🌒</span> Ich liege wach, der Kopf läuft weiter <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="2"><span class="quiz-emoji">😮‍💨</span> Mal so, mal so <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="2"><span class="quiz-emoji">😌</span> Einschlafen klappt eigentlich <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="quiz-step" data-step="2">
+                <div class="quiz-kicker">Frage 2 von 6</div>
+                <h2 class="quiz-q">Wachst du nachts auf?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-next="3"><span class="quiz-emoji">🌙</span> Ja, oft, und finde schwer zurück <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="3"><span class="quiz-emoji">⏳</span> Manchmal, kommt drauf an <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="3"><span class="quiz-emoji">🛏️</span> Eher selten <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="quiz-step" data-step="3">
+                <div class="quiz-kicker">Frage 3 von 6</div>
+                <h2 class="quiz-q">Wie startest du in den Morgen?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-next="4"><span class="quiz-emoji">🥱</span> Wie gerädert, obwohl ich im Bett war <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="4"><span class="quiz-emoji">☕</span> Geht erst nach dem zweiten Kaffee <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="4"><span class="quiz-emoji">🌅</span> Meistens ausgeruht <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="quiz-step" data-step="4">
+                <div class="quiz-kicker">Frage 4 von 6</div>
+                <h2 class="quiz-q">Was hast du bisher probiert?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-next="5"><span class="quiz-emoji">🍵</span> Tees, Routinen, Einschlafhilfen <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="5"><span class="quiz-emoji">💊</span> Auch mal Tabletten, will ich aber nicht dauerhaft <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-next="5"><span class="quiz-emoji">🤷</span> Noch nichts richtig <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <!-- Step 5 (Ausschluss: Alter) -->
+            <div class="quiz-step" data-step="5">
+                <div class="quiz-kicker">Frage 5 von 6</div>
+                <h2 class="quiz-q">Bist du über 18?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-next="6"><span class="quiz-emoji">✅</span> Ja <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-result="exclude-age"><span class="quiz-emoji">🙋</span> Nein, noch nicht <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <!-- Step 6 (Ausschluss: Schwangerschaft/Stillzeit) -->
+            <div class="quiz-step" data-step="6">
+                <div class="quiz-kicker">Frage 6 von 6</div>
+                <h2 class="quiz-q">Letzte Frage: Bist du gerade schwanger oder stillst du?</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-result="fit"><span class="quiz-emoji">🌙</span> Nein <span class="dot" style="margin-left:auto"></span></button>
+                    <button class="quiz-option" data-result="exclude-preg"><span class="quiz-emoji">💜</span> Ja <span class="dot" style="margin-left:auto"></span></button>
+                </div>
+            </div>
+
+            <button class="quiz-back" id="quiz-back">← zurück</button>
+
+            <!-- Result: passt -->
+            <div class="quiz-result" data-result="fit">
+                <div class="result-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h3>zZzlim ist <span class="it">für dich gemacht.</span></h3>
+                <p>Genau für Abende wie deine ist zZzlim entwickelt: eine Kapsel, die deinem Körper hilft, vor dem Schlafen zur Ruhe zu kommen. Es wirkt nicht wie ein Schalter, sondern über eine Routine über mehrere Nächte. Probier es in Ruhe aus, ganz ohne Risiko.</p>
+                <div class="result-price">49,95 € für die Monatskur</div>
+                <div class="result-pernight">etwa 1,67 € pro Abend · Versand gratis</div>
+                <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="cta-glow" style="margin-top:1.5rem;text-decoration:none;"
+                   data-cta="result" data-track-section="quiz" data-track-position="below_fold" data-track-target="shop" data-track-label="Shop · Quiz-Ergebnis passt">
+                    Monatskur in Ruhe ansehen
+                </a>
+                <p class="result-trust">60 Tage Rückgaberecht auf jede Bestellung. Das Risiko liegt bei uns, nicht bei dir.</p>
+            </div>
+
+            <!-- Result: Ausschluss Alter -->
+            <div class="quiz-result" data-result="exclude-age">
+                <div class="result-badge soft">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+                </div>
+                <h3>zZzlim ist <span class="it">nur für Erwachsene</span> gedacht.</h3>
+                <p>Wir sagen das ganz ehrlich: zZzlim ist für Menschen ab 18 entwickelt. Bei Schlafproblemen in jungen Jahren ist der Hausarzt oder Kinderarzt die bessere erste Anlaufstelle. Pass gut auf dich auf. 💜</p>
+            </div>
+
+            <!-- Result: Ausschluss Schwangerschaft -->
+            <div class="quiz-result" data-result="exclude-preg">
+                <div class="result-badge soft">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 5.5-7 10-7 10z"/></svg>
+                </div>
+                <h3>In dieser Zeit lieber <span class="it">erst mit dem Arzt sprechen.</span></h3>
+                <p>Für Schwangere und Stillende ist zZzlim nicht gedacht. Das ist eine Phase, in der man bei allem, was man einnimmt, lieber kurz ärztlich oder mit der Hebamme abklärt. Alles Gute für dich und die Zeit. 💜</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inhaltsstoffe -->
+    <section class="ing-section" id="inhaltsstoffe">
+        <div class="ing-head reveal">
+            <h2>Reine Inhaltsstoffe, <span class="it">durchdacht kombiniert.</span></h2>
+            <p>Ohne Füllstoffe. Ohne künstliche Aromen. 14 abgestimmte Zutaten für deine nächtliche Routine.</p>
+        </div>
+        <div class="ing-grid">
+            <div class="radial reveal" id="radial">
+                <div class="radial-disc"></div>
+                <svg class="radial-spokes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <g stroke="#851330" stroke-opacity="0.25" stroke-width="0.4" stroke-dasharray="1.5 1.5">
+                        <line x1="50" y1="50" x2="50" y2="14"/>
+                        <line x1="50" y1="50" x2="81" y2="32"/>
+                        <line x1="50" y1="50" x2="81" y2="68"/>
+                        <line x1="50" y1="50" x2="50" y2="86"/>
+                        <line x1="50" y1="50" x2="19" y2="68"/>
+                        <line x1="50" y1="50" x2="19" y2="32"/>
+                    </g>
+                </svg>
+                <div class="radial-pill"></div>
+                <div class="radial-node" style="left:50%; top:8%;">Schlafbeginn</div>
+                <div class="radial-node" style="left:88%; top:30%;">Nerven&shy;system</div>
+                <div class="radial-node" style="left:88%; top:70%;">Tägliche Vitalität</div>
+                <div class="radial-node" style="left:50%; top:92%;">Energie&shy;stoffwechsel</div>
+                <div class="radial-node" style="left:12%; top:70%;">Stoff&shy;wechsel</div>
+                <div class="radial-node" style="left:12%; top:30%;">Einschlaf&shy;zeit</div>
+            </div>
+            <div class="ing-cards reveal">
+                <div class="ing-card">
+                    <h4>Melatonin</h4>
+                    <p>Trägt dazu bei, die Einschlafzeit zu verkürzen.<sup>*</sup></p>
+                </div>
+                <div class="ing-card">
+                    <h4>L-Tryptophan</h4>
+                    <p>Vorstufe körpereigener Botenstoffe, die an der Schlaf-Wach-Regulation beteiligt sind.</p>
+                </div>
+                <div class="ing-card">
+                    <h4>Zink</h4>
+                    <p>Trägt zu einem normalen Kohlenhydratstoffwechsel bei.<sup>*</sup></p>
+                </div>
+                <div class="ing-card">
+                    <h4>Chrom</h4>
+                    <p>Trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei.<sup>*</sup></p>
+                </div>
+                <div class="ing-card">
+                    <h4>B-Vitamine</h4>
+                    <p>Niacin, Vitamin B6 und Biotin tragen zu einem normalen Energiestoffwechsel bei.<sup>*</sup></p>
+                </div>
+                <div class="ing-card">
+                    <h4>Safran &amp; Nopal-Kaktus</h4>
+                    <p>Pflanzliche Bestandteile der Rezeptur.</p>
+                </div>
+            </div>
+        </div>
+        <p class="hcvo-note"><sup>*</sup> Zugelassene gesundheitsbezogene Angaben nach EU-Verordnung 432/2012. zZzlim ist ein Nahrungsergänzungsmittel und kein Ersatz für eine ausgewogene Ernährung oder eine ärztliche Behandlung.</p>
+    </section>
+
+    <!-- ManyChat-Vorschau -->
+    <section class="chat-section" id="fragen">
+        <div class="chat-head reveal">
+            <h2>Alles, was du wissen willst. <span class="it">Tipp drauf.</span></h2>
+            <p>Genau das beantworten wir dir auch in den Nachrichten. Hier kannst du es direkt durchklicken.</p>
+        </div>
+        <div class="chat-phone reveal">
+            <div class="chat-topbar">
+                <div class="chat-avatar">zZ</div>
+                <div class="chat-name">zZzlim<span>antwortet meist sofort</span></div>
+            </div>
+            <div class="chat-bubble">Schön, dass du fragst. Ich erklär dir zZzlim in Ruhe, ehrlich und ohne Druck. Was möchtest du zuerst wissen?</div>
+            <div class="chat-options" id="chat-options">
+
+                <button class="chat-chip pulse" data-chat="1">Was ist zZzlim? <span>🌙</span></button>
+                <div class="chat-answer" data-answer="1"><div class="chat-bubble">Eine deutsche Monatskur für deine Nacht, eine Kapsel am Abend. Darin stecken vierzehn abgestimmte Wirkstoffe, darunter Melatonin, das dazu beiträgt, die Einschlafzeit zu verkürzen.<sup>*</sup> Kein Knockout, sondern Unterstützung für genau das Fenster vor dem Einschlafen.</div></div>
+
+                <button class="chat-chip" data-chat="2">Für wen ist das? <span>🤔</span></button>
+                <div class="chat-answer" data-answer="2"><div class="chat-bubble">Für Erwachsene, die abends schlecht abschalten, nachts aufwachen oder morgens wie gerädert starten. Ehrlich: Wenn du in fünf Minuten umkippen willst, ist es das Falsche. Es wirkt mit Routine über mehrere Nächte. Nicht für Kinder, Schwangere und Stillende.</div></div>
+
+                <button class="chat-chip" data-chat="3">Was ist drin? <span>🌿</span></button>
+                <div class="chat-answer" data-answer="3"><div class="chat-bubble">Vierzehn Wirkstoffe, bewusst niedrig dosiert: Melatonin (1 mg), L-Tryptophan, Safran-Extrakt, Nopal-Kaktus, Chrom, Zink und ein bioaktiver B-Vitamin-Komplex. Alles vegan, glutenfrei, ohne Zucker, Titandioxid oder Gelatine.</div></div>
+
+                <button class="chat-chip" data-chat="4">Ist es sicher? <span>🛡️</span></button>
+                <div class="chat-answer" data-answer="4"><div class="chat-bubble">zZzlim ist ein Nahrungsergänzungsmittel, kein Medikament. Die Dosierungen sind bewusst sanft (Melatonin nur 1 mg). Wenn du Medikamente nimmst oder eine Erkrankung hast, sprich vorher kurz mit deinem Arzt. Nur für Erwachsene ab 18.</div></div>
+
+                <button class="chat-chip" data-chat="5">Preis &amp; Garantie? <span>💶</span></button>
+                <div class="chat-answer" data-answer="5"><div class="chat-bubble">Die Monatskur kostet 49,95 € für 30 Kapseln, etwa 1,67 € pro Abend. Versand gratis. Und das Wichtigste: 60 Tage Rückgaberecht auf jede Bestellung. Wenn sie nichts für dich ist, bekommst du dein Geld zurück. Das Risiko liegt bei uns.</div></div>
+
+            </div>
+            <p class="chat-note">Noch eine Frage offen? Schreib uns einfach auf Instagram, wir führen dich in Ruhe durch.</p>
+        </div>
+    </section>
+
+    <!-- Garantie -->
+    <section class="guarantee-section" id="garantie">
+        <div class="guarantee-wrap reveal">
+            <div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <div>
+                <h3>60 Tage in Ruhe ausprobieren.</h3>
+                <p>Schlaf ist individuell, manche merken schnell etwas, andere brauchen ein paar Nächte. Deshalb hast du 60 Tage Rückgaberecht auf jede Bestellung. Du testest die komplette Kur, und wenn sie nichts für dich ist, bekommst du dein Geld zurück. Ohne Wenn und Aber.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <a href="#hero" class="footer-logo"><img loading="lazy" src="LOGOREAL.svg" alt="zZzlim®" width="120" height="32" /></a>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/zzzlim.de/" target="_blank" rel="noopener" aria-label="Instagram"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    <a href="https://www.tiktok.com/@zzzlim.de" target="_blank" rel="noopener" aria-label="TikTok"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+                    <a href="https://www.facebook.com/p/Zzzlim-61573836653477/" target="_blank" rel="noopener" aria-label="Facebook"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="https://www.youtube.com/@zZzlim-de" target="_blank" rel="noopener" aria-label="YouTube"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="https://zzzlim.de/policies/legal-notice">Impressum</a>
+                    <span class="footer-legal-sep">·</span>
+                    <a href="https://zzzlim.de/policies/privacy-policy">Datenschutz</a>
+                    <span class="footer-legal-sep">·</span>
+                    <a href="https://zzzlim.de/policies/terms-of-service">AGB</a>
+                </div>
+                <p>&copy; 2026 zZzlim&reg; International. Alle Rechte vorbehalten.</p>
+                <p class="footer-disclaimer">Nahrungsergänzungsmittel. Kein Ersatz für eine ausgewogene Ernährung. Gesundheitsbezogene Angaben gemäß EU-Verordnung 432/2012.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/tracking.js" defer></script>
+    <script>
+    (function(){
+        // ─── Scroll-Progress ───
+        var sp = document.getElementById('scroll-progress');
+        if (sp) {
+            var spTick = false;
+            function spUpdate(){
+                var max = document.documentElement.scrollHeight - window.innerHeight;
+                sp.style.width = (max > 0 ? (window.scrollY / max * 100) : 0) + '%';
+                spTick = false;
+            }
+            window.addEventListener('scroll', function(){ if(!spTick){ spTick = true; requestAnimationFrame(spUpdate);} }, { passive: true });
+            spUpdate();
+        }
+
+        // ─── Reveal Observer ───
+        if ('IntersectionObserver' in window) {
+            var rObs = new IntersectionObserver(function(entries){
+                entries.forEach(function(e){
+                    if (e.isIntersecting){ e.target.classList.add('visible'); rObs.unobserve(e.target); }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+            document.querySelectorAll('.reveal').forEach(function(el){ rObs.observe(el); });
+
+            // Radial-Knoten einblenden
+            var radial = document.getElementById('radial');
+            if (radial){
+                var radObs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); radObs.unobserve(e.target);} });
+                }, { threshold: 0.3 });
+                radObs.observe(radial);
+            }
+        } else {
+            document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+        }
+
+        // ─── Quiz ───
+        var shell = document.querySelector('.quiz-shell');
+        if (shell){
+            var steps = shell.querySelectorAll('.quiz-step');
+            var results = shell.querySelectorAll('.quiz-result');
+            var fill = document.getElementById('quiz-progress-fill');
+            var backBtn = document.getElementById('quiz-back');
+            var total = steps.length;
+            var history = [1];
+
+            function show(stepNum){
+                steps.forEach(function(s){ s.classList.toggle('active', +s.dataset.step === stepNum); });
+                results.forEach(function(r){ r.classList.remove('active'); });
+                fill.style.width = ((stepNum - 1) / total * 100) + '%';
+                backBtn.classList.toggle('show', history.length > 1);
+            }
+            function showResult(key){
+                steps.forEach(function(s){ s.classList.remove('active'); });
+                results.forEach(function(r){ r.classList.toggle('active', r.dataset.result === key); });
+                fill.style.width = '100%';
+                backBtn.classList.add('show');
+                var active = shell.querySelector('.quiz-result.active');
+                if (active) active.scrollIntoView({ behavior:'smooth', block:'center' });
+            }
+
+            shell.querySelectorAll('.quiz-option').forEach(function(opt){
+                opt.addEventListener('click', function(){
+                    if (opt.dataset.next){
+                        var n = +opt.dataset.next;
+                        history.push(n);
+                        show(n);
+                    } else if (opt.dataset.result){
+                        history.push('result:' + opt.dataset.result);
+                        showResult(opt.dataset.result);
+                    }
+                });
+            });
+
+            backBtn.addEventListener('click', function(){
+                if (history.length <= 1) return;
+                history.pop();
+                var prev = history[history.length - 1];
+                if (typeof prev === 'number') show(prev);
+                else if (String(prev).indexOf('result:') === 0) showResult(String(prev).split(':')[1]);
+            });
+        }
+
+        // ─── Chat-Akkordeon ───
+        document.querySelectorAll('.chat-chip').forEach(function(chip){
+            chip.addEventListener('click', function(){
+                chip.classList.remove('pulse');
+                var id = chip.dataset.chat;
+                var ans = document.querySelector('.chat-answer[data-answer="' + id + '"]');
+                var isOpen = ans.classList.contains('open');
+                document.querySelectorAll('.chat-answer').forEach(function(a){ a.classList.remove('open'); });
+                if (!isOpen && ans) ans.classList.add('open');
+            });
+        });
+
+        // ─── In-Page-Anchor-Hijack (wegen <base href="../">) ───
+        document.addEventListener('click', function(ev){
+            var a = ev.target && ev.target.closest && ev.target.closest('a[href^="#"]');
+            if (!a) return;
+            var hash = a.getAttribute('href');
+            if (!hash || hash.length < 2){ ev.preventDefault(); return; }
+            var target = document.getElementById(hash.slice(1));
+            if (!target){ ev.preventDefault(); return; }
+            ev.preventDefault();
+            target.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, false);
+
+        // Bei Refresh oben starten
+        try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+    })();
+    </script>
+</body>
+</html>
